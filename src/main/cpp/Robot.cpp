@@ -11,6 +11,11 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 OI Robot::oi;
+DriveSystem Robot::driveSystem;
+ClimbSystem Robot::climbSystem;
+LiftSystem Robot::liftSystem;
+IntakeSystem Robot::intakeSystem;
+WristSystem Robot::wristSystem;
 
 void Robot::RobotInit() {
 }
@@ -53,12 +58,6 @@ void Robot::AutonomousInit() {
   // } else {
   //   m_autonomousCommand = &m_defaultAuto;
   // }
-
-  m_autonomousCommand = m_chooser.GetSelected();
-
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Start();
-  }
 }
 
 void Robot::AutonomousPeriodic() { frc::Scheduler::GetInstance()->Run(); }
@@ -68,10 +67,6 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Cancel();
-    m_autonomousCommand = nullptr;
-  }
 }
 
 void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }

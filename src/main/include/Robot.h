@@ -12,10 +12,21 @@
 #include <frc/smartdashboard/SendableChooser.h>
 
 #include "OI.h"
+#include "subsystems/DriveSystem.h"
+#include "subsystems/ClimbSystem.h"
+#include "subsystems/IntakeSystem.h"
+#include "subsystems/LiftSystem.h"
+#include "subsystems/WristSystem.h"
+
 
 class Robot : public frc::TimedRobot {
  public:
   static OI oi;
+  static DriveSystem driveSystem;
+  static ClimbSystem climbSystem;
+  static IntakeSystem intakeSystem;
+  static LiftSystem liftSystem;
+  static WristSystem wristSystem;
 
   void RobotInit() override;
   void RobotPeriodic() override;

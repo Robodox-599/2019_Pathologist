@@ -16,6 +16,7 @@ ClimbSystem Robot::climbSystem;
 LiftSystem Robot::liftSystem;
 IntakeSystem Robot::intakeSystem;
 WristSystem Robot::wristSystem;
+LogSystem Robot::logSystem;
 
 void Robot::RobotInit() {
 }

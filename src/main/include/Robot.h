@@ -17,6 +17,7 @@
 #include "subsystems/IntakeSystem.h"
 #include "subsystems/LiftSystem.h"
 #include "subsystems/WristSystem.h"
+#include "subsystems/LogSystem.h"
 
 
 class Robot : public frc::TimedRobot {
@@ -27,6 +28,7 @@ class Robot : public frc::TimedRobot {
   static IntakeSystem intakeSystem;
   static LiftSystem liftSystem;
   static WristSystem wristSystem;
+  static LogSystem logSystem;
 
   void RobotInit() override;
   void RobotPeriodic() override;

@@ -7,7 +7,7 @@
 
 #include "subsystems/LiftSystem.h"
 
-LiftSystem::LiftSystem() : Subsystem("ExampleSubsystem") {}
+LiftSystem::LiftSystem() : Subsystem("LiftSystem") {}
 
 void LiftSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.

@@ -7,7 +7,7 @@
 
 #include "subsystems/IntakeSystem.h"
 
-IntakeSystem::IntakeSystem() : Subsystem("ExampleSubsystem") {}
+IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem") {}
 
 void IntakeSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.

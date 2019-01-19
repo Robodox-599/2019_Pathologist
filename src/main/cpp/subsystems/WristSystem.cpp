@@ -7,7 +7,7 @@
 
 #include "subsystems/WristSystem.h"
 
-WristSystem::WristSystem() : Subsystem("ExampleSubsystem") {}
+WristSystem::WristSystem() : Subsystem("WristSystem") {}
 
 void WristSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.

@@ -8,13 +8,32 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include <frc/WPILib.h>
+#include "ctre/phoenix.h"
+#include "RobotMap.h"
 
 class WristSystem : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
+	frc::AnalogPotentiometer* pot;
+	TalonSRX wristMotor = {11};
+	double avgPotVal;
+	double potVals[10];
+	PIDVar wrist;
+	bool wristSet;
+	double wristTarget;
 
  public:
   WristSystem();
   void InitDefaultCommand() override;
+  double GetPotVal();
+	void UpdatePotVal();
+	void GetAvgPotVal();
+	void HoldWristPosition();
+	void WristPID();
+	bool WristFlag();
+	void ResetWristFlag();
+	void SetWristTarget(double angle);
+	bool WristTargetSet(double angle);
 };

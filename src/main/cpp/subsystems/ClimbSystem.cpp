@@ -6,59 +6,49 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/ClimbSystem.h"
-#include "WPILib.h"
 
+ClimbSystem::ClimbSystem() : Subsystem("ExampleSubsystem")
+{
 
-ClimbSystem::ClimbSystem() : Subsystem("ClimbSystem") {
-
-  LeftPiston = new frc::DoubleSolenoid(2); //dummy value
-  RightPiston = new frc::DoubleSolenoid(3); //dummy value
-  RearPiston = new frc::DoubleSolenoid(4); //dummy value
-  ScooterMotor = new frc::Talon(5); //dummy value
-  
+  LeftPiston = new frc::DoubleSolenoid(1, 2);  //dummy value
+  RightPiston = new frc::DoubleSolenoid(3, 4); //dummy value
+  RearPiston = new frc::DoubleSolenoid(5, 6);  //dummy value
 }
 
-
-void ClimbSystem::InitDefaultCommand() {
+void ClimbSystem::InitDefaultCommand()
+{
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
-
-  
 }
 
 void ClimbSystem::LeftPistonExpand()
 {
-  LeftPiston.Set(Forward);
+  LeftPiston->Set(frc::DoubleSolenoid::kForward);
 }
 
 void ClimbSystem::RightPistonExpand()
 {
-  RightPiston.Set(Forward);
+  RightPiston->Set(frc::DoubleSolenoid::kForward);
 }
 
 void ClimbSystem::RearPistonExpand()
 {
-  RearPiston.Set(Forward);
+  RearPiston->Set(frc::DoubleSolenoid::kForward);
 }
 
 void ClimbSystem::LeftPistonRetract()
 {
-  RearPiston.Set(Reverse);
+  RearPiston->Set(frc::DoubleSolenoid::kReverse);
 }
 
 void ClimbSystem::RightPistonRetract()
 {
-  RightPiston.Set(Reverse);
+  RightPiston->Set(frc::DoubleSolenoid::kReverse);
 }
 
 void ClimbSystem::RearPistonRetract()
 {
-  RearPiston.Set(Reverse);
-}
-
-void ClimbSystem::StopAllMotors()
-{
-
+  RearPiston->Set(frc::DoubleSolenoid::kReverse);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

@@ -9,6 +9,10 @@
 
 #include <frc/WPILib.h>
 
-OI::OI() {
-  // Process operator interface input here.
+OI::OI()
+{
+  xbox = new Joystick(0);
+	frc::JoystickButton* Buttonx1 = new JoystickButton(xbox, 1);
+  atk3 = new Joystick(1);
+	frc::JoystickButton* Buttonx1 = new JoystickButton(atk3, 1);
 }

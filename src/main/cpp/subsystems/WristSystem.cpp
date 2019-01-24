@@ -9,19 +9,19 @@
 
 WristSystem::WristSystem() : Subsystem("ExampleSubsystem")
 {
-  pot = new frc::AnalogPotentiometer(3, 200, -46);
-  wristTarget = pot->Get();
-  avgPotVal = 0;
-  potVals[0] = 0;
-  potVals[1] = 0;
-  potVals[2] = 0;
-  potVals[3] = 0;
-  potVals[4] = 0;
-  potVals[5] = 0;
-  potVals[6] = 0;
-  potVals[7] = 0;
-  potVals[8] = 0;
-  potVals[9] = 0;
+  wristMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute);
+  wristTarget = wristMotor.GetSelectedSensorPosition();
+  avgEncVal = 0;
+  encVals[0] = 0;
+  encVals[1] = 0;
+  encVals[2] = 0;
+  encVals[3] = 0;
+  encVals[4] = 0;
+  encVals[5] = 0;
+  encVals[6] = 0;
+  encVals[7] = 0;
+  encVals[8] = 0;
+  encVals[9] = 0;
   wrist.integrator = 0;
   wrist.kf = -0.40;
   wrist.kp = 0.025;
@@ -40,35 +40,35 @@ void WristSystem::InitDefaultCommand()
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-double WristSystem::GetPotVal()
+double WristSystem::GetEncVal()
 {
-  return avgPotVal;
+  return avgEncVal;
 }
 
-void WristSystem::UpdatePotVal()
+void WristSystem::UpdateEncVal()
 {
-  potVals[0] = potVals[1];
-  potVals[1] = potVals[2];
-  potVals[2] = potVals[3];
-  potVals[3] = potVals[4];
-  potVals[4] = potVals[5];
-  potVals[5] = potVals[6];
-  potVals[6] = potVals[7];
-  potVals[7] = potVals[8];
-  potVals[8] = potVals[9];
-  potVals[9] = pot->Get();
+  encVals[0] = encVals[1];
+  encVals[1] = encVals[2];
+  encVals[2] = encVals[3];
+  encVals[3] = encVals[4];
+  encVals[4] = encVals[5];
+  encVals[5] = encVals[6];
+  encVals[6] = encVals[7];
+  encVals[7] = encVals[8];
+  encVals[8] = encVals[9];
+  encVals[9] = wristMotor.GetSelectedSensorPosition();
 }
 
-void WristSystem::GetAvgPotVal()
+void WristSystem::GetAvgEncVal()
 {
-  avgPotVal = (potVals[0] + potVals[1] + potVals[2] + potVals[3] + potVals[4] + potVals[5] + potVals[6] + potVals[7] + potVals[8] + potVals[9]) / 10;
+  avgEncVal = (encVals[0] + encVals[1] + encVals[2] + encVals[3] + encVals[4] + encVals[5] + encVals[6] + encVals[7] + encVals[8] + encVals[9]) / 10;
 }
 
 void WristSystem::HoldWristPosition()
 {
   double angle;
-  angle = avgPotVal * (3.14 / 140) /*In parentheses - conversion from potentiometer value to radians*/;
-  if (avgPotVal > -6)
+  angle = avgEncVal * (3.14 / 140) /*In parentheses - conversion from potentiometer value to radians*/;
+  if (avgEncVal > -6)
   {
     wristMotor.Set(ControlMode::PercentOutput, -0.40 * cos(angle));
   }
@@ -82,19 +82,21 @@ void WristSystem::HoldWristPosition()
 void WristSystem::WristPID()
 {
   double nkp = 0.0125;
-  double angle = avgPotVal * (3.14 / 140);
+  double angle = avgEncVal * (3.14 / 140);
+  double kpValue;
   //double setTarget = -32.5*(target-1);
-  wrist.error = avgPotVal - wristTarget;
+  wrist.error = avgEncVal - wristTarget;
   wrist.integrator += wrist.error;
   if (wrist.error < 0)
   {
-    wrist.motorPower = (wrist.error * wrist.kp) + (wrist.kd * (wrist.error - wrist.prevError)) + (wrist.ki * wrist.integrator);
+    kpValue = wrist.kp;
   }
   else
   {
-    wrist.motorPower = (wrist.error * nkp) + (wrist.kd * (wrist.error - wrist.prevError)) + (wrist.ki * wrist.integrator);
+    kpValue = nkp;
   }
-  if (avgPotVal < 0 && wristTarget < 0)
+  wrist.motorPower = (wrist.error * kpValue) + (wrist.kd * (wrist.error - wrist.prevError)) + (wrist.ki * wrist.integrator);
+  if (avgEncVal < 0 && wristTarget < 0)
   {
     wristMotor.Set(ControlMode::PercentOutput, 0);
   }
@@ -102,19 +104,11 @@ void WristSystem::WristPID()
   {
     wristMotor.Set(ControlMode::PercentOutput, ((wrist.kf) * cos(angle)) + wrist.motorPower);
   }
-  if (wrist.error > -3 && wrist.error < 3)
-  {
-    wristSet = true;
-  }
-  if (wristTarget < 0)
+  if (wrist.error > -3 && wrist.error < 3 || wristTarget < 0)
   {
     wristSet = true;
   }
   wrist.prevError = wrist.error;
-  frc::SmartDashboard::PutNumber("Wrist Motor Power Output", wristMotor.GetMotorOutputPercent());
-  frc::SmartDashboard::PutNumber("Previous Error", wrist.prevError);
-  frc::SmartDashboard::PutNumber("Target error", wrist.error);
-  frc::SmartDashboard::PutNumber("wrist target", wristTarget);
 }
 
 bool WristSystem::WristFlag()

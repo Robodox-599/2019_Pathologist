@@ -16,10 +16,9 @@ class WristSystem : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
-	frc::AnalogPotentiometer* pot;
 	TalonSRX wristMotor = {11};
-	double avgPotVal;
-	double potVals[10];
+	double avgEncVal;
+	double encVals[10];
 	PIDVar wrist;
 	bool wristSet;
 	double wristTarget;
@@ -27,9 +26,9 @@ class WristSystem : public frc::Subsystem {
  public:
   WristSystem();
   void InitDefaultCommand() override;
-  double GetPotVal();
-	void UpdatePotVal();
-	void GetAvgPotVal();
+  double GetEncVal();
+	void UpdateEncVal();
+	void GetAvgEncVal();
 	void HoldWristPosition();
 	void WristPID();
 	bool WristFlag();

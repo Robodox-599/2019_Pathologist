@@ -19,8 +19,8 @@ void WristPIDControl::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void WristPIDControl::Execute() {
-  Robot::wristSystem.UpdatePotVal();
-  Robot::wristSystem.GetAvgPotVal();
+  Robot::wristSystem.UpdateEncVal();
+  Robot::wristSystem.GetAvgEncVal();
   Robot::wristSystem.WristPID();
 }
 

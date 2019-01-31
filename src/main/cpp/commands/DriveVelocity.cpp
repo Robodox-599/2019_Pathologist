@@ -11,7 +11,7 @@
 DriveVelocity::DriveVelocity() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&Robot::driveSystem);
+  Requires(&globalRobot.driveSystem);
 }
 
 // Called just before this Command runs the first time
@@ -19,7 +19,7 @@ void DriveVelocity::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void DriveVelocity::Execute() {
-  Robot::driveSystem.JoystickVelocityDrive(Robot::oi.xbox->GetRawAxis(4), Robot::oi.xbox->GetRawAxis(1));
+  globalRobot.driveSystem.JoystickVelocityDrive(globalRobot.oi.xbox->GetRawAxis(4), globalRobot.oi.xbox->GetRawAxis(1));
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -27,7 +27,7 @@ bool DriveVelocity::IsFinished() { return false; }
 
 // Called once after isFinished returns true
 void DriveVelocity::End() {
-  Robot::driveSystem.JoystickVelocityDrive(0, 0);
+  globalRobot.driveSystem.JoystickVelocityDrive(0, 0);
 }
 
 // Called when another command which requires one or more of the same

@@ -8,13 +8,23 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include <frc/WPILib.h>
+#include <frc/CTRE/Phoenix.h>
 
 class IntakeSystem : public frc::Subsystem {
  private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
+ frc::DoubleSolenoid* HatchPiston;
+ frc::DoubleSolenoid* HatchPiston2;
+ TalonSRX IntakeMotor = {1};
+ frc::DigitalINput* Stop; 
 
  public:
   IntakeSystem();
   void InitDefaultCommand() override;
+  void Intake(bool intake);
+  void Outtake (bool outtake);
+  void HatchPistons(bool forward);
+  bool LimitSwitch();
+  bool OldButton;
+  bool OldButton2;
 };

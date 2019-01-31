@@ -18,9 +18,9 @@ private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
 
-  frc::DoubleSolenoid *LeftPiston;
-  frc::DoubleSolenoid *RightPiston;
-  frc::DoubleSolenoid *RearPiston;
+  frc::DoubleSolenoid LeftPiston;
+  frc::DoubleSolenoid RightPiston;
+  frc::DoubleSolenoid RearPiston;
   TalonSRX ScooterMotor = {5};
 
 public:

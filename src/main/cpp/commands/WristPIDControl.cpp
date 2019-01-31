@@ -11,7 +11,7 @@
 WristPIDControl::WristPIDControl() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&Robot::wristSystem);
+  Requires(&globalRobot.wristSystem);
 }
 
 // Called just before this Command runs the first time
@@ -19,9 +19,9 @@ void WristPIDControl::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void WristPIDControl::Execute() {
-  Robot::wristSystem.UpdateEncVal();
-  Robot::wristSystem.GetAvgEncVal();
-  Robot::wristSystem.WristPID();
+  globalRobot.wristSystem.UpdateEncVal();
+  globalRobot.wristSystem.GetAvgEncVal();
+  globalRobot.wristSystem.WristPID();
 }
 
 // Make this return true when this Command no longer needs to run execute()

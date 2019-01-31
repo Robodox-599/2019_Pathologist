@@ -16,16 +16,16 @@ WristSetPosition::WristSetPosition(float target) {
 
 // Called just before this Command runs the first time
 void WristSetPosition::Initialize() {
-  Robot::wristSystem.ResetWristFlag();
+  globalRobot.wristSystem.ResetWristFlag();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void WristSetPosition::Execute() {
-  Robot::wristSystem.SetWristTarget(angle);
+  globalRobot.wristSystem.SetWristTarget(angle);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool WristSetPosition::IsFinished() { return Robot::wristSystem.WristFlag(); }
+bool WristSetPosition::IsFinished() { return globalRobot.wristSystem.WristFlag(); }
 
 // Called once after isFinished returns true
 void WristSetPosition::End() {}

@@ -10,12 +10,7 @@
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
-OI Robot::oi;
-DriveSystem Robot::driveSystem;
-ClimbSystem Robot::climbSystem;
-LiftSystem Robot::liftSystem;
-IntakeSystem Robot::intakeSystem;
-WristSystem Robot::wristSystem;
+Robot globalRobot;
 
 void Robot::RobotInit() {
 }
@@ -74,5 +69,9 @@ void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
 void Robot::TestPeriodic() {}
 
 #ifndef RUNNING_FRC_TESTS
-int main() { return frc::StartRobot<Robot>(); }
+int main()
+{
+	frc::RunHALInitialization();
+	globalRobot.StartCompetition();
+}
 #endif

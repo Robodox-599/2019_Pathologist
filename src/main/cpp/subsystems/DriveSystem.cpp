@@ -7,7 +7,7 @@
 
 #include "subsystems/DriveSystem.h"
 
-DriveSystem::DriveSystem() : Subsystem("DriveSystem")
+DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(2), rearLeftMotor(1), frontRightMotor(4), rearRightMotor(3), pGyon(4)
 {
   frontLeftMotor.SetInverted(true);
   rearLeftMotor.SetInverted(true);

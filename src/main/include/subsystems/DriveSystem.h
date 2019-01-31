@@ -14,12 +14,12 @@
 class DriveSystem : public frc::Subsystem
 {
 private:
-  TalonSRX frontLeftMotor = {2};
-  TalonSRX rearLeftMotor = {1};
-  TalonSRX frontRightMotor = {4};
-  TalonSRX rearRightMotor = {3};
+  TalonSRX frontLeftMotor;
+  TalonSRX rearLeftMotor;
+  TalonSRX frontRightMotor;
+  TalonSRX rearRightMotor;
 
-  PigeonIMU pGyon = {4};
+  PigeonIMU pGyon;
 
   double ypr[3];
 

@@ -7,7 +7,7 @@
 
 #include "subsystems/WristSystem.h"
 
-WristSystem::WristSystem() : Subsystem("ExampleSubsystem")
+WristSystem::WristSystem() : Subsystem("WristSystem"), wristMotor(11)
 {
   wristMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute);
   wristTarget = wristMotor.GetSelectedSensorPosition();

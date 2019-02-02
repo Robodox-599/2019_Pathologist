@@ -7,10 +7,9 @@
 
 #include "subsystems/IntakeSystem.h"
 
-IntakeSystem::IntakeSystem() : Subsystem("ExampleSubsystem") {
-  HatchPiston = new frc::DoubleSolenoid(1, 2); //dummy values
-  HatchPiston2 = new frc::DoubleSolenoid(3, 4);
-  Stop = new frc::DigitalInput(1); //dummy values
+IntakeSystem::IntakeSystem() : Subsystem("ExampleSubsystem"), IntakeMotor(1), HatchPiston(1,2), HatchPiston2(3,4), DigitalInput(1) //dummy values
+{
+  
 }
 
 void IntakeSystem::InitDefaultCommand() {

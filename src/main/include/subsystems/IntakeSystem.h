@@ -15,7 +15,7 @@ class IntakeSystem : public frc::Subsystem {
  private:
  frc::DoubleSolenoid HatchPiston;
  frc::DoubleSolenoid HatchPiston2;
- TalonSRX IntakeMotor = {1};
+ TalonSRX IntakeMotor;
  frc::DigitalINput Stop; 
 
  public:

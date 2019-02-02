@@ -20,26 +20,26 @@ void IntakeSystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void IntakeSystem::Intake(bool intake)
+void IntakeSystem::Intake()
 {
-  if(Stop.Get() == false)
-  {
-     IntakeMotor.Set(ControlMode::PercentOutput, .8); 
-  }       
+     IntakeMotor.Set(ControlMode::PercentOutput, .8);        
 }
 
-void IntakeSystem::Outtake(bool outtake)
+void IntakeSystem::Outtake()
 {
      IntakeMotor.Set(ControlMode::PercentOutput, -0.8)
 }    
 
-void IntakeSystem::HatchPistons(bool forward)
+void IntakeSystem::HatchPistonsForward()
 {
-       HatchPiston.Set(Forward);
-       HatchPiston2.Set(Forward);
-       Wait (500); //dummy value
-       HatchPiston.Set(off);
-       HatchPiston.Set(off);
+     HatchPiston.Set(Forward);
+     HatchPiston2.Set(Forward);
+}
+
+void IntakeSystem::HatchPistonsReverse()
+{
+     HatchPiston.Set(reverse);
+     HatchPiston2.Set(reverse);
 }
 
 bool IntakeSystem::LimitSwitch()

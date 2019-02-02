@@ -21,8 +21,9 @@ class IntakeSystem : public frc::Subsystem {
  public:
   IntakeSystem();
   void InitDefaultCommand() override;
-  void Intake(bool intake);
-  void Outtake (bool outtake);
-  void HatchPistons(bool forward);
+  void Intake();
+  void Outtake ();
+  void HatchPistonsForward();
+  void HatchPistonsReverse
   bool LimitSwitch();
 };

@@ -8,7 +8,9 @@
 #include "subsystems/LiftSystem.h"
 #include <math>
 
-LiftSystem::LiftSystem() : Subsystem("ExampleSubsystem"), LiftMotor(3), power = 0, degree = 0 {}
+LiftSystem::LiftSystem() : Subsystem("ExampleSubsystem"), LiftMotor(3), power = 0, degree = 0 {
+  LiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute);
+}
 
 void LiftSystem::InitDefaultCommand() {
  
@@ -20,7 +22,7 @@ void LiftSystem::InitDefaultCommand() {
  {
    if(target = negative_int_value)
    {
-   angle = Potentiometer.get();
+   angle = LiftMotor.GetSelectedSensorPosition();
    angle = angle * pi/180;
    power = kfU * math.cos(degree) * angle;
    return;

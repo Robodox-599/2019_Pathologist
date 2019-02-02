@@ -18,17 +18,17 @@ void LiftSystem::InitDefaultCommand() {
   // SetDefaultCommand(new MySpecialCommand());
 }
  
- void LiftSystem::LiftThing(double kfU, double kfD, double target)
+ void LiftSystem::Thing(double kfU, double kfD, double target)
  {
    if(target = negative_int_value)
    {
    angle = LiftMotor.GetSelectedSensorPosition();
-   angle = angle * pi/180;
+   angle = angle * 2048/pi;
    power = kfU * math.cos(degree) * angle;
    return;
    }
-   angle = Potentiometer.get();
-   angle = angle * pi/180;
+   angle = LiftMotor.GetSelectedSensorPosition();
+   angle = angle * 2048/pi;
    power = kfD * math.cos(degree) * angle;
  }
 

@@ -17,18 +17,16 @@
 #include "subsystems/IntakeSystem.h"
 #include "subsystems/LiftSystem.h"
 #include "subsystems/WristSystem.h"
-#include "subsystems/LogSystem.h"
 
 
 class Robot : public frc::TimedRobot {
  public:
-  static OI oi;
-  static DriveSystem driveSystem;
-  static ClimbSystem climbSystem;
-  static IntakeSystem intakeSystem;
-  static LiftSystem liftSystem;
-  static WristSystem wristSystem;
-  static LogSystem logSystem;
+  OI oi;
+  DriveSystem driveSystem;
+  ClimbSystem climbSystem;
+  LiftSystem liftSystem;
+  IntakeSystem intakeSystem;
+  WristSystem wristSystem;
 
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -46,3 +44,5 @@ class Robot : public frc::TimedRobot {
   frc::Command* m_autonomousCommand = nullptr;
   frc::SendableChooser<frc::Command*> m_chooser;
 };
+
+extern Robot globalRobot;

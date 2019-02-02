@@ -6,13 +6,34 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/LiftSystem.h"
+#include <math>
 
-LiftSystem::LiftSystem() : Subsystem("ExampleSubsystem") {}
+LiftSystem::LiftSystem() : Subsystem("ExampleSubsystem"), LiftMotor(3), power = 0, degree = 0 {}
 
 void LiftSystem::InitDefaultCommand() {
+ 
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
 }
+ 
+ void LiftSystem::LiftThing(double kfU, double kfD, double target)
+ {
+   if(target = negative_int_value)
+   {
+   angle = Potentiometer.get();
+   angle = angle * pi/180;
+   power = kfU * math.cos(degree) * angle;
+   return;
+   }
+   angle = Potentiometer.get();
+   angle = angle * pi/180;
+   power = kfD * math.cos(degree) * angle;
+ }
+
+ //kf cost r
+
+  
+
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

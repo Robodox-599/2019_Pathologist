@@ -13,10 +13,10 @@
 
 class IntakeSystem : public frc::Subsystem {
  private:
- frc::DoubleSolenoid* HatchPiston;
- frc::DoubleSolenoid* HatchPiston2;
+ frc::DoubleSolenoid HatchPiston;
+ frc::DoubleSolenoid HatchPiston2;
  TalonSRX IntakeMotor = {1};
- frc::DigitalINput* Stop; 
+ frc::DigitalINput Stop; 
 
  public:
   IntakeSystem();
@@ -25,6 +25,4 @@ class IntakeSystem : public frc::Subsystem {
   void Outtake (bool outtake);
   void HatchPistons(bool forward);
   bool LimitSwitch();
-  bool OldButton;
-  bool OldButton2;
 };

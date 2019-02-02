@@ -23,7 +23,10 @@ void IntakeSystem::InitDefaultCommand() {
 
 void IntakeSystem::Intake(bool intake)
 {
-     IntakeMotor.Set(ControlMode::PercentOutput, .8);     
+  if(Stop.Get() == false)
+  {
+     IntakeMotor.Set(ControlMode::PercentOutput, .8); 
+  }       
 }
 
 void IntakeSystem::Outtake(bool outtake)

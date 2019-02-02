@@ -7,7 +7,7 @@
 
 #include "subsystems/ClimbSystem.h"
 
-ClimbSystem::ClimbSystem() : Subsystem("ExampleSubsystem") {}
+ClimbSystem::ClimbSystem() : Subsystem("ClimbSystem") {}
 
 void ClimbSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.

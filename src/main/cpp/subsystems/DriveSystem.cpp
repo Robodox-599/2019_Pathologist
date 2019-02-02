@@ -7,7 +7,7 @@
 
 #include "subsystems/DriveSystem.h"
 
-DriveSystem::DriveSystem() : Subsystem("ExampleSubsystem") {}
+DriveSystem::DriveSystem() : Subsystem("DriveSystem") {}
 
 void DriveSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.

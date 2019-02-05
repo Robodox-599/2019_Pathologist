@@ -12,6 +12,8 @@
 
 Robot globalRobot;
 
+//Robot::Robot(): logSystem() {}
+
 void Robot::RobotInit() {
 }
 

@@ -11,8 +11,8 @@
 
 OI::OI()
 {
-  xbox = new Joystick(0);
-	frc::JoystickButton* Buttonx1 = new JoystickButton(xbox, 1);
-  atk3 = new Joystick(1);
-	frc::JoystickButton* Buttonx1 = new JoystickButton(atk3, 1);
+  xbox = new frc::Joystick(0);
+	frc::JoystickButton* Buttonx1 = new frc::JoystickButton(xbox, 1);
+  atk3 = new frc::Joystick(1);
+	frc::JoystickButton* Button1 = new frc::JoystickButton(atk3, 1);
 }

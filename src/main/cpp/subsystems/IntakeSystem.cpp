@@ -7,7 +7,7 @@
 
 #include "subsystems/IntakeSystem.h"
 
-IntakeSystem::IntakeSystem() : Subsystem("ExampleSubsystem"), IntakeMotor(1), HatchPiston(1,2), HatchPiston2(3,4), DigitalInput(1) //dummy values
+IntakeSystem::IntakeSystem() : Subsystem("ExampleSubsystem"), IntakeMotor(1), HatchPiston(1,2), HatchPiston2(3,4), limit(1) //dummy values
 {
   
 }
@@ -20,31 +20,31 @@ void IntakeSystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void IntakeSystem::Intake()
+void IntakeSystem::Intake(float speed)
 {
-     IntakeMotor.Set(ControlMode::PercentOutput, .8);        
+     IntakeMotor.Set(ControlMode::PercentOutput, speed);        
 }
 
-void IntakeSystem::Outtake()
+void IntakeSystem::Outtake(float speed)
 {
-     IntakeMotor.Set(ControlMode::PercentOutput, -0.8)
+     IntakeMotor.Set(ControlMode::PercentOutput, speed);
 }    
 
 void IntakeSystem::HatchPistonsForward()
 {
-     HatchPiston.Set(Forward);
-     HatchPiston2.Set(Forward);
+     HatchPiston.Set(frc::DoubleSolenoid::kForward);
+     HatchPiston2.Set(frc::DoubleSolenoid::kForward);
 }
 
 void IntakeSystem::HatchPistonsReverse()
 {
-     HatchPiston.Set(reverse);
-     HatchPiston2.Set(reverse);
+     HatchPiston.Set(frc::DoubleSolenoid::kReverse);
+     HatchPiston2.Set(frc::DoubleSolenoid::kReverse);
 }
 
 bool IntakeSystem::LimitSwitch()
 {
-  return Stop.Get();
+  return limit.Get();
 }
 
 

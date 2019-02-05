@@ -5,25 +5,29 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/CommandFiller.h"
-
-CommandFiller::CommandFiller() {
+#include "commands/Ball_Outtake.h" 
+#include "Robot.h"
+Ball_Outtake::Ball_Outtake() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  Requires(&globalRobot.intakeSystem);
 }
 
 // Called just before this Command runs the first time
-void CommandFiller::Initialize() {}
+void Ball_Outtake::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void CommandFiller::Execute() {}
+void Ball_Outtake::Execute() 
+{
+  globalRobot.intakeSystem.Outtake(-1);
+}
 
 // Make this return true when this Command no longer needs to run execute()
-bool CommandFiller::IsFinished() { return false; }
+bool Ball_Outtake::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void CommandFiller::End() {}
+void Ball_Outtake::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void CommandFiller::Interrupted() {}
+void Ball_Outtake::Interrupted() {}

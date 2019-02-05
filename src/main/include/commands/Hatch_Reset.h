@@ -9,9 +9,9 @@
 
 #include <frc/commands/Command.h>
 
-class CommandFiller : public frc::Command {
+class Hatch_Reset : public frc::Command {
  public:
-  CommandFiller();
+  Hatch_Reset();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;

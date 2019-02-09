@@ -8,7 +8,8 @@
 #include "commands/DriveVelocity.h"
 #include "Robot.h"
 
-DriveVelocity::DriveVelocity() {
+DriveVelocity::DriveVelocity()
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&globalRobot.driveSystem);
@@ -18,7 +19,8 @@ DriveVelocity::DriveVelocity() {
 void DriveVelocity::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void DriveVelocity::Execute() {
+void DriveVelocity::Execute()
+{
   globalRobot.driveSystem.JoystickVelocityDrive(globalRobot.oi.xbox->GetRawAxis(4), globalRobot.oi.xbox->GetRawAxis(1));
 }
 
@@ -26,12 +28,14 @@ void DriveVelocity::Execute() {
 bool DriveVelocity::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void DriveVelocity::End() {
+void DriveVelocity::End()
+{
   globalRobot.driveSystem.JoystickVelocityDrive(0, 0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void DriveVelocity::Interrupted() {
+void DriveVelocity::Interrupted()
+{
   End();
 }

@@ -7,7 +7,7 @@
 
 #include "subsystems/DriveSystem.h"
 
-DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(2), rearLeftMotor(1), frontRightMotor(4), rearRightMotor(3), pGyon(4)
+DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLeftMotor(5), frontRightMotor(2), rearRightMotor(1), pGyon(2)
 {
   frontLeftMotor.SetInverted(true);
   rearLeftMotor.SetInverted(true);
@@ -147,60 +147,82 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
 
 void DriveSystem::GetYaw()
 {
-	currentHeading = ypr[0];
+  currentHeading = ypr[0];
 }
 
 void DriveSystem::SetGyroTarget(double target)
 {
-	GetYaw();
-	targetHeading = target;
-	gyroTarget = currentHeading + target;
+  GetYaw();
+  targetHeading = target;
+  gyroTarget = currentHeading + target;
 }
 
 double DriveSystem::ReturnGyroTarget()
 {
-	return gyroTarget;
+  return gyroTarget;
 }
 
 void DriveSystem::ResetGyroFlag()
 {
-	turn = false;
+  turn = false;
 }
 
 bool DriveSystem::GetGyroFlag()
 {
-	return turn;
+  return turn;
 }
 
 void DriveSystem::GyroTurn(double angle)
 {
-	double accAngle = 45;
-	double velocity = 1000;
-	double error;
-	double velocityFactor;
-	error = angle - currentHeading;
-	if(error > targetHeading/2 && angle > 0){velocityFactor = (targetHeading-error+10)/accAngle;}
-	else if(error > 0){velocityFactor = (error+3)/accAngle;}
-	if(error < targetHeading/2 && angle < 0){velocityFactor = (targetHeading-error-10)/accAngle;}
-	else if(error < 0){velocityFactor = (error-3)/accAngle;}
+  double accAngle = 45;
+  double velocity = 1000;
+  double error;
+  double velocityFactor;
+  error = angle - currentHeading;
+  if (error > targetHeading / 2 && angle > 0)
+  {
+    velocityFactor = (targetHeading - error + 10) / accAngle;
+  }
+  else if (error > 0)
+  {
+    velocityFactor = (error + 3) / accAngle;
+  }
+  if (error < targetHeading / 2 && angle < 0)
+  {
+    velocityFactor = (targetHeading - error - 10) / accAngle;
+  }
+  else if (error < 0)
+  {
+    velocityFactor = (error - 3) / accAngle;
+  }
 
-	if(velocityFactor > 1){velocityFactor = 1;}
-	if(velocityFactor < -1){velocityFactor = -1;}
-//	if(error > -1 && error < 1){velocityFactor = 0; turn = true;}
-	if(error == 0){velocityFactor = 0; turn = true;}
+  if (velocityFactor > 1)
+  {
+    velocityFactor = 1;
+  }
+  if (velocityFactor < -1)
+  {
+    velocityFactor = -1;
+  }
+  //	if(error > -1 && error < 1){velocityFactor = 0; turn = true;}
+  if (error == 0)
+  {
+    velocityFactor = 0;
+    turn = true;
+  }
 
-	frontLeftMotor.Set(ControlMode::Follower, 1);
-	rearLeftMotor.Set(ControlMode::Velocity, -velocity*velocityFactor);
-	frontRightMotor.Set(ControlMode::Follower, 3);
-	rearRightMotor.Set(ControlMode::Velocity, velocity*velocityFactor);
+  frontLeftMotor.Set(ControlMode::Follower, 1);
+  rearLeftMotor.Set(ControlMode::Velocity, -velocity * velocityFactor);
+  frontRightMotor.Set(ControlMode::Follower, 3);
+  rearRightMotor.Set(ControlMode::Velocity, velocity * velocityFactor);
 }
 
 void DriveSystem::GetGyroValues()
 {
-	pGyon.GetYawPitchRoll(ypr);
+  pGyon.GetYawPitchRoll(ypr);
 }
 
 void DriveSystem::ResetGyro()
 {
-	pGyon.SetYaw(0, 0);
+  pGyon.SetYaw(0, 0);
 }

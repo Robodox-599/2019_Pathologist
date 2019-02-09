@@ -26,8 +26,14 @@ void Ball_Outtake::Execute()
 bool Ball_Outtake::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void Ball_Outtake::End() {}
+void Ball_Outtake::End() 
+{
+  globalRobot.intakeSystem.Outtake(0);
+}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Ball_Outtake::Interrupted() {}
+void Ball_Outtake::Interrupted() 
+{
+  End();
+}

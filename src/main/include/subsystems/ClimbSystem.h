@@ -28,8 +28,9 @@ public:
   void InitDefaultCommand() override;
   void LeftPistonExpand();
   void RightPistonExpand();
-  void RearPistonExpand();
+  void RearPsistonExpand();
   void LeftPistonRetract();
   void RightPistonRetract();
   void RearPistonRetract();
+  void WheelSpin(int x);
 };

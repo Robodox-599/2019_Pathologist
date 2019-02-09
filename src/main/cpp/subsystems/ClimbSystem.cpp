@@ -7,7 +7,7 @@
 
 #include "subsystems/ClimbSystem.h"
 
-ClimbSystem::ClimbSystem() : Subsystem("ExampleSubsystem"), LeftPiston(1,2), RightPiston(3,4), RearPiston(5,6) // Dummy Values
+ClimbSystem::ClimbSystem() : Subsystem("ExampleSubsystem"), LeftPiston(1,2), RightPiston(3,4), RearPiston(5,6)  // Dummy Values
 {
 }
 
@@ -45,6 +45,11 @@ void ClimbSystem::RightPistonRetract()
 void ClimbSystem::RearPistonRetract()
 {
   RearPiston.Set(frc::DoubleSolenoid::kReverse);
+}
+
+void ClimbSystem::WheelSpin(int x)
+{
+  ScooterMotor.Set(ControlMode::PercentOutput, x);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

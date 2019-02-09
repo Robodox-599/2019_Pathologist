@@ -7,8 +7,14 @@
 
 #pragma once
 
-class OI {
+#include <frc/commands/Command.h>
+
+class RearPistonUp : public frc::Command {
  public:
-  OI();
-  frc::Joystick joy;
+  RearPistonUp();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
 };

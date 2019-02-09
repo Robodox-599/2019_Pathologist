@@ -7,8 +7,14 @@
 
 #pragma once
 
-class OI {
+#include <frc/commands/Command.h>
+
+class ScooterMove : public frc::Command {
  public:
-  OI();
-  frc::Joystick joy;
+  ScooterMove();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
 };

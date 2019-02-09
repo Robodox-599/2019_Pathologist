@@ -9,6 +9,8 @@
 
 #include <frc/WPILib.h>
 
-OI::OI() {
+OI::OI(): joy(0) {
+
+  
   // Process operator interface input here.
 }

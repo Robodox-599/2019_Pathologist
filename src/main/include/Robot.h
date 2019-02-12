@@ -15,18 +15,19 @@
 #include "subsystems/DriveSystem.h"
 #include "subsystems/ClimbSystem.h"
 #include "subsystems/IntakeSystem.h"
-#include "subsystems/LiftSystem.h"
+#include "subsystems/ArmJointSystem.h"
 #include "subsystems/WristSystem.h"
-
+#include "subsystems/SlideSystem.h"
 
 class Robot : public frc::TimedRobot {
  public:
   OI oi;
   DriveSystem driveSystem;
   ClimbSystem climbSystem;
-  LiftSystem liftSystem;
+  ArmJointSystem armJointSystem;
   IntakeSystem intakeSystem;
   WristSystem wristSystem;
+  SlideSystem slideSystem;
 
   void RobotInit() override;
   void RobotPeriodic() override;

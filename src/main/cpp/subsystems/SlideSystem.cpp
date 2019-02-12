@@ -5,16 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "subsystems/SlideSystem.h"
 
-#include <frc/commands/Subsystem.h>
+SlideSystem::SlideSystem() : Subsystem("SlideSystem") {}
 
-class LiftSystem : public frc::Subsystem {
- private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
+void SlideSystem::InitDefaultCommand() {
+  // Set the default command for a subsystem here.
+  // SetDefaultCommand(new MySpecialCommand());
+}
 
- public:
-  LiftSystem();
-  void InitDefaultCommand() override;
-};
+// Put methods for controlling this subsystem
+// here. Call these from Commands.

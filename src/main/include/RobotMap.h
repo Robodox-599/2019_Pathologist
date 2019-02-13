@@ -23,3 +23,15 @@
 // number and the module. For example you with a rangefinder:
 // constexpr int kRangeFinderPort = 1;
 // constexpr int kRangeFinderModule = 1;
+
+struct PIDVar
+{
+	double kf;
+	double kp;
+	double ki;
+	double kd;
+	double integrator;
+	double error;
+	double prevError;
+	double motorPower;
+};

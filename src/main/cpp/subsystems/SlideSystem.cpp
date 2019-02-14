@@ -7,21 +7,7 @@
 
 #include "subsystems/SlideSystem.h"
 
-SlideSystem::SlideSystem() : Subsystem("SlideSystem"), TelescopeMotor(7)
-{
-  TelescopeMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
-  float kf = 0;
-  float kp = 0;
-  float ki = 0;
-  float kd = 0;
-  TelescopeMotor.Config_kF(0, kf, 0);
-  TelescopeMotor.Config_kP(0, kp, 0);
-  TelescopeMotor.Config_kI(0, ki, 0);
-  TelescopeMotor.Config_kD(0, kd, 0);
-
-  TelescopeMotor.ConfigMotionCruiseVelocity(0);
-  TelescopeMotor.ConfigMotionAcceleration(0);
-}
+SlideSystem::SlideSystem() : Subsystem("SlideSystem") {}
 
 void SlideSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
@@ -30,8 +16,3 @@ void SlideSystem::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-
-void SlideSystem::MotionMagicControl(double ticks)
-{
-  TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
-}

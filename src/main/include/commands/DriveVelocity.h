@@ -5,11 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "OI.h"
+#pragma once
 
-#include <frc/WPILib.h>
+#include <frc/commands/Command.h>
 
-OI::OI() {
-  // Process operator interface input here.
-  xbox = new frc::Joystick(0);
-}
+class DriveVelocity : public frc::Command {
+ public:
+  DriveVelocity();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+};

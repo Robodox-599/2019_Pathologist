@@ -8,18 +8,13 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
-#include <ctre/phoenix.h>
-#include <frc/WPILib.h>
-#include <RobotMap.h>
 
 class SlideSystem : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
-  TalonSRX TelescopeMotor;
 
  public:
   SlideSystem();
   void InitDefaultCommand() override;
-  void MotionMagicControl(double ticks);
 };

@@ -6,8 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include "frc/WPILib.h"
 
 class OI {
  public:
   OI();
+  frc::Joystick* xbox;
 };

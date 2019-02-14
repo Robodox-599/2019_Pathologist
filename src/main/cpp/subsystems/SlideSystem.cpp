@@ -7,25 +7,20 @@
 
 #include "subsystems/SlideSystem.h"
 
-SlideSystem::SlideSystem() : Subsystem("SlideSystem"), TelescopeMotor(7), pot(0, 0, 0)
+SlideSystem::SlideSystem() : Subsystem("SlideSystem"), TelescopeMotor(7)
 {
-  slideTarget = pot.Get();
-  avgPotVal = 0;
-  potVals[0] = 0;
-	potVals[1] = 0;
-	potVals[2] = 0;
-	potVals[3] = 0;
-	potVals[4] = 0;
-	potVals[5] = 0;
-	potVals[6] = 0;
-	potVals[7] = 0;
-	potVals[8] = 0;
-	potVals[9] = 0;
-  slide.integrator = 0;
-  slide.kf = 0;
-  slide.kp = 0;
-  slide.ki = 0;
-  slide.kd = 0;
+  TelescopeMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
+  float kf = 0;
+  float kp = 0;
+  float ki = 0;
+  float kd = 0;
+  TelescopeMotor.Config_kF(0, kf, 0);
+  TelescopeMotor.Config_kP(0, kp, 0);
+  TelescopeMotor.Config_kI(0, ki, 0);
+  TelescopeMotor.Config_kD(0, kd, 0);
+
+  TelescopeMotor.ConfigMotionCruiseVelocity(0);
+  TelescopeMotor.ConfigMotionAcceleration(0);
 }
 
 void SlideSystem::InitDefaultCommand() {
@@ -35,7 +30,8 @@ void SlideSystem::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void SlideSystem::PositionControl()
-{
 
+void SlideSystem::MotionMagicControl(float ticks)
+{
+  TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
 }

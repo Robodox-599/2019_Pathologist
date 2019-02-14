@@ -17,15 +17,9 @@ class SlideSystem : public frc::Subsystem {
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
   TalonSRX TelescopeMotor;
-  frc::AnalogPotentiometer pot;
-  double avgPotVal;
-	double potVals[10];
-  bool slideSet;
-	double slideTarget;
-  PIDVar slide;
 
  public:
   SlideSystem();
   void InitDefaultCommand() override;
-  void PositionControl();
+  void MotionMagicControl(float ticks);
 };

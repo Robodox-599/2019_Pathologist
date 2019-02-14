@@ -18,22 +18,9 @@ class WristSystem : public frc::Subsystem
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	TalonSRX wristMotor;
-	double avgEncVal;
-	double encVals[10];
-	PIDVar wrist;
-	bool wristSet;
-	double wristTarget;
 
   public:
 	WristSystem();
 	void InitDefaultCommand() override;
-	double GetEncVal();
-	void UpdateEncVal();
-	void GetAvgEncVal();
-	void HoldWristPosition();
-	void WristPID();
-	bool WristFlag();
-	void ResetWristFlag();
-	void SetWristTarget(double angle);
-	bool WristTargetSet(double angle);
+	void MotionMagicControl(double ticks);
 };

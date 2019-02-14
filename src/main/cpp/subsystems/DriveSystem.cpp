@@ -7,16 +7,12 @@
 
 #include "subsystems/DriveSystem.h"
 
-<<<<<<< HEAD
-DriveSystem::DriveSystem() : Subsystem("DriveSystem") {}
-=======
 DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLeftMotor(5), frontRightMotor(2), rearRightMotor(1), pGyon(2)
 {
   frontLeftMotor.SetInverted(true);
   rearLeftMotor.SetInverted(true);
   frontRightMotor.SetInverted(false);
   rearRightMotor.SetInverted(false);
->>>>>>> Drive
 
   rearLeftMotor.SetSensorPhase(true);
   rearRightMotor.SetSensorPhase(false);

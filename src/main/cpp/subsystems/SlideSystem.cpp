@@ -31,7 +31,7 @@ void SlideSystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void SlideSystem::MotionMagicControl(float ticks)
+void SlideSystem::MotionMagicControl(double ticks)
 {
   TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
 }

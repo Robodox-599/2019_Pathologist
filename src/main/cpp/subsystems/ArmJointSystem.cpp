@@ -7,7 +7,22 @@
 
 #include "subsystems/ArmJointSystem.h"
 
-ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem") {}
+ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem"), ArmJointMotor(3)
+{
+  float kf = 0;
+  float kp = 0;
+  float ki = 0;
+  float kd = 0;
+  ArmJointMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
+
+  ArmJointMotor.Config_kF(0, kf, 0);
+  ArmJointMotor.Config_kP(0, kp, 0);
+  ArmJointMotor.Config_kI(0, ki, 0);
+  ArmJointMotor.Config_kD(0, kd, 0);
+
+  ArmJointMotor.ConfigMotionAcceleration(0);
+  ArmJointMotor.ConfigMotionCruiseVelocity(0);
+}
 
 void ArmJointSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
@@ -16,3 +31,8 @@ void ArmJointSystem::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+void ArmJointSystem::MotionMagicControl(double ticks)
+{
+  ArmJointMotor.Set(ControlMode::MotionMagic, ticks);
+}

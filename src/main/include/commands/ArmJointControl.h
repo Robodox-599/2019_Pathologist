@@ -7,18 +7,16 @@
 
 #pragma once
 
-#include <frc/commands/Subsystem.h>
-#include <ctre/phoenix.h>
-#include <frc/WPILib.h>
+#include <frc/commands/Command.h>
 
-class ArmJointSystem : public frc::Subsystem {
- private:
- TalonSRX ArmJointMotor;
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
-
+class ArmJointControl : public frc::Command {
  public:
-  ArmJointSystem();
-  void InitDefaultCommand() override;
-  void MotionMagicControl(double ticks);
+  ArmJointControl(double ticks);
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+private:
+  double target;
 };

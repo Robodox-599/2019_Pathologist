@@ -7,23 +7,14 @@
 
 #pragma once
 
-#include <frc/commands/Subsystem.h>
-#include <frc/WPILib.h>
-#include <ctre/Phoenix.h>
+#include <frc/commands/Command.h>
 
-class IntakeSystem : public frc::Subsystem {
- private:
- frc::DoubleSolenoid HatchPiston;
- frc::DoubleSolenoid HatchPiston2;
- TalonSRX IntakeMotor;
- frc::DigitalInput limit; 
-
+class Hatch_Reset : public frc::Command {
  public:
-  IntakeSystem();
-  void InitDefaultCommand() override;
-  void Intake(float speed);
-  void Outtake (float speed);
-  void HatchPistonsForward();
-  void HatchPistonsReverse();
-  bool LimitSwitch();
+  Hatch_Reset();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
 };

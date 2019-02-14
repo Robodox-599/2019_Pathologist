@@ -5,36 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Ball_Outtake.h" 
+#include "commands/SlideControl.h"
 #include "Robot.h"
-Ball_Outtake::Ball_Outtake(float speed) {
+
+SlideControl::SlideControl(double ticks) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&globalRobot.intakeSystem);
-  outtakeSpeed = speed;
+  Requires(&globalRobot.slideSystem);
+  target = ticks;
 }
 
 // Called just before this Command runs the first time
-void Ball_Outtake::Initialize() {}
+void SlideControl::Initialize() {globalRobot.slideSystem.MotionMagicControl(target);}
 
 // Called repeatedly when this Command is scheduled to run
-void Ball_Outtake::Execute() 
-{
-  globalRobot.intakeSystem.Outtake(outtakeSpeed);
-}
+void SlideControl::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool Ball_Outtake::IsFinished() { return false; }
+bool SlideControl::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void Ball_Outtake::End() 
-{
-  globalRobot.intakeSystem.Outtake(0);
-}
+void SlideControl::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Ball_Outtake::Interrupted() 
-{
-  End();
-}
+void SlideControl::Interrupted() {}

@@ -7,10 +7,11 @@
 
 #include "commands/Ball_Intake.h"
 #include "Robot.h"
-Ball_Intake::Ball_Intake() {
+Ball_Intake::Ball_Intake(float speed) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&globalRobot.intakeSystem);
+  intakeSpeed =  speed;
 }
 
 // Called just before this Command runs the first time
@@ -19,7 +20,7 @@ void Ball_Intake::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void Ball_Intake::Execute() 
 {
-  globalRobot.intakeSystem.Intake(1);
+  globalRobot.intakeSystem.Intake(intakeSpeed);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -9,14 +9,14 @@
 
 #include <frc/commands/Command.h>
 
-class Ball_Outtake : public frc::Command {
+class WristControl : public frc::Command {
  public:
-  Ball_Outtake(float speed);
+  WristControl(double ticks);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
   private:
-  float outtakeSpeed;
+  double target;
 };

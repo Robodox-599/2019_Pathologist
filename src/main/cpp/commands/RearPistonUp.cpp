@@ -5,37 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/DriveVelocity.h"
+#include "commands/RearPistonUp.h"
 #include "Robot.h"
-
-DriveVelocity::DriveVelocity()
-{
+ 
+RearPistonUp::RearPistonUp() {
   // Use Requires() here to declare subsystem dependencies
-  // eg. Requires(Robot::chassis.get());
-  Requires(&globalRobot.driveSystem);
+    Requires(&globalRobot.climbSystem);
 }
 
 // Called just before this Command runs the first time
-void DriveVelocity::Initialize() {}
+void RearPistonUp::Initialize()  {}
 
 // Called repeatedly when this Command is scheduled to run
-void DriveVelocity::Execute()
-{
-  globalRobot.driveSystem.JoystickVelocityDrive(globalRobot.oi.xbox.GetRawAxis(4), globalRobot.oi.xbox.GetRawAxis(1));
+void RearPistonUp::Execute() {
+  globalRobot.climbSystem.RearPistonRetract();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool DriveVelocity::IsFinished() { return false; }
+bool RearPistonUp::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void DriveVelocity::End()
-{
-  globalRobot.driveSystem.JoystickVelocityDrive(0, 0);
-}
+void RearPistonUp::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void DriveVelocity::Interrupted()
-{
-  End();
-}
+void RearPistonUp::Interrupted() {}

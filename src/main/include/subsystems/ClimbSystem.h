@@ -8,13 +8,29 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include "../RobotMap.h"
+#include "ctre/Phoenix.h"
+#include "frc/WPILib.h"
 
-class ClimbSystem : public frc::Subsystem {
- private:
+class ClimbSystem : public frc::Subsystem
+{
+private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
 
- public:
+  frc::DoubleSolenoid LeftPiston;
+  frc::DoubleSolenoid RightPiston;
+  frc::DoubleSolenoid RearPiston;
+  TalonSRX ScooterMotor = {5};
+
+public:
   ClimbSystem();
   void InitDefaultCommand() override;
+  void LeftPistonExpand();
+  void RightPistonExpand();
+  void RearPistonExpand();
+  void LeftPistonRetract();
+  void RightPistonRetract();
+  void RearPistonRetract();
+  void WheelSpin(int x);
 };

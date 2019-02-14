@@ -9,9 +9,9 @@
 
 #include <frc/commands/Command.h>
 
-class CommandFiller : public frc::Command {
+class FrontPistonsUp : public frc::Command {
  public:
-  CommandFiller();
+  FrontPistonsUp();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;

@@ -5,10 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "OI.h"
+#pragma once
 
-OI::OI(): xbox(0) {
+#include <frc/commands/Command.h>
 
-  
-  // Process operator interface input here.
-}
+class AllPistonsDown : public frc::Command {
+ public:
+  AllPistonsDown();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+};

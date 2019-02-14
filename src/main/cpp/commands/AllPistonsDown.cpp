@@ -5,25 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/CommandFiller.h"
+#include "commands/AllPistonsDown.h"
+#include "Robot.h"
 
-CommandFiller::CommandFiller() {
+AllPistonsDown::AllPistonsDown() {
   // Use Requires() here to declare subsystem dependencies
-  // eg. Requires(Robot::chassis.get());
+     Requires(&globalRobot.climbSystem);
+
 }
 
 // Called just before this Command runs the first time
-void CommandFiller::Initialize() {}
+void AllPistonsDown::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void CommandFiller::Execute() {}
+void AllPistonsDown::Execute() {
+  globalRobot.climbSystem.LeftPistonExpand();
+  globalRobot.climbSystem.RightPistonExpand();
+  globalRobot.climbSystem.RearPistonExpand();
+}
 
 // Make this return true when this Command no longer needs to run execute()
-bool CommandFiller::IsFinished() { return false; }
+bool AllPistonsDown::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void CommandFiller::End() {}
+void AllPistonsDown::End() {
+}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void CommandFiller::Interrupted() {}
+void AllPistonsDown::Interrupted() {}

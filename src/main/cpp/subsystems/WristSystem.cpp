@@ -6,8 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/WristSystem.h"
-
-WristSystem::WristSystem() : Subsystem("WristSystem"), wristMotor(11)
+#include "commands/WristJoystick.h"
+//4790, 1605
+WristSystem::WristSystem() : Subsystem("WristSystem"), wristMotor(9)
 {
   wristMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
   float kf = 0;
@@ -30,6 +31,7 @@ void WristSystem::InitDefaultCommand()
 {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+  SetDefaultCommand(new WristJoystick());
 }
 
 // Put methods for controlling this subsystem
@@ -38,4 +40,22 @@ void WristSystem::InitDefaultCommand()
 void WristSystem::MotionMagicControl(double ticks)
 {
   wristMotor.Set(ControlMode::MotionMagic, ticks);
+}
+
+void WristSystem::JoystickControl(double axis)
+{
+  if (axis > 0.2)
+  {
+    axis = (axis - 0.2) * (1 / .8) * .25;
+  }
+  else if (axis < -0.2)
+  {
+    axis = (axis + 0.2) * 1 / .8 * .25;
+  }
+  else
+  {
+    axis = 0;
+  }
+  wristMotor.Set(ControlMode::PercentOutput, axis);
+  frc::SmartDashboard::PutNumber("Wrist Encoder readout", wristMotor.GetSelectedSensorPosition());
 }

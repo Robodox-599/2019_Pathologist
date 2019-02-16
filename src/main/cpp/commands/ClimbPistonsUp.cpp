@@ -5,37 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AllPistonsDown.h"
+#include "commands/ClimbPistonsUp.h"
 #include "Robot.h"
 
-AllPistonsDown::AllPistonsDown()
-{
+ClimbPistonsUp::ClimbPistonsUp() {
   // Use Requires() here to declare subsystem dependencies
+  // eg. Requires(Robot::chassis.get());
   Requires(&globalRobot.climbSystem);
 }
 
 // Called just before this Command runs the first time
-void AllPistonsDown::Initialize()
+void ClimbPistonsUp::Initialize() 
 {
-  globalRobot.climbSystem.LeftPistonExpand();
-  globalRobot.climbSystem.RightPistonExpand();
-  globalRobot.climbSystem.RearPistonExpand();
-  globalRobot.climbSystem.SetClimbFlagTrue();
+  globalRobot.climbSystem.RearPistonRetract();
+  globalRobot.climbSystem.LeftPistonRetract();
+  globalRobot.climbSystem.RightPistonRetract();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AllPistonsDown::Execute()
-{
-}
+void ClimbPistonsUp::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool AllPistonsDown::IsFinished() { return globalRobot.climbSystem.GetClimbFlag(); }
+bool ClimbPistonsUp::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void AllPistonsDown::End()
-{
-}
+void ClimbPistonsUp::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AllPistonsDown::Interrupted() {}
+void ClimbPistonsUp::Interrupted() {}

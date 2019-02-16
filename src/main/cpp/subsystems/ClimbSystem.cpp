@@ -6,15 +6,21 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/ClimbSystem.h"
+#include "commands/ScooterMove.h"
 
-ClimbSystem::ClimbSystem() : Subsystem("ClimbSystem"), LeftPiston(1,2), RightPiston(3,4), RearPiston(5,6)  // Dummy Values
+ClimbSystem::ClimbSystem() : Subsystem("ClimbSystem"), LeftPiston(4, 5), RightPiston(6, 7), RearPiston(2, 3), ScooterMotor(4)  // Dummy Values
 {
+  ClimbFlag = false;
+  LeftPiston.Set(frc::DoubleSolenoid::kReverse);
+  RightPiston.Set(frc::DoubleSolenoid::kForward);
+  RearPiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
 void ClimbSystem::InitDefaultCommand()
 {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+  SetDefaultCommand(new ScooterMove());
 }
 
 void ClimbSystem::LeftPistonExpand()
@@ -24,7 +30,7 @@ void ClimbSystem::LeftPistonExpand()
 
 void ClimbSystem::RightPistonExpand()
 {
-  RightPiston.Set(frc::DoubleSolenoid::kForward);
+  RightPiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
 void ClimbSystem::RearPistonExpand()
@@ -34,12 +40,12 @@ void ClimbSystem::RearPistonExpand()
 
 void ClimbSystem::LeftPistonRetract()
 {
-  RearPiston.Set(frc::DoubleSolenoid::kReverse);
+  LeftPiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
 void ClimbSystem::RightPistonRetract()
 {
-  RightPiston.Set(frc::DoubleSolenoid::kReverse);
+  RightPiston.Set(frc::DoubleSolenoid::kForward);
 }
 
 void ClimbSystem::RearPistonRetract()
@@ -47,9 +53,19 @@ void ClimbSystem::RearPistonRetract()
   RearPiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
-void ClimbSystem::WheelSpin(int x)
+void ClimbSystem::WheelSpin(double x)
 {
   ScooterMotor.Set(ControlMode::PercentOutput, x);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+bool ClimbSystem::GetClimbFlag()
+{
+  return ClimbFlag;
+}
+
+void ClimbSystem::SetClimbFlagTrue()
+{
+  ClimbFlag = true;
+}

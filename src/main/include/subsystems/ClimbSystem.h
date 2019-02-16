@@ -21,7 +21,8 @@ private:
   frc::DoubleSolenoid LeftPiston;
   frc::DoubleSolenoid RightPiston;
   frc::DoubleSolenoid RearPiston;
-  TalonSRX ScooterMotor = {5};
+  TalonSRX ScooterMotor;
+  bool ClimbFlag;
 
 public:
   ClimbSystem();
@@ -32,5 +33,7 @@ public:
   void LeftPistonRetract();
   void RightPistonRetract();
   void RearPistonRetract();
-  void WheelSpin(int x);
+  void WheelSpin(double x);
+  void SetClimbFlagTrue();
+  bool GetClimbFlag();
 };

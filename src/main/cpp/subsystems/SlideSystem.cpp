@@ -6,29 +6,33 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/SlideSystem.h"
-
-SlideSystem::SlideSystem() : Subsystem("SlideSystem"), TelescopeMotor(7)
+#include "commands/SlideJoystick.h"
+//665, 332
+SlideSystem::SlideSystem() : Subsystem("SlideSystem"), TelescopeMotor(3)
 {
   TelescopeMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
-  float kf = 0;
+  float kf = 1;
   float kp = 0;
   float ki = 0;
   float kd = 0;
-  float velocity = 0;
-  float acceleration = 0;
-  
+  float velocity = 166;
+  float acceleration = 166 / 2;
+
   TelescopeMotor.Config_kF(0, kf, 0);
   TelescopeMotor.Config_kP(0, kp, 0);
   TelescopeMotor.Config_kI(0, ki, 0);
   TelescopeMotor.Config_kD(0, kd, 0);
 
-  TelescopeMotor.ConfigMotionCruiseVelocity(0);
-  TelescopeMotor.ConfigMotionAcceleration(0);
+  TelescopeMotor.ConfigMotionCruiseVelocity(velocity);
+  TelescopeMotor.ConfigMotionAcceleration(acceleration);
+  printf("slide init\n");
 }
 
-void SlideSystem::InitDefaultCommand() {
+void SlideSystem::InitDefaultCommand()
+{
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+  SetDefaultCommand(new SlideJoystick());
 }
 
 // Put methods for controlling this subsystem
@@ -37,4 +41,23 @@ void SlideSystem::InitDefaultCommand() {
 void SlideSystem::MotionMagicControl(double ticks)
 {
   TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
+}
+
+void SlideSystem::JoystickControl(double axis)
+{
+  if (axis > 0.2)
+  {
+    axis = (axis - 0.2) * (1 / .8) * .25;
+  }
+  else if (axis < -0.2)
+  {
+    axis = (axis + 0.2) * 1 / .8 * .25;
+  }
+  else
+  {
+    axis = 0;
+  }
+  TelescopeMotor.Set(ControlMode::PercentOutput, axis);
+  frc::SmartDashboard::PutNumber("Telescope Potentiometer readout", TelescopeMotor.GetSelectedSensorPosition());
+  frc::SmartDashboard::PutNumber("Slide Motor Power", TelescopeMotor.GetMotorOutputPercent());
 }

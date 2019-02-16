@@ -28,6 +28,7 @@ class Robot : public frc::TimedRobot {
   IntakeSystem intakeSystem;
   WristSystem wristSystem;
   SlideSystem slideSystem;
+  frc::Compressor comp599;
 
   void RobotInit() override;
   void RobotPeriodic() override;

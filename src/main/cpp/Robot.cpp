@@ -13,6 +13,7 @@
 Robot globalRobot;
 
 void Robot::RobotInit() {
+  comp599.SetClosedLoopControl(false);
 }
 
 /**

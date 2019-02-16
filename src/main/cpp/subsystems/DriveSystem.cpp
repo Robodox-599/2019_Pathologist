@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/DriveSystem.h"
+#include "commands/DriveVelocity.h"
 
 DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLeftMotor(5), frontRightMotor(2), rearRightMotor(1), pGyon(2)
 {
@@ -72,6 +73,7 @@ void DriveSystem::InitDefaultCommand()
 {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+  //SetDefaultCommand(new DriveVelocity());
 }
 
 // Put methods for controlling this subsystem

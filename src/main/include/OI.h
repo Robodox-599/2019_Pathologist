@@ -11,5 +11,6 @@
 class OI {
  public:
   OI();
-  frc::Joystick xbox;
+  frc::Joystick* xbox;
+  frc::Joystick* atk3;
 };

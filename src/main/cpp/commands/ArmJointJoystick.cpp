@@ -5,37 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AllPistonsDown.h"
+#include "commands/ArmJointJoystick.h"
 #include "Robot.h"
 
-AllPistonsDown::AllPistonsDown()
-{
+ArmJointJoystick::ArmJointJoystick() {
   // Use Requires() here to declare subsystem dependencies
-  Requires(&globalRobot.climbSystem);
+  // eg. Requires(Robot::chassis.get());
+  Requires(&globalRobot.armJointSystem);
 }
 
 // Called just before this Command runs the first time
-void AllPistonsDown::Initialize()
-{
-  globalRobot.climbSystem.LeftPistonExpand();
-  globalRobot.climbSystem.RightPistonExpand();
-  globalRobot.climbSystem.RearPistonExpand();
-  globalRobot.climbSystem.SetClimbFlagTrue();
-}
+void ArmJointJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void AllPistonsDown::Execute()
-{
-}
+void ArmJointJoystick::Execute() {globalRobot.armJointSystem.JoystickControl(globalRobot.oi.xbox->GetRawAxis(1));}
 
 // Make this return true when this Command no longer needs to run execute()
-bool AllPistonsDown::IsFinished() { return globalRobot.climbSystem.GetClimbFlag(); }
+bool ArmJointJoystick::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void AllPistonsDown::End()
-{
-}
+void ArmJointJoystick::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AllPistonsDown::Interrupted() {}
+void ArmJointJoystick::Interrupted() {}

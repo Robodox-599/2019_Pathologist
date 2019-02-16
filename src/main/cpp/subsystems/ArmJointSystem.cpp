@@ -6,10 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/ArmJointSystem.h"
-
-ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem"), ArmJointMotor(3)
+#include "commands/ArmJointJoystick.h"
+//918, 455
+ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 {
-  ArmJointMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
+  ArmJointMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
   float kf = 0;
   float kp = 0;
   float ki = 0;
@@ -29,6 +30,7 @@ ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem"), ArmJointMotor(3)
 void ArmJointSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+  SetDefaultCommand(new ArmJointJoystick());
 }
 
 // Put methods for controlling this subsystem
@@ -37,4 +39,22 @@ void ArmJointSystem::InitDefaultCommand() {
 void ArmJointSystem::MotionMagicControl(double ticks)
 {
   ArmJointMotor.Set(ControlMode::MotionMagic, ticks);
+}
+
+void ArmJointSystem::JoystickControl(double axis)
+{
+  if (axis > 0.2)
+  {
+    axis = (axis - 0.2) * (1 / .8) * .25;
+  }
+  else if (axis < -0.2)
+  {
+    axis = (axis + 0.2) * 1 / .8 * .25;
+  }
+  else
+  {
+    axis = 0;
+  }
+  ArmJointMotor.Set(ControlMode::PercentOutput, axis);
+  frc::SmartDashboard::PutNumber("Arm Joint Potentiometer readout", ArmJointMotor.GetSelectedSensorPosition());
 }

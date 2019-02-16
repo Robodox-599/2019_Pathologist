@@ -15,12 +15,12 @@ Ball_Outtake::Ball_Outtake(float speed) {
 }
 
 // Called just before this Command runs the first time
-void Ball_Outtake::Initialize() {}
+void Ball_Outtake::Initialize() {globalRobot.intakeSystem.Outtake(outtakeSpeed);}
 
 // Called repeatedly when this Command is scheduled to run
 void Ball_Outtake::Execute() 
 {
-  globalRobot.intakeSystem.Outtake(outtakeSpeed);
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

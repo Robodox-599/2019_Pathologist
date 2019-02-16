@@ -9,14 +9,16 @@
 
 #include <frc/commands/Command.h>
 
-class SlideControl : public frc::Command {
- public:
+class SlideControl : public frc::Command
+{
+public:
   SlideControl(double ticks);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-  private:
+
+private:
   double target;
 };

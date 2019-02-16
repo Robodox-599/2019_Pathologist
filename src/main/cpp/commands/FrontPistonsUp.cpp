@@ -14,12 +14,14 @@ FrontPistonsUp::FrontPistonsUp() {
 }
 
 // Called just before this Command runs the first time
-void FrontPistonsUp::Initialize() {}
+void FrontPistonsUp::Initialize() 
+{
+  globalRobot.climbSystem.LeftPistonRetract();
+  globalRobot.climbSystem.RightPistonRetract();
+}
 
 // Called repeatedly when this Command is scheduled to run
 void FrontPistonsUp::Execute() {
-  globalRobot.climbSystem.LeftPistonRetract();
-  globalRobot.climbSystem.RightPistonRetract();
 }
 
 // Make this return true when this Command no longer needs to run execute()

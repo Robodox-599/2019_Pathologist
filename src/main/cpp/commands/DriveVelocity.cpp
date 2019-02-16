@@ -21,7 +21,7 @@ void DriveVelocity::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void DriveVelocity::Execute()
 {
-  globalRobot.driveSystem.JoystickVelocityDrive(globalRobot.oi.xbox.GetRawAxis(4), globalRobot.oi.xbox.GetRawAxis(1));
+  globalRobot.driveSystem.JoystickVelocityDrive(globalRobot.oi.xbox->GetRawAxis(4), globalRobot.oi.xbox->GetRawAxis(1));
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -7,9 +7,9 @@
 
 #include "subsystems/IntakeSystem.h"
 
-IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem"), IntakeMotor(1), HatchPiston(1,2), HatchPiston2(3,4), limit(1) //dummy values
+IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem"), IntakeMotor(8), HatchPiston(0,1), limit(1) //dummy values
 {
-  
+  HatchPiston.Set(frc::DoubleSolenoid::kForward);
 }
 
 void IntakeSystem::InitDefaultCommand() {
@@ -32,14 +32,12 @@ void IntakeSystem::Outtake(float speed)
 
 void IntakeSystem::HatchPistonsForward()
 {
-     HatchPiston.Set(frc::DoubleSolenoid::kForward);
-     HatchPiston2.Set(frc::DoubleSolenoid::kForward);
+     HatchPiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
 void IntakeSystem::HatchPistonsReverse()
 {
-     HatchPiston.Set(frc::DoubleSolenoid::kReverse);
-     HatchPiston2.Set(frc::DoubleSolenoid::kReverse);
+     HatchPiston.Set(frc::DoubleSolenoid::kForward);
 }
 
 bool IntakeSystem::LimitSwitch()

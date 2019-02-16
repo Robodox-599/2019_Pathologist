@@ -19,7 +19,11 @@ void ScooterMove::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void ScooterMove::Execute() {
-  globalRobot.climbSystem.WheelSpin(globalRobot.oi.xbox.GetRawAxis(1));
+  if(globalRobot.climbSystem.GetClimbFlag() == true)
+  {
+    globalRobot.climbSystem.WheelSpin(globalRobot.oi.xbox->GetRawAxis(4));
+  }
+  frc::SmartDashboard::PutBoolean("Climb Flag", globalRobot.climbSystem.GetClimbFlag());
 }
 
 // Make this return true when this Command no longer needs to run execute()

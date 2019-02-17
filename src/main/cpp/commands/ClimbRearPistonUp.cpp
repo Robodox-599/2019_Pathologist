@@ -5,31 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/FrontPistonsUp.h"
+#include "commands/ClimbRearPistonUp.h"
 #include "Robot.h"
-
-FrontPistonsUp::FrontPistonsUp() {
+ 
+ClimbRearPistonUp::ClimbRearPistonUp() {
   // Use Requires() here to declare subsystem dependencies
-     Requires(&globalRobot.climbSystem);
+    Requires(&globalRobot.climbSystem);
 }
 
 // Called just before this Command runs the first time
-void FrontPistonsUp::Initialize() 
-{
-  globalRobot.climbSystem.LeftPistonRetract();
-  globalRobot.climbSystem.RightPistonRetract();
-}
+void ClimbRearPistonUp::Initialize()  {globalRobot.climbSystem.RearPistonRetract();}
 
 // Called repeatedly when this Command is scheduled to run
-void FrontPistonsUp::Execute() {
+void ClimbRearPistonUp::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool FrontPistonsUp::IsFinished() { return false; }
+bool ClimbRearPistonUp::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void FrontPistonsUp::End() {}
+void ClimbRearPistonUp::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void FrontPistonsUp::Interrupted() {}
+void ClimbRearPistonUp::Interrupted() {}

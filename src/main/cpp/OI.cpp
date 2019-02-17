@@ -11,9 +11,9 @@
 #include "commands/Ball_Stop.h"
 #include "commands/Hatch_Release.h"
 #include "commands/Hatch_Reset.h"
-#include "commands/AllPistonsDown.h"
-#include "commands/FrontPistonsUp.h"
-#include "commands/RearPistonUp.h"
+#include "commands/ClimbPistonsDown.h"
+#include "commands/ClimbFrontPistonsUp.h"
+#include "commands/ClimbRearPistonUp.h"
 #include "commands/SlideControl.h"
 
 OI::OI()
@@ -34,7 +34,7 @@ OI::OI()
   Buttonx3->WhenPressed(new SlideControl(400));
   Buttonx4->WhenPressed(new Hatch_Release());
   Buttonx5->WhenPressed(new Hatch_Reset());
-  Buttonx6->WhenPressed(new AllPistonsDown());
-  Buttonx7->WhenPressed(new FrontPistonsUp());
-  Buttonx8->WhenPressed(new RearPistonUp());
+  Buttonx6->WhenPressed(new ClimbPistonsDown());
+  Buttonx7->WhenPressed(new ClimbFrontPistonsUp());
+  Buttonx8->WhenPressed(new ClimbRearPistonUp());
 }

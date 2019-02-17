@@ -9,9 +9,9 @@
 
 #include <frc/commands/Command.h>
 
-class FrontPistonsUp : public frc::Command {
+class ClimbPistonsDown : public frc::Command {
  public:
-  FrontPistonsUp();
+  ClimbPistonsDown();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;

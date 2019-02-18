@@ -16,8 +16,11 @@ SlideControl::SlideControl(double ticks) {
 }
 
 // Called just before this Command runs the first time
-void SlideControl::Initialize() {globalRobot.slideSystem.MotionMagicControl(target);
-printf("ticks received\n");}
+void SlideControl::Initialize() 
+{
+  globalRobot.slideSystem.MotionMagicControl(target);
+  printf("ticks received\n");
+}
 
 // Called repeatedly when this Command is scheduled to run
 void SlideControl::Execute() {}

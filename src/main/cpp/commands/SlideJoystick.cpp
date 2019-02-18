@@ -18,7 +18,10 @@ SlideJoystick::SlideJoystick() {
 void SlideJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SlideJoystick::Execute() {globalRobot.slideSystem.JoystickControl(globalRobot.oi.xbox->GetRawAxis(5));}
+void SlideJoystick::Execute()
+  {
+    globalRobot.slideSystem.MotionMagicJoystickControl(globalRobot.oi.xbox->GetRawAxis(4));
+  }
 
 // Make this return true when this Command no longer needs to run execute()
 bool SlideJoystick::IsFinished() { return false; }

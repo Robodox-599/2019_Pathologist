@@ -7,16 +7,18 @@
 
 #include "subsystems/ArmJointSystem.h"
 #include "commands/ArmJointJoystick.h"
-//918, 455
+//465, 80, 272
 ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 {
   ArmJointMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
+  ArmJointMotor.SetSensorPhase(true);
+  ArmJointMotor.SetInverted(true);
   float kf = 0;
-  float kp = 0;
+  float kp = 15;
   float ki = 0;
   float kd = 0;
-  float velocity = 0;
-  float acceleration = 0;
+  float velocity = 272/8;
+  float acceleration = 272/12;
 
   ArmJointMotor.Config_kF(0, kf, 0);
   ArmJointMotor.Config_kP(0, kp, 0);
@@ -39,6 +41,27 @@ void ArmJointSystem::InitDefaultCommand() {
 void ArmJointSystem::MotionMagicControl(double ticks)
 {
   ArmJointMotor.Set(ControlMode::MotionMagic, ticks);
+}
+
+void ArmJointSystem::MotionMagicJoystickControl(double axis)
+{
+  double target;
+  if (axis > 0.2)
+  {
+    axis = (axis - 0.2) * (1 / .8);
+  }
+  else if (axis < -0.2)
+  {
+    axis = (axis + 0.2) * (1 / .8);
+  }
+  else
+  {
+    axis = 0;
+  }
+
+  target += (axis*2.5);
+  
+  ArmJointMotor.Set(ControlMode::MotionMagic, target + 272);
 }
 
 void ArmJointSystem::JoystickControl(double axis)

@@ -14,12 +14,15 @@ Hatch_Reset::Hatch_Reset() {
 }
 
 // Called just before this Command runs the first time
-void Hatch_Reset::Initialize() {}
+void Hatch_Reset::Initialize() 
+{
+  globalRobot.intakeSystem.HatchPistonsReverse();
+}
 
 // Called repeatedly when this Command is scheduled to run
 void Hatch_Reset::Execute() 
 {
-  globalRobot.intakeSystem.HatchPistonsReverse();
+  
 }
 
 // Make this return true when this Command no longer needs to run execute()

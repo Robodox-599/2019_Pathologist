@@ -14,12 +14,15 @@ Hatch_Release::Hatch_Release() {
 }
 
 // Called just before this Command runs the first time
-void Hatch_Release::Initialize() {}
+void Hatch_Release::Initialize() 
+{
+  globalRobot.intakeSystem.HatchPistonsForward();
+}
 
 // Called repeatedly when this Command is scheduled to run
 void Hatch_Release::Execute() 
 {
-  globalRobot.intakeSystem.HatchPistonsForward();
+  
 }
 
 // Make this return true when this Command no longer needs to run execute()

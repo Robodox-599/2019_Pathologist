@@ -21,5 +21,6 @@ class ArmJointSystem : public frc::Subsystem {
   ArmJointSystem();
   void InitDefaultCommand() override;
   void MotionMagicControl(double ticks);
+  void MotionMagicJoystickControl(double axis);
   void JoystickControl(double axis);
 };

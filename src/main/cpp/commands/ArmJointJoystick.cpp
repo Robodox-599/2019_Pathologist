@@ -18,7 +18,7 @@ ArmJointJoystick::ArmJointJoystick() {
 void ArmJointJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ArmJointJoystick::Execute() {globalRobot.armJointSystem.JoystickControl(globalRobot.oi.xbox->GetRawAxis(1));}
+void ArmJointJoystick::Execute() {globalRobot.armJointSystem.MotionMagicJoystickControl(globalRobot.oi.xbox->GetRawAxis(1));}
 
 // Make this return true when this Command no longer needs to run execute()
 bool ArmJointJoystick::IsFinished() { return false; }

@@ -7,18 +7,22 @@
 
 #include "subsystems/WristSystem.h"
 #include "commands/WristJoystick.h"
-//2488, -771, 1629
+//925, 1003, 964
 WristSystem::WristSystem() : Subsystem("WristSystem"), wristMotor(9)
 {
-  wristMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
-  wristMotor.SetSensorPhase(false);
+  wristMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
+  wristMotor.SetSensorPhase(true);
   wristMotor.SetInverted(true);
+  wristMotor.ConfigForwardSoftLimitThreshold(994);
+  wristMotor.ConfigReverseSoftLimitThreshold(934);
+  wristMotor.ConfigForwardSoftLimitEnable(true);
+  wristMotor.ConfigReverseSoftLimitEnable(true);
   float kf = 0;
-  float kp = 15;
+  float kp = 10;
   float ki = 0;
   float kd = 0;
-  float velocity = 1629 / 32;
-  float acceleration = 1629 / 32;
+  float velocity = 964 / 32;
+  float acceleration = 964 / 32;
 
   wristMotor.Config_kF(0, kf, 0);
   wristMotor.Config_kP(0, kp, 0);
@@ -27,13 +31,14 @@ WristSystem::WristSystem() : Subsystem("WristSystem"), wristMotor(9)
 
   wristMotor.ConfigMotionAcceleration(acceleration);
   wristMotor.ConfigMotionCruiseVelocity(velocity);
+  target = wristMotor.GetSelectedSensorPosition();
 }
 
 void WristSystem::InitDefaultCommand()
 {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
-  SetDefaultCommand(new WristJoystick());
+  //SetDefaultCommand(new WristJoystick());
 }
 
 // Put methods for controlling this subsystem
@@ -46,7 +51,6 @@ void WristSystem::MotionMagicControl(double ticks)
 
 void WristSystem::MotionMagicJoystickControl(double axis)
 {
-  double target;
   if (axis > 0.2)
   {
     axis = (axis - 0.2) * (1 / .8);
@@ -61,8 +65,12 @@ void WristSystem::MotionMagicJoystickControl(double axis)
   }
 
   target += (axis * 20);
-
-  wristMotor.Set(ControlMode::MotionMagic, target + 1629);
+  // if(abs(wristMotor.GetSelectedSensorPosition() - target) >  30)
+  // {
+  //   target = wristMotor.GetSelectedSensorPosition();
+  // }
+  wristMotor.Set(ControlMode::MotionMagic, target);
+  printf("%d\n",wristMotor.GetSelectedSensorPosition());
 }
 
 void WristSystem::JoystickControl(double axis)

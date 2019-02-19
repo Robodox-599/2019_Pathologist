@@ -14,7 +14,11 @@ ClimbRearPistonUp::ClimbRearPistonUp() {
 }
 
 // Called just before this Command runs the first time
-void ClimbRearPistonUp::Initialize()  {globalRobot.climbSystem.RearPistonRetract();}
+void ClimbRearPistonUp::Initialize()  
+{
+  globalRobot.climbSystem.RearPistonRetract();
+  globalRobot.climbSystem.SetClimbFlagFalse();
+}
 
 // Called repeatedly when this Command is scheduled to run
 void ClimbRearPistonUp::Execute() {

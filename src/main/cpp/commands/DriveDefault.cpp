@@ -5,34 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ScooterMove.h"
+#include "commands/DriveDefault.h"
 #include "Robot.h"
 
-
-ScooterMove::ScooterMove() {
+DriveDefault::DriveDefault() {
   // Use Requires() here to declare subsystem dependencies
-    Requires(&globalRobot.climbSystem);
+  // eg. Requires(Robot::chassis.get());
+  Requires(&globalRobot.driveSystem);
 }
 
 // Called just before this Command runs the first time
-void ScooterMove::Initialize() {}
+void DriveDefault::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ScooterMove::Execute() {
-  if(globalRobot.climbSystem.GetClimbFlag() == true)
+void DriveDefault::Execute() 
+{
+  if(globalRobot.climbSystem.GetClimbFlag() == false)
   {
-    globalRobot.climbSystem.WheelSpin(globalRobot.oi.xbox->GetRawAxis(4));
+    globalRobot.driveSystem.JoystickVelocityDrive(globalRobot.oi.xbox->GetRawAxis(0), globalRobot.oi.xbox->GetRawAxis(1));
   }
-  frc::SmartDashboard::PutBoolean("Climb Flag", globalRobot.climbSystem.GetClimbFlag());
+  else
+  {
+    globalRobot.driveSystem.ClimbDrive(globalRobot.oi.xbox->GetRawAxis(4));
+  }
+  
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ScooterMove::IsFinished() { return false; }
+bool DriveDefault::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void ScooterMove::End() {globalRobot.climbSystem.WheelSpin(0);
-}
+void DriveDefault::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ScooterMove::Interrupted() {}
+void DriveDefault::Interrupted() {}

@@ -18,6 +18,7 @@ private:
   TalonSRX rearLeftMotor;
   TalonSRX frontRightMotor;
   TalonSRX rearRightMotor;
+  TalonSRX climbMotor;
 
   PigeonIMU pGyon;
 
@@ -35,6 +36,7 @@ public:
   DriveSystem();
   void InitDefaultCommand() override;
   void JoystickVelocityDrive(double x, double y);
+  void ClimbDrive(double axis);
 
   void GetYaw();
   void GyroTurn(double angle);

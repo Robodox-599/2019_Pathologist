@@ -14,6 +14,7 @@
 class ArmJointSystem : public frc::Subsystem {
  private:
  TalonSRX ArmJointMotor;
+ double target;
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
 

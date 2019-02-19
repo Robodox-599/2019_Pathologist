@@ -9,9 +9,9 @@
 
 #include <frc/commands/Command.h>
 
-class ScooterMove : public frc::Command {
+class DriveDefault : public frc::Command {
  public:
-  ScooterMove();
+  DriveDefault();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;

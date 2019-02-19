@@ -6,9 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/ClimbSystem.h"
-#include "commands/ScooterMove.h"
 
-ClimbSystem::ClimbSystem() : Subsystem("ClimbSystem"), LeftPiston(4, 5), RightPiston(6, 7), RearPiston(2, 3), ScooterMotor(4)  // Dummy Values
+ClimbSystem::ClimbSystem() : Subsystem("ClimbSystem"), LeftPiston(4, 5), RightPiston(6, 7), RearPiston(2, 3)  // Dummy Values
 {
   ClimbFlag = false;
   LeftPiston.Set(frc::DoubleSolenoid::kReverse);
@@ -20,7 +19,6 @@ void ClimbSystem::InitDefaultCommand()
 {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
-  SetDefaultCommand(new ScooterMove());
 }
 
 void ClimbSystem::LeftPistonExpand()
@@ -53,10 +51,6 @@ void ClimbSystem::RearPistonRetract()
   RearPiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
-void ClimbSystem::WheelSpin(double x)
-{
-  ScooterMotor.Set(ControlMode::PercentOutput, x);
-}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
@@ -68,4 +62,9 @@ bool ClimbSystem::GetClimbFlag()
 void ClimbSystem::SetClimbFlagTrue()
 {
   ClimbFlag = true;
+}
+
+void ClimbSystem::SetClimbFlagFalse()
+{
+  ClimbFlag = false;
 }

@@ -13,6 +13,10 @@ ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem"), ArmJointMotor(7)
   ArmJointMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
   ArmJointMotor.SetSensorPhase(true);
   ArmJointMotor.SetInverted(true);
+  ArmJointMotor.ConfigForwardSoftLimitThreshold(453);
+  ArmJointMotor.ConfigReverseSoftLimitThreshold(92);
+  ArmJointMotor.ConfigForwardSoftLimitEnable(true);
+  ArmJointMotor.ConfigReverseSoftLimitEnable(true);
   float kf = 0;
   float kp = 15;
   float ki = 0;
@@ -27,12 +31,14 @@ ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 
   ArmJointMotor.ConfigMotionAcceleration(acceleration);
   ArmJointMotor.ConfigMotionCruiseVelocity(velocity);
+
+  target = ArmJointMotor.GetSelectedSensorPosition();
 }
 
 void ArmJointSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
-  SetDefaultCommand(new ArmJointJoystick());
+  //SetDefaultCommand(new ArmJointJoystick());
 }
 
 // Put methods for controlling this subsystem
@@ -45,7 +51,6 @@ void ArmJointSystem::MotionMagicControl(double ticks)
 
 void ArmJointSystem::MotionMagicJoystickControl(double axis)
 {
-  double target;
   if (axis > 0.2)
   {
     axis = (axis - 0.2) * (1 / .8);
@@ -61,7 +66,7 @@ void ArmJointSystem::MotionMagicJoystickControl(double axis)
 
   target += (axis*2.5);
   
-  ArmJointMotor.Set(ControlMode::MotionMagic, target + 272);
+  ArmJointMotor.Set(ControlMode::MotionMagic, target);
 }
 
 void ArmJointSystem::JoystickControl(double axis)

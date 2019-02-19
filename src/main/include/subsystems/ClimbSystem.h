@@ -21,7 +21,6 @@ private:
   frc::DoubleSolenoid LeftPiston;
   frc::DoubleSolenoid RightPiston;
   frc::DoubleSolenoid RearPiston;
-  TalonSRX ScooterMotor;
   bool ClimbFlag;
 
 public:
@@ -33,7 +32,7 @@ public:
   void LeftPistonRetract();
   void RightPistonRetract();
   void RearPistonRetract();
-  void WheelSpin(double x);
   void SetClimbFlagTrue();
+  void SetClimbFlagFalse();
   bool GetClimbFlag();
 };

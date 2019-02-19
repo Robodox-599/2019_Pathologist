@@ -7,16 +7,17 @@
 
 #include "subsystems/DriveSystem.h"
 #include "commands/DriveVelocity.h"
+#include "commands/DriveDefault.h"
 
-DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLeftMotor(5), frontRightMotor(2), rearRightMotor(1), pGyon(2)
+DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLeftMotor(5), frontRightMotor(2), rearRightMotor(1), pGyon(2), climbMotor(4)
 {
   frontLeftMotor.SetInverted(true);
   rearLeftMotor.SetInverted(true);
   frontRightMotor.SetInverted(false);
   rearRightMotor.SetInverted(false);
 
-  rearLeftMotor.SetSensorPhase(true);
-  rearRightMotor.SetSensorPhase(false);
+  rearLeftMotor.SetSensorPhase(false);
+  rearRightMotor.SetSensorPhase(true);
 
   rearLeftMotor.ConfigSelectedFeedbackSensor(QuadEncoder, 0, 0);
   rearRightMotor.ConfigSelectedFeedbackSensor(QuadEncoder, 0, 0);
@@ -37,25 +38,26 @@ DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLe
   frontLeftMotor.ConfigClosedloopRamp(seconds, 0);
   frontRightMotor.ConfigClosedloopRamp(seconds, 0);
 
-  float kp = 0.8;
+  float kf = 0.25;
+  float kp = 0.5;
   float ki = 0;
 
-  rearLeftMotor.Config_kF(0, 0.45, 0);
+  rearLeftMotor.Config_kF(0, kf, 0);
   rearLeftMotor.Config_kP(0, kp, 0);
   rearLeftMotor.Config_kI(0, ki, 0);
   rearLeftMotor.Config_kD(0, 0, 0);
 
-  rearRightMotor.Config_kF(0, 0.45, 0);
+  rearRightMotor.Config_kF(0, kf, 0);
   rearRightMotor.Config_kP(0, kp, 0);
   rearRightMotor.Config_kI(0, ki, 0);
   rearRightMotor.Config_kD(0, 0, 0);
 
-  frontLeftMotor.Config_kF(0, 0.45, 0);
+  frontLeftMotor.Config_kF(0, kf, 0);
   frontLeftMotor.Config_kP(0, kp, 0);
   frontLeftMotor.Config_kI(0, ki, 0);
   frontLeftMotor.Config_kD(0, 0, 0);
 
-  frontRightMotor.Config_kF(0, 0.45, 0);
+  frontRightMotor.Config_kF(0, kf, 0);
   frontRightMotor.Config_kP(0, kp, 0);
   frontRightMotor.Config_kI(0, ki, 0);
   frontRightMotor.Config_kD(0, 0, 0);
@@ -74,6 +76,7 @@ void DriveSystem::InitDefaultCommand()
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
   //SetDefaultCommand(new DriveVelocity());
+  SetDefaultCommand(new DriveDefault());
 }
 
 // Put methods for controlling this subsystem
@@ -141,10 +144,19 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
     rightOutput = r;
   }
 
-  frontLeftMotor.Set(ControlMode::Follower, 1);
+  frontLeftMotor.Set(ControlMode::Follower, 5);
   rearLeftMotor.Set(ControlMode::Velocity, leftOutput);
-  frontRightMotor.Set(ControlMode::Follower, 3);
+  frontRightMotor.Set(ControlMode::Follower, 1);
   rearRightMotor.Set(ControlMode::Velocity, rightOutput);
+}
+
+void DriveSystem::ClimbDrive(double axis)
+{
+  frontLeftMotor.Set(ControlMode::PercentOutput, 0);
+  rearLeftMotor.Set(ControlMode::PercentOutput, 0);
+  frontRightMotor.Set(ControlMode::PercentOutput, 0);
+  rearRightMotor.Set(ControlMode::PercentOutput, 0);
+  climbMotor.Set(ControlMode::PercentOutput, axis);
 }
 
 void DriveSystem::GetYaw()

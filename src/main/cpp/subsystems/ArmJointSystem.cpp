@@ -65,7 +65,8 @@ void ArmJointSystem::MotionMagicJoystickControl(double axis)
   }
 
   target += (axis*2.5);
-  
+  if(target > 453){target = 453;}
+  if(target < 92){target = 92;}
   ArmJointMotor.Set(ControlMode::MotionMagic, target);
 }
 

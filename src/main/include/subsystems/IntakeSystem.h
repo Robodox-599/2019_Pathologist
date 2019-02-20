@@ -20,8 +20,7 @@ class IntakeSystem : public frc::Subsystem {
  public:
   IntakeSystem();
   void InitDefaultCommand() override;
-  void Intake(float speed);
-  void Outtake (float speed);
+  void IntakeRoller(float speed);
   void HatchPistonsForward();
   void HatchPistonsReverse();
   bool LimitSwitch();

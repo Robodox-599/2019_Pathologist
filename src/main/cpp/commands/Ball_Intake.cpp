@@ -15,7 +15,7 @@ Ball_Intake::Ball_Intake(float speed) {
 }
 
 // Called just before this Command runs the first time
-void Ball_Intake::Initialize() {globalRobot.intakeSystem.Intake(intakeSpeed);}
+void Ball_Intake::Initialize() {globalRobot.intakeSystem.IntakeRoller(intakeSpeed);}
 
 // Called repeatedly when this Command is scheduled to run
 void Ball_Intake::Execute() 
@@ -29,7 +29,7 @@ bool Ball_Intake::IsFinished() { return false; }
 // Called once after isFinished returns true
 void Ball_Intake::End() 
 {
-    globalRobot.intakeSystem.Intake(0);
+    globalRobot.intakeSystem.IntakeRoller(0);
 }
 
 // Called when another command which requires one or more of the same

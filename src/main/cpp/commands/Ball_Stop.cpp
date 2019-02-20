@@ -15,7 +15,7 @@ Ball_Stop::Ball_Stop() {
 }
 
 // Called just before this Command runs the first time
-void Ball_Stop::Initialize() {globalRobot.intakeSystem.Intake(0);}
+void Ball_Stop::Initialize() {globalRobot.intakeSystem.IntakeRoller(0);}
 
 // Called repeatedly when this Command is scheduled to run
 void Ball_Stop::Execute() {}

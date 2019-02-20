@@ -18,7 +18,7 @@ WristJoystick::WristJoystick() {
 void WristJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void WristJoystick::Execute() {globalRobot.wristSystem.MotionMagicJoystickControl(globalRobot.oi.atk3->GetRawAxis(1));}
+void WristJoystick::Execute() {globalRobot.wristSystem.MotionMagicJoystickControl(globalRobot.oi.atk3->GetRawAxis(0));}
 
 // Make this return true when this Command no longer needs to run execute()
 bool WristJoystick::IsFinished() { return false; }

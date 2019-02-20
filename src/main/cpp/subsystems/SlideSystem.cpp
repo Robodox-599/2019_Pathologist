@@ -65,6 +65,8 @@ void SlideSystem::MotionMagicJoystickControl(double axis)
   }
 
   target += (axis * 2.2);
+  if(target > 480){target = 480;}
+  if(target < 212){target = 212;}
 
   TelescopeMotor.Set(ControlMode::MotionMagic, target);
 }

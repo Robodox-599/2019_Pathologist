@@ -13,12 +13,12 @@ WristSystem::WristSystem() : Subsystem("WristSystem"), wristMotor(9)
   wristMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
   wristMotor.SetSensorPhase(true);
   wristMotor.SetInverted(true);
-  wristMotor.ConfigForwardSoftLimitThreshold(994);
-  wristMotor.ConfigReverseSoftLimitThreshold(934);
+  wristMotor.ConfigForwardSoftLimitThreshold(1005);
+  wristMotor.ConfigReverseSoftLimitThreshold(931);
   wristMotor.ConfigForwardSoftLimitEnable(true);
   wristMotor.ConfigReverseSoftLimitEnable(true);
   float kf = 0;
-  float kp = 10;
+  float kp = 90;
   float ki = 0;
   float kd = 0;
   float velocity = 964 / 32;
@@ -64,11 +64,10 @@ void WristSystem::MotionMagicJoystickControl(double axis)
     axis = 0;
   }
 
-  target += (axis * 20);
-  // if(abs(wristMotor.GetSelectedSensorPosition() - target) >  30)
-  // {
-  //   target = wristMotor.GetSelectedSensorPosition();
-  // }
+  target += (axis * 1.5);
+  if(target > 1030){target = 1030;}
+  if(target < 930){target = 930;}
+
   wristMotor.Set(ControlMode::MotionMagic, target);
   printf("%d\n",wristMotor.GetSelectedSensorPosition());
 }

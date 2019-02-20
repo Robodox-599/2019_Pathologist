@@ -20,15 +20,10 @@ void IntakeSystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void IntakeSystem::Intake(float speed)
+void IntakeSystem::IntakeRoller(float speed)
 {
      IntakeMotor.Set(ControlMode::PercentOutput, speed);        
 }
-
-void IntakeSystem::Outtake(float speed)
-{
-     IntakeMotor.Set(ControlMode::PercentOutput, speed);
-}    
 
 void IntakeSystem::HatchPistonsForward()
 {

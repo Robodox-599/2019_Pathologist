@@ -26,7 +26,7 @@ void DriveDefault::Execute()
   }
   else
   {
-    globalRobot.driveSystem.ClimbDrive(globalRobot.oi.xbox->GetRawAxis(4));
+    globalRobot.driveSystem.ClimbDrive(globalRobot.oi.xbox->GetRawAxis(5));
   }
   
 }

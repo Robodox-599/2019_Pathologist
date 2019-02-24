@@ -31,6 +31,8 @@ SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem(
   float velocity = 166 / 4;
   float acceleration = 166 / 4;
 
+  totalTicks = max-min;
+
   TelescopeMotor.Config_kF(0, kf, 0);
   TelescopeMotor.Config_kP(0, kp, 0);
   TelescopeMotor.Config_kI(0, ki, 0);
@@ -54,6 +56,12 @@ void SlideSystem::InitDefaultCommand()
 
 void SlideSystem::MotionMagicControl(double ticks)
 {
+  TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
+}
+
+void SlideSystem::MotionMagicDistance(double distance)
+{
+  double ticks = distance*(totalTicks/16);  //conversion from distance(inches) to ticks   16 inches total throw
   TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
 }
 

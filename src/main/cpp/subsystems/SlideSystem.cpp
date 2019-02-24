@@ -8,12 +8,20 @@
 #include "subsystems/SlideSystem.h"
 #include "commands/SlideJoystick.h"
 //507, 192, 349
-SlideSystem::SlideSystem() : Subsystem("SlideSystem"), TelescopeMotor(3)
+//Practice 194, 500
+SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem("SlideSystem"), TelescopeMotor(3)
 {
+  float limitOffSet = (max-min)*(marginPercent/100);
+  float fwdLimit = max - limitOffSet;
+  float revLimit = min + limitOffSet;
+
   TelescopeMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
-  TelescopeMotor.SetSensorPhase(false);
-  TelescopeMotor.ConfigForwardSoftLimitThreshold(480);
-  TelescopeMotor.ConfigReverseSoftLimitThreshold(212);
+  TelescopeMotor.SetSensorPhase(true);
+  TelescopeMotor.SetInverted(true);
+  // TelescopeMotor.ConfigForwardSoftLimitThreshold(480);
+  // TelescopeMotor.ConfigReverseSoftLimitThreshold(212);
+  TelescopeMotor.ConfigForwardSoftLimitThreshold(fwdLimit);
+  TelescopeMotor.ConfigReverseSoftLimitThreshold(revLimit);
   TelescopeMotor.ConfigForwardSoftLimitEnable(true);
   TelescopeMotor.ConfigReverseSoftLimitEnable(true);
   float kf = 1;
@@ -30,7 +38,7 @@ SlideSystem::SlideSystem() : Subsystem("SlideSystem"), TelescopeMotor(3)
 
   TelescopeMotor.ConfigMotionCruiseVelocity(velocity);
   TelescopeMotor.ConfigMotionAcceleration(acceleration);
-  
+
   target = TelescopeMotor.GetSelectedSensorPosition();
 }
 
@@ -63,11 +71,10 @@ void SlideSystem::MotionMagicJoystickControl(double axis)
   {
     axis = 0;
   }
-
+  // TelescopeMotor.Set(ControlMode::PercentOutput, axis*.3);
   target += (axis * 2.2);
-  if(target > 480){target = 480;}
-  if(target < 212){target = 212;}
-
+  if(target > 490){target = 489;}
+  if(target < 204){target = 205;}
   TelescopeMotor.Set(ControlMode::MotionMagic, target);
 }
 

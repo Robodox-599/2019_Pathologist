@@ -8,13 +8,21 @@
 #include "subsystems/ArmJointSystem.h"
 #include "commands/ArmJointJoystick.h"
 //465, 80, 272
-ArmJointSystem::ArmJointSystem() : Subsystem("ArmJointSystem"), ArmJointMotor(7)
+//Practice 423, 979
+//0 angle 
+ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 {
+  float limitOffSet = (max-min)*(marginPercent/100);
+  float fwdLimit = max - limitOffSet;
+  float revLimit = min + limitOffSet;
+
   ArmJointMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
   ArmJointMotor.SetSensorPhase(true);
   ArmJointMotor.SetInverted(true);
-  ArmJointMotor.ConfigForwardSoftLimitThreshold(453);
-  ArmJointMotor.ConfigReverseSoftLimitThreshold(92);
+  // ArmJointMotor.ConfigForwardSoftLimitThreshold(453);
+  // ArmJointMotor.ConfigReverseSoftLimitThreshold(92);
+  ArmJointMotor.ConfigForwardSoftLimitThreshold(fwdLimit);
+  ArmJointMotor.ConfigReverseSoftLimitThreshold(revLimit);
   ArmJointMotor.ConfigForwardSoftLimitEnable(true);
   ArmJointMotor.ConfigReverseSoftLimitEnable(true);
   float kf = 0;
@@ -63,10 +71,10 @@ void ArmJointSystem::MotionMagicJoystickControl(double axis)
   {
     axis = 0;
   }
-
+  // ArmJointMotor.Set(ControlMode::PercentOutput, axis*.3);
   target += (axis*2.5);
-  if(target > 453){target = 453;}
-  if(target < 92){target = 92;}
+  if(target > 929){target = 928;}
+  if(target < 473){target = 474;}
   ArmJointMotor.Set(ControlMode::MotionMagic, target);
 }
 

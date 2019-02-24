@@ -19,7 +19,7 @@ class ArmJointSystem : public frc::Subsystem {
   // for methods that implement subsystem capabilities
 
  public:
-  ArmJointSystem();
+  ArmJointSystem(float min, float max, float marginPercent);
   void InitDefaultCommand() override;
   void MotionMagicControl(double ticks);
   void MotionMagicJoystickControl(double axis);

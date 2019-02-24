@@ -30,6 +30,7 @@ class Robot : public frc::TimedRobot {
   SlideSystem slideSystem;
   frc::Compressor comp599;
 
+  Robot();
   void RobotInit() override;
   void RobotPeriodic() override;
   void DisabledInit() override;

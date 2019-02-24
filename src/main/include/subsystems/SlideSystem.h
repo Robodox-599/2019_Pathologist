@@ -19,7 +19,7 @@ class SlideSystem : public frc::Subsystem {
   double target;
 
  public:
-  SlideSystem();
+  SlideSystem(float min, float max, float marginPercent);
   void InitDefaultCommand() override;
   void MotionMagicControl(double ticks);
   void MotionMagicJoystickControl(double axis);

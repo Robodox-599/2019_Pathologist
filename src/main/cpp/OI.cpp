@@ -18,6 +18,7 @@
 #include "commands/ArmJointControl.h"
 #include "commands/WristControl.h"
 #include "commands/ClimbPistonsUp.h"
+#include "commands/AllThreeAxis.h"
 
 OI::OI()
 {
@@ -36,25 +37,26 @@ OI::OI()
   frc::JoystickButton *Button4 = new frc::JoystickButton(atk3, 4);
   frc::JoystickButton *Button2 = new frc::JoystickButton(atk3, 2);
   frc::JoystickButton *Button3 = new frc::JoystickButton(atk3, 3);
-  Buttonx1_A->WhenPressed(new Ball_Intake(.3));
-  Buttonx2_B->WhenPressed(new Ball_Outtake(-.3));
-  Buttonx3_X->WhenPressed(new Ball_Stop());
-  Buttonx4_Y->WhenPressed(new Hatch_Release());
-  Buttonx5_LB->WhenPressed(new Hatch_Reset());
-  // Buttonx1_A->WhenPressed(new SlideControl(349));
-  // Buttonx2_B->WhenPressed(new SlideControl(192));
-  // Buttonx3_X->WhenPressed(new SlideControl(507));
-  //Buttonx4_Y->WhenPressed(new ArmJointControl(272));
-  //Buttonx5_LB->WhenPressed(new ArmJointControl(465));
+  // Buttonx1_A->WhenPressed(new Ball_Intake(.3));
+  // Buttonx2_B->WhenPressed(new Ball_Outtake(-.3));
+  // Buttonx3_X->WhenPressed(new Ball_Stop());
+  // Buttonx4_Y->WhenPressed(new Hatch_Release());
+  // Buttonx5_LB->WhenPressed(new Hatch_Reset());
+  Buttonx1_A->WhenPressed(new AllThreeAxis(422, 383, 465)); //Low
+  Buttonx2_B->WhenPressed(new AllThreeAxis(650, 320, 449)); //Mid
+  Buttonx3_X->WhenPressed(new AllThreeAxis(766, 486, 451)); //High
+  Buttonx4_Y->WhenPressed(new ArmJointControl(901));
+  Buttonx5_LB->WhenPressed(new ArmJointControl(501));
   //Buttonx6_RB->WhenPressed(new ArmJointControl(160));
   //Buttonx5_LB->WhenPressed(new ClimbPistonsUp());
   Buttonx6_RB->WhenPressed(new ClimbPistonsDown());
   Buttonx7_Start->WhenPressed(new ClimbFrontPistonsUp());
   Buttonx8_Select->WhenPressed(new ClimbRearPistonUp());
-  Button2->WhenPressed(new WristControl(925));
-  Button3->WhenPressed(new WristControl(964));
-  Button4->WhenPressed(new WristControl(1003));
-
+  Button2->WhenPressed(new SlideControl(500));
+  Button3->WhenPressed(new WristControl(439));
+//422, 433, 472  Low Hatch
+//650, 653, 449  Mid Hatch
+//766, 793, 451  High Hatch
 #else
   struct
   {

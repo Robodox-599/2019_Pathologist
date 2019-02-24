@@ -21,7 +21,7 @@ class WristSystem : public frc::Subsystem
 	double target;
 
   public:
-	WristSystem();
+	WristSystem(float min, float max, float marginPercent);
 	void InitDefaultCommand() override;
 	void MotionMagicControl(double ticks);
 	void MotionMagicJoystickControl(double axis);

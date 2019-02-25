@@ -56,6 +56,12 @@ void WristSystem::MotionMagicControl(double ticks)
   wristMotor.Set(ControlMode::MotionMagic, ticks);
 }
 
+void WristSystem::MotionMagicDegrees(double degrees)
+{
+  double ticks = 0;
+  wristMotor.Set(ControlMode::MotionMagic, ticks);
+}
+
 void WristSystem::MotionMagicJoystickControl(double axis)
 {
   if (axis > 0.2)

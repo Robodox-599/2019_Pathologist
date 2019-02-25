@@ -7,9 +7,25 @@
 
 #pragma once
 
-#include <frc/commands/CommandGroup.h>
+#include <frc/commands/Command.h>
 
-class AllThreeAxisDistance : public frc::CommandGroup {
- public:
+class AllThreeAxisDistance : public frc::Command
+{
+public:
   AllThreeAxisDistance(double x, double y);
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+
+private:
+  double a = 34.5;
+  double b = 19.5;
+  double d = 4.25;
+  double phi;
+  double r;
+  double alpha;
+  double delta;
+  double theta;
 };

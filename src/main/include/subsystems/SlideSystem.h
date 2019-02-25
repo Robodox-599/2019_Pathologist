@@ -17,6 +17,7 @@ class SlideSystem : public frc::Subsystem {
   // for methods that implement subsystem capabilities
   TalonSRX TelescopeMotor;
   double target;
+  double totalTicks;
 
  public:
   SlideSystem(float min, float max, float marginPercent);

@@ -8,10 +8,10 @@
 #include "subsystems/SlideSystem.h"
 #include "commands/SlideJoystick.h"
 //507, 192, 349
-//Practice 194, 500
+//Practice 194, 500   (183, 489)
 SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem("SlideSystem"), TelescopeMotor(3)
 {
-  float limitOffSet = (max-min)*(marginPercent/100);
+  float limitOffSet = (max - min) * (marginPercent / 100);
   float fwdLimit = max - limitOffSet;
   float revLimit = min + limitOffSet;
 
@@ -31,7 +31,7 @@ SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem(
   float velocity = 166 / 4;
   float acceleration = 166 / 4;
 
-  totalTicks = max-min;
+  totalTicks = max - min;
 
   TelescopeMotor.Config_kF(0, kf, 0);
   TelescopeMotor.Config_kP(0, kp, 0);
@@ -61,7 +61,7 @@ void SlideSystem::MotionMagicControl(double ticks)
 
 void SlideSystem::MotionMagicDistance(double distance)
 {
-  double ticks = distance*(totalTicks/16);  //conversion from distance(inches) to ticks   16 inches total throw
+  double ticks = distance * (totalTicks / 16.25) + 183; //conversion from distance(inches) to ticks   16 inches total throw
   TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
 }
 
@@ -81,8 +81,14 @@ void SlideSystem::MotionMagicJoystickControl(double axis)
   }
   // TelescopeMotor.Set(ControlMode::PercentOutput, axis*.3);
   target += (axis * 2.2);
-  if(target > 490){target = 489;}
-  if(target < 204){target = 205;}
+  if (target > 490)
+  {
+    target = 489;
+  }
+  if (target < 204)
+  {
+    target = 205;
+  }
   TelescopeMotor.Set(ControlMode::MotionMagic, target);
 }
 

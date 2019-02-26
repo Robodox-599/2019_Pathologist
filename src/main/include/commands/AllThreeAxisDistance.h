@@ -21,7 +21,8 @@ public:
 
 private:
   double a = 34.5;
-  double b = 19.5;
+  //double b = 19.5;
+  double b = 19;
   double d = 4.25;
   double phi;
   double r;

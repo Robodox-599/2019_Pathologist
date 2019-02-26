@@ -15,12 +15,12 @@ AllThreeAxisDistance::AllThreeAxisDistance(double x, double y) {
   Requires(&globalRobot.slideSystem);
   Requires(&globalRobot.wristSystem);
 
-  phi = atan2(y-a, x);
+  phi = atan2((y-a), x);
   r = x/cos(phi);
   alpha = asin(d/r);
   
   delta = r*cos(alpha)-b;
-  theta = phi-alpha;
+  theta = (phi-alpha)*(180/3.14);
 }
 
 // Called just before this Command runs the first time
@@ -28,7 +28,9 @@ void AllThreeAxisDistance::Initialize()
 {
   globalRobot.armJointSystem.MotionMagicDegrees(theta);
   globalRobot.slideSystem.MotionMagicDistance(delta);
-  globalRobot.wristSystem.MotionMagicDegrees(theta);
+  //globalRobot.wristSystem.MotionMagicDegrees(theta);
+  frc::SmartDashboard::PutNumber("Theta", theta);
+  frc::SmartDashboard::PutNumber("Delta", delta);
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -9,7 +9,7 @@
 #include "commands/ArmJointJoystick.h"
 //465, 80, 272
 //Practice 423, 979
-//0 angle 568   90 angle 895
+//0 angle 568, (556)   90 angle 895, (890),  -45 angle 401,   45 angle 723
 ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 {
   float limitOffSet = (max-min)*(marginPercent/100);
@@ -59,7 +59,7 @@ void ArmJointSystem::MotionMagicControl(double ticks)
 
 void ArmJointSystem::MotionMagicDegrees(double degrees)
 {
-  double ticks = degrees*3.6 + 568;
+  double ticks = degrees*3.578 + 556;
   ArmJointMotor.Set(ControlMode::MotionMagic, ticks);
 }
 

@@ -19,6 +19,7 @@
 #include "commands/WristControl.h"
 #include "commands/ClimbPistonsUp.h"
 #include "commands/AllThreeAxis.h"
+#include "commands/AllThreeAxisDistance.h"
 
 OI::OI()
 {
@@ -45,11 +46,16 @@ OI::OI()
   Buttonx1_A->WhenPressed(new AllThreeAxis(422, 383, 465)); //Low
   Buttonx2_B->WhenPressed(new AllThreeAxis(650, 320, 449)); //Mid
   Buttonx3_X->WhenPressed(new AllThreeAxis(766, 486, 451)); //High
-  Buttonx4_Y->WhenPressed(new ArmJointControl(901));
-  Buttonx5_LB->WhenPressed(new ArmJointControl(501));
+
+  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(25.5, 38.75));
+  Buttonx5_LB->WhenPressed(new AllThreeAxisDistance(25.5, 17.25));
+  Buttonx6_RB->WhenPressed(new AllThreeAxisDistance(25.5, 51.75));
+
+  // Buttonx4_Y->WhenPressed(new ArmJointControl(901));
+  // Buttonx5_LB->WhenPressed(new ArmJointControl(501));
   //Buttonx6_RB->WhenPressed(new ArmJointControl(160));
   //Buttonx5_LB->WhenPressed(new ClimbPistonsUp());
-  Buttonx6_RB->WhenPressed(new ClimbPistonsDown());
+  // Buttonx6_RB->WhenPressed(new ClimbPistonsDown());
   Buttonx7_Start->WhenPressed(new ClimbFrontPistonsUp());
   Buttonx8_Select->WhenPressed(new ClimbRearPistonUp());
   Button2->WhenPressed(new SlideControl(500));

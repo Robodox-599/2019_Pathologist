@@ -15,7 +15,7 @@ WristSystem::WristSystem(float min, float max, float marginPercent) : Subsystem(
   float fwdLimit = max - limitOffSet;
   float revLimit = min + limitOffSet;
   
-  wristMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
+  wristMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
   wristMotor.SetSensorPhase(true);
   wristMotor.SetInverted(true);
 //  wristMotor.ConfigForwardSoftLimitThreshold(1005);
@@ -45,7 +45,7 @@ void WristSystem::InitDefaultCommand()
 {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
-  SetDefaultCommand(new WristJoystick());
+  //SetDefaultCommand(new WristJoystick());
 }
 
 // Put methods for controlling this subsystem

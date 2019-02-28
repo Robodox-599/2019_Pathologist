@@ -18,6 +18,7 @@ class SlideSystem : public frc::Subsystem {
   TalonSRX TelescopeMotor;
   double target;
   double totalTicks;
+  double startingPoint;
 
  public:
   SlideSystem(float min, float max, float marginPercent);
@@ -26,4 +27,6 @@ class SlideSystem : public frc::Subsystem {
   void MotionMagicDistance(double distance);
   void MotionMagicJoystickControl(double axis);
   void JoystickControl(double axis);
+  void ChangeTarget(double newTarget);
+  double ReturnDistance();
 };

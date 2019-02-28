@@ -28,7 +28,7 @@ void AllThreeAxisDistance::Initialize()
 {
   globalRobot.armJointSystem.MotionMagicDegrees(theta);
   globalRobot.slideSystem.MotionMagicDistance(delta);
-  //globalRobot.wristSystem.MotionMagicDegrees(theta);
+  // globalRobot.wristSystem.MotionMagicDegrees(theta);
   frc::SmartDashboard::PutNumber("Theta", theta);
   frc::SmartDashboard::PutNumber("Delta", delta);
 }

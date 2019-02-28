@@ -7,8 +7,10 @@
 
 #include "subsystems/WristSystem.h"
 #include "commands/WristJoystick.h"
+#include "commands/WristControl.h"
 //925, 1003, 964
-//Practice 427, 507
+//Practice -3607, -290
+//0 degree -2096, 90 degree -688
 WristSystem::WristSystem(float min, float max, float marginPercent) : Subsystem("WristSystem"), wristMotor(9)
 {
   float limitOffSet = (max-min)*(marginPercent/100);
@@ -16,7 +18,7 @@ WristSystem::WristSystem(float min, float max, float marginPercent) : Subsystem(
   float revLimit = min + limitOffSet;
   
   wristMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
-  wristMotor.SetSensorPhase(true);
+  wristMotor.SetSensorPhase(false);
   wristMotor.SetInverted(true);
 //  wristMotor.ConfigForwardSoftLimitThreshold(1005);
 //  wristMotor.ConfigReverseSoftLimitThreshold(931);
@@ -46,6 +48,7 @@ void WristSystem::InitDefaultCommand()
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
   //SetDefaultCommand(new WristJoystick());
+  //SetDefaultCommand(new WristControl(target));
 }
 
 // Put methods for controlling this subsystem
@@ -58,7 +61,7 @@ void WristSystem::MotionMagicControl(double ticks)
 
 void WristSystem::MotionMagicDegrees(double degrees)
 {
-  double ticks = 0;
+  double ticks = degrees*15.644 + -2096;
   wristMotor.Set(ControlMode::MotionMagic, ticks);
 }
 
@@ -100,4 +103,9 @@ void WristSystem::JoystickControl(double axis)
   }
   wristMotor.Set(ControlMode::PercentOutput, axis);
   frc::SmartDashboard::PutNumber("Wrist Encoder readout", wristMotor.GetSelectedSensorPosition());
+}
+
+void WristSystem::ChangeTarget(double newTarget)
+{
+  target = newTarget;
 }

@@ -27,4 +27,5 @@ class WristSystem : public frc::Subsystem
 	void MotionMagicDegrees(double degrees);
 	void MotionMagicJoystickControl(double axis);
 	void JoystickControl(double axis);
+	void ChangeTarget(double newTarget);
 };

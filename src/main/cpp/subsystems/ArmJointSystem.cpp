@@ -7,11 +7,14 @@
 
 #include "subsystems/ArmJointSystem.h"
 #include "commands/ArmJointJoystick.h"
+#include "commands/ArmJointControl.h"
 //465, 80, 272
-//Practice 423, 979
-//0 angle 568, (556)   90 angle 895, (890),  -45 angle 401,   45 angle 723
+//Practice 305, 821     215, 717
+//0 angle 403,   90 angle 717
 ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 {
+  angle0 = 403;
+
   float limitOffSet = (max-min)*(marginPercent/100);
   float fwdLimit = max - limitOffSet;
   float revLimit = min + limitOffSet;
@@ -47,6 +50,7 @@ void ArmJointSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
   //SetDefaultCommand(new ArmJointJoystick());
+  //SetDefaultCommand(new ArmJointControl(target));
 }
 
 // Put methods for controlling this subsystem
@@ -59,7 +63,7 @@ void ArmJointSystem::MotionMagicControl(double ticks)
 
 void ArmJointSystem::MotionMagicDegrees(double degrees)
 {
-  double ticks = degrees*3.578 + 556;
+  double ticks = degrees*3.4889 + angle0;
   ArmJointMotor.Set(ControlMode::MotionMagic, ticks);
 }
 
@@ -100,4 +104,14 @@ void ArmJointSystem::JoystickControl(double axis)
   }
   ArmJointMotor.Set(ControlMode::PercentOutput, axis);
   frc::SmartDashboard::PutNumber("Arm Joint Potentiometer readout", ArmJointMotor.GetSelectedSensorPosition());
+}
+
+void ArmJointSystem::ChangeTarget(double newTarget)
+{
+  target = newTarget;
+}
+
+double ArmJointSystem::ReturnAngle()
+{
+  return (ArmJointMotor.GetSelectedSensorPosition()-angle0)/3.4889;
 }

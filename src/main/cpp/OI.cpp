@@ -47,9 +47,9 @@ OI::OI()
   Buttonx2_B->WhenPressed(new AllThreeAxis(650, 320, 449)); //Mid
   Buttonx3_X->WhenPressed(new AllThreeAxis(766, 486, 451)); //High
 
-  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(25.5, 38.75));
-  Buttonx5_LB->WhenPressed(new AllThreeAxisDistance(25.5, 17.25));
-  Buttonx6_RB->WhenPressed(new AllThreeAxisDistance(25.5, 51.75));
+  Button2->WhenPressed(new AllThreeAxisDistance(25.5, 38.75));
+  Button3->WhenPressed(new AllThreeAxisDistance(25.5, 17.25));
+  Button4->WhenPressed(new AllThreeAxisDistance(25.5, 51.75));
 
   // Buttonx4_Y->WhenPressed(new ArmJointControl(901));
   // Buttonx5_LB->WhenPressed(new ArmJointControl(501));
@@ -58,8 +58,8 @@ OI::OI()
   // Buttonx6_RB->WhenPressed(new ClimbPistonsDown());
   Buttonx7_Start->WhenPressed(new ClimbFrontPistonsUp());
   Buttonx8_Select->WhenPressed(new ClimbRearPistonUp());
-  Button2->WhenPressed(new SlideControl(500));
-  Button3->WhenPressed(new WristControl(439));
+  // Button2->WhenPressed(new SlideControl(500));
+  // Button3->WhenPressed(new WristControl(439));
 //422, 433, 472  Low Hatch
 //650, 653, 449  Mid Hatch
 //766, 793, 451  High Hatch

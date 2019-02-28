@@ -7,10 +7,13 @@
 
 #include "subsystems/SlideSystem.h"
 #include "commands/SlideJoystick.h"
+#include "commands/SlideControl.h"
 //507, 192, 349
-//Practice 194, 500   (183, 489)
+//Practice 194, 500   (183, 489)    661, 354
 SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem("SlideSystem"), TelescopeMotor(3)
 {
+  startingPoint = min;
+
   float limitOffSet = (max - min) * (marginPercent / 100);
   float fwdLimit = max - limitOffSet;
   float revLimit = min + limitOffSet;
@@ -49,6 +52,7 @@ void SlideSystem::InitDefaultCommand()
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
   //SetDefaultCommand(new SlideJoystick());
+  //SetDefaultCommand(new SlideControl(target));
 }
 
 // Put methods for controlling this subsystem
@@ -61,7 +65,7 @@ void SlideSystem::MotionMagicControl(double ticks)
 
 void SlideSystem::MotionMagicDistance(double distance)
 {
-  double ticks = distance * (totalTicks / 16.25) + 183; //conversion from distance(inches) to ticks   16 inches total throw
+  double ticks = distance * (totalTicks / 16.25) + startingPoint; //conversion from distance(inches) to ticks   16 inches total throw
   TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
 }
 
@@ -109,4 +113,14 @@ void SlideSystem::JoystickControl(double axis)
   TelescopeMotor.Set(ControlMode::PercentOutput, axis);
   frc::SmartDashboard::PutNumber("Telescope Potentiometer readout", TelescopeMotor.GetSelectedSensorPosition());
   frc::SmartDashboard::PutNumber("Slide Motor Power", TelescopeMotor.GetMotorOutputPercent());
+}
+
+void SlideSystem::ChangeTarget(double newTarget)
+{
+  target = newTarget;
+}
+
+double SlideSystem::ReturnDistance()
+{
+  return (TelescopeMotor.GetSelectedSensorPosition()-startingPoint)/(totalTicks/16.25);
 }

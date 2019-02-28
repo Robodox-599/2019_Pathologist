@@ -50,7 +50,7 @@ void ArmJointSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
   //SetDefaultCommand(new ArmJointJoystick());
-  //SetDefaultCommand(new ArmJointControl(target));
+  SetDefaultCommand(new ArmJointControl(target));
 }
 
 // Put methods for controlling this subsystem
@@ -108,10 +108,10 @@ void ArmJointSystem::JoystickControl(double axis)
 
 void ArmJointSystem::ChangeTarget(double newTarget)
 {
-  target = newTarget;
+  target = newTarget*3.4889 + angle0;;
 }
 
 double ArmJointSystem::ReturnAngle()
 {
-  return (ArmJointMotor.GetSelectedSensorPosition()-angle0)/3.4889;
+  return (ArmJointMotor.GetSelectedSensorPosition(0)-angle0)/3.4889;
 }

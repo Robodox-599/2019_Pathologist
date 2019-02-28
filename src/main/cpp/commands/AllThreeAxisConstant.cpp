@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AllThreeAxisJoystick.h"
+#include "commands/AllThreeAxisConstant.h"
 #include "commands/AllThreeAxisDistance.h"
 #include "Robot.h"
 
-AllThreeAxisJoystick::AllThreeAxisJoystick(double xinput, double yinput, double changeX, double changeY)
+AllThreeAxisConstant::AllThreeAxisConstant(double xinput, double yinput, double changeX, double changeY)
 {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  initialDelta = globalRobot.slideSystem.ReturnDistance();
-  initialTheta = globalRobot.armJointSystem.ReturnAngle();
-  x = (b + initialDelta) * cos(initialTheta) - d * sin(initialTheta);
-  y = (b + initialDelta) * sin(initialTheta) + d * sin(initialTheta) + a;
+  Requires(&globalRobot.armJointSystem);
+  Requires(&globalRobot.slideSystem);
+  Requires(&globalRobot.wristSystem);
+
   targetx = xinput;
   targety = yinput;
   deltax = changeX;
@@ -24,48 +24,65 @@ AllThreeAxisJoystick::AllThreeAxisJoystick(double xinput, double yinput, double 
 }
 
 // Called just before this Command runs the first time
-void AllThreeAxisJoystick::Initialize()
+void AllThreeAxisConstant::Initialize()
 {
-
+  initialDelta = globalRobot.slideSystem.ReturnDistance();
+  initialTheta = globalRobot.armJointSystem.ReturnAngle()*3.14/180;
+  x = (b + initialDelta) * cos(initialTheta) - d * sin(initialTheta);
+  y = (b + initialDelta) * sin(initialTheta) + d * sin(initialTheta) + a;
+  printf("x %d \n", x);
+  printf("y %d \n", y);
+  printf("initial Delta %d \n", initialDelta);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AllThreeAxisJoystick::Execute()
+void AllThreeAxisConstant::Execute()
 {
   if((targetx - x) > deltax)
   {
-    newx = x + deltax;
+    x += deltax;
   }
   else if((targetx - x) < -deltax)
   {
-    newx = x - deltax;
+    x -= deltax;
   }
   else
   {
-    newx = targetx;
+    x = targetx;
   }
 
   if((targety - y) > deltay)
   {
-    newy = y + deltay;
+    y += deltay;
   }
   else if((targety - y) < -deltay)
   {
-    newy = y - deltay;
+    y -= deltay;
   }
   else
   {
-    newy = targety;
+    y = targety;
   }
-  AllThreeAxisDistance(newx, newy);
+
+  phi = atan2((y-a), x);
+  r = x/cos(phi);
+  alpha = asin(d/r);
+  
+  delta = r*cos(alpha)-b;
+  theta = (phi-alpha)*(180/3.14);
+
+  // globalRobot.slideSystem.ChangeTarget(delta);
+  // globalRobot.armJointSystem.ChangeTarget(theta);
+
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AllThreeAxisJoystick::IsFinished() { return false; }
+bool AllThreeAxisConstant::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void AllThreeAxisJoystick::End() {}
+void AllThreeAxisConstant::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AllThreeAxisJoystick::Interrupted() {}
+void AllThreeAxisConstant::Interrupted() {}

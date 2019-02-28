@@ -52,7 +52,7 @@ void SlideSystem::InitDefaultCommand()
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
   //SetDefaultCommand(new SlideJoystick());
-  //SetDefaultCommand(new SlideControl(target));
+  SetDefaultCommand(new SlideControl(target));
 }
 
 // Put methods for controlling this subsystem
@@ -117,10 +117,10 @@ void SlideSystem::JoystickControl(double axis)
 
 void SlideSystem::ChangeTarget(double newTarget)
 {
-  target = newTarget;
+  target = newTarget * (totalTicks / 16.25) + startingPoint;;
 }
 
 double SlideSystem::ReturnDistance()
 {
-  return (TelescopeMotor.GetSelectedSensorPosition()-startingPoint)/(totalTicks/16.25);
+  return (TelescopeMotor.GetSelectedSensorPosition(0)-startingPoint)/(totalTicks/16.25);
 }

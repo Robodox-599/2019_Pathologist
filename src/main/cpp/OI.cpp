@@ -20,6 +20,7 @@
 #include "commands/ClimbPistonsUp.h"
 #include "commands/AllThreeAxis.h"
 #include "commands/AllThreeAxisDistance.h"
+#include "commands/AllThreeAxisConstant.h"
 
 OI::OI()
 {
@@ -47,9 +48,9 @@ OI::OI()
   Buttonx2_B->WhenPressed(new AllThreeAxis(650, 320, 449)); //Mid
   Buttonx3_X->WhenPressed(new AllThreeAxis(766, 486, 451)); //High
 
-  Button2->WhenPressed(new AllThreeAxisDistance(25.5, 38.75));
-  Button3->WhenPressed(new AllThreeAxisDistance(25.5, 17.25));
-  Button4->WhenPressed(new AllThreeAxisDistance(25.5, 51.75));
+  Button2->WhenPressed(new AllThreeAxisConstant(25.5, 38.75, .4, .4));
+  Button3->WhenPressed(new AllThreeAxisConstant(25.5, 17.25, .4, .4));
+  Button4->WhenPressed(new AllThreeAxisConstant(25.5, 51.75, .4, .4));
 
   // Buttonx4_Y->WhenPressed(new ArmJointControl(901));
   // Buttonx5_LB->WhenPressed(new ArmJointControl(501));

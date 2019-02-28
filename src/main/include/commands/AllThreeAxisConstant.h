@@ -9,10 +9,10 @@
 
 #include <frc/commands/Command.h>
 
-class AllThreeAxisJoystick : public frc::Command
+class AllThreeAxisConstant : public frc::Command
 {
 public:
-  AllThreeAxisJoystick(double xinput, double yinput, double changeX, double changeY);
+  AllThreeAxisConstant(double xinput, double yinput, double changeX, double changeY);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
@@ -24,8 +24,6 @@ private:
   //double b = 19.5;
   double b = 19;
   double d = 4.25;
-  double newx;
-  double newy;
   double x;
   double y;
   double initialDelta;
@@ -34,4 +32,9 @@ private:
   double deltax;
   double targetx;
   double targety;
+  double phi;
+  double r;
+  double alpha;
+  double delta;
+  double theta;
 };

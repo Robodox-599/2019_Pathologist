@@ -50,7 +50,7 @@ void ArmJointSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
   //SetDefaultCommand(new ArmJointJoystick());
-  SetDefaultCommand(new ArmJointControl(target));
+  //SetDefaultCommand(new ArmJointControl(target));
 }
 
 // Put methods for controlling this subsystem

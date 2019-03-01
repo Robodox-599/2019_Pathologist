@@ -8,27 +8,38 @@
 #include "commands/AllThreeAxisDistance.h"
 #include "Robot.h"
 
-AllThreeAxisDistance::AllThreeAxisDistance(double x, double y) {
+AllThreeAxisDistance::AllThreeAxisDistance(double x, double y)
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&globalRobot.armJointSystem);
   Requires(&globalRobot.slideSystem);
   Requires(&globalRobot.wristSystem);
 
-  phi = atan2((y-a), x);
-  r = x/cos(phi);
-  alpha = asin(d/r);
-  
-  delta = r*cos(alpha)-b;
-  theta = (phi-alpha)*(180/3.14);
+  phi = atan2((y - a), x);
+  r = x / cos(phi);
+  alpha = asin(d / r);
+
+  delta = r * cos(alpha) - b;
+  theta = (phi - alpha) * (180 / 3.14);
 }
 
 // Called just before this Command runs the first time
-void AllThreeAxisDistance::Initialize() 
+void AllThreeAxisDistance::Initialize()
 {
-  globalRobot.armJointSystem.MotionMagicDegrees(theta);
-  globalRobot.slideSystem.MotionMagicDistance(delta);
-  // globalRobot.wristSystem.MotionMagicDegrees(theta);
+  if (!globalRobot.wristSystem.GetWristFlag())
+  {
+    globalRobot.armJointSystem.MotionMagicDegrees(theta);
+    globalRobot.slideSystem.MotionMagicDistance(delta);
+    // globalRobot.wristSystem.MotionMagicDegrees(theta);
+  }
+  else
+  {
+    globalRobot.armJointSystem.MotionMagicDegrees(theta);
+    globalRobot.slideSystem.MotionMagicDistance(delta);
+    // globalRobot.wristSystem.MotionMagicDegrees(theta + 90);
+  }
+
   frc::SmartDashboard::PutNumber("Theta", theta);
   frc::SmartDashboard::PutNumber("Delta", delta);
 }

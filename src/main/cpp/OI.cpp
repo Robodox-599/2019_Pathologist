@@ -21,6 +21,7 @@
 #include "commands/AllThreeAxis.h"
 #include "commands/AllThreeAxisDistance.h"
 #include "commands/AllThreeAxisConstant.h"
+#include "commands/AutoHome.h"
 
 OI::OI()
 {
@@ -44,9 +45,20 @@ OI::OI()
   // Buttonx3_X->WhenPressed(new Ball_Stop());
   // Buttonx4_Y->WhenPressed(new Hatch_Release());
   // Buttonx5_LB->WhenPressed(new Hatch_Reset());
-  Buttonx1_A->WhenPressed(new AllThreeAxis(422, 383, 465)); //Low
-  Buttonx2_B->WhenPressed(new AllThreeAxis(650, 320, 449)); //Mid
-  Buttonx3_X->WhenPressed(new AllThreeAxis(766, 486, 451)); //High
+  // Buttonx1_A->WhenPressed(new AllThreeAxis(422, 383, 465)); //Low
+  // Buttonx2_B->WhenPressed(new AllThreeAxis(650, 320, 449)); //Mid
+  // Buttonx3_X->WhenPressed(new AllThreeAxis(766, 486, 451)); //High
+
+  //Distance (x,y)
+  //High Hatch (36, 75)     Ball (36.2, 83.5)
+  //Mid Hatch (24.02, 47)        (28.4, 55.5)
+  //Low Hatch (26.97, 19)        (21.02, 27.5)
+
+  Buttonx1_A->WhenPressed(new AllThreeAxisDistance(26.97, 19)); //Low Hatch
+  Buttonx2_B->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
+  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(36, 75)); //High Hatch
+
+  Buttonx5_LB->WhenPressed(new AutoHome());
 
   Button2->WhenPressed(new AllThreeAxisConstant(25.5, 38.75, .4, .4));
   Button3->WhenPressed(new AllThreeAxisConstant(25.5, 17.25, .4, .4));

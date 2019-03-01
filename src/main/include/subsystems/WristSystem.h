@@ -19,13 +19,32 @@ class WristSystem : public frc::Subsystem
 	// for methods that implement subsystem capabilities
 	TalonSRX wristMotor;
 	double target;
+	bool WristFlag;
+
+	double startingPoint;
+	float fwdLimit;
+  float revLimit;
+  float limitOffSet;
+  float potMin;
+  float potMax;
+  float percent;
+  bool reset;
 
   public:
 	WristSystem(float min, float max, float marginPercent);
 	void InitDefaultCommand() override;
 	void MotionMagicControl(double ticks);
+	void MotionMagicPercent(double percent);
 	void MotionMagicDegrees(double degrees);
 	void MotionMagicJoystickControl(double axis);
 	void JoystickControl(double axis);
 	void ChangeTarget(double newTarget);
+	void SetWristFlagTrue();
+	void SetWristFlagFalse();
+	bool GetWristFlag();
+
+	void ResetMinMax(float power);
+  void ResetWristConfig();
+  void SetResetFlagFalse();
+  bool ReturnResetFlag();
 };

@@ -5,28 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/WristControl.h"
+#include "commands/SlideResetMinMax.h"
 #include "Robot.h"
 
-WristControl::WristControl(double ticks) {
+SlideResetMinMax::SlideResetMinMax(float power)
+{
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&globalRobot.wristSystem);
-  target = ticks;
+  Requires(&globalRobot.slideSystem);
+  motorPower = power;
 }
 
 // Called just before this Command runs the first time
-void WristControl::Initialize() {globalRobot.wristSystem.MotionMagicControl(target);}
+void SlideResetMinMax::Initialize()
+{
+  globalRobot.slideSystem.ResetMinMax(motorPower);
+}
 
 // Called repeatedly when this Command is scheduled to run
-void WristControl::Execute() {}
+void SlideResetMinMax::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool WristControl::IsFinished() { return true; }
+bool SlideResetMinMax::IsFinished() { return globalRobot.slideSystem.ReturnResetFlag(); }
 
 // Called once after isFinished returns true
-void WristControl::End() {}
+void SlideResetMinMax::End()
+{
+  globalRobot.slideSystem.SetResetFlagFalse();
+  frc::Wait(1);
+}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void WristControl::Interrupted() {}
+void SlideResetMinMax::Interrupted() {}

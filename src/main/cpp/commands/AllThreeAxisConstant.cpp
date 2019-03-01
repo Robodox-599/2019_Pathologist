@@ -30,9 +30,9 @@ void AllThreeAxisConstant::Initialize()
   initialTheta = globalRobot.armJointSystem.ReturnAngle()*3.14/180;
   x = (b + initialDelta) * cos(initialTheta) - d * sin(initialTheta);
   y = (b + initialDelta) * sin(initialTheta) + d * sin(initialTheta) + a;
-  printf("x %d \n", x);
-  printf("y %d \n", y);
-  printf("initial Delta %d \n", initialDelta);
+  printf("x %F \n", x);
+  printf("y %F \n", y);
+  printf("initial Delta %F \n", initialDelta);
 }
 
 // Called repeatedly when this Command is scheduled to run

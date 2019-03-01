@@ -19,14 +19,26 @@ class SlideSystem : public frc::Subsystem {
   double target;
   double totalTicks;
   double startingPoint;
+  float fwdLimit;
+  float revLimit;
+  float limitOffSet;
+  float potMin;
+  float potMax;
+  float percent;
+  bool reset;
 
  public:
   SlideSystem(float min, float max, float marginPercent);
   void InitDefaultCommand() override;
   void MotionMagicControl(double ticks);
+  void MotionMagicPercent(double percent);
   void MotionMagicDistance(double distance);
   void MotionMagicJoystickControl(double axis);
   void JoystickControl(double axis);
   void ChangeTarget(double newTarget);
   double ReturnDistance();
+  void ResetMinMax(float power);
+  void ResetSlideConfig();
+  void SetResetFlagFalse();
+  bool ReturnResetFlag();
 };

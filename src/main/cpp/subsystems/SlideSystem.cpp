@@ -14,9 +14,15 @@ SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem(
 {
   startingPoint = min;
 
-  float limitOffSet = (max - min) * (marginPercent / 100);
-  float fwdLimit = max - limitOffSet;
-  float revLimit = min + limitOffSet;
+  limitOffSet = (max - min) * (marginPercent / 200);
+  fwdLimit = max - limitOffSet;
+  revLimit = min + limitOffSet;
+
+  totalTicks = max - min;
+
+  percent = marginPercent;
+
+  reset = false;
 
   TelescopeMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
   TelescopeMotor.SetSensorPhase(true);
@@ -33,8 +39,6 @@ SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem(
   float kd = 0;
   float velocity = 166 / 4;
   float acceleration = 166 / 4;
-
-  totalTicks = max - min;
 
   TelescopeMotor.Config_kF(0, kf, 0);
   TelescopeMotor.Config_kP(0, kp, 0);
@@ -61,6 +65,11 @@ void SlideSystem::InitDefaultCommand()
 void SlideSystem::MotionMagicControl(double ticks)
 {
   TelescopeMotor.Set(ControlMode::MotionMagic, ticks);
+}
+
+void SlideSystem::MotionMagicPercent(double percent)
+{
+  TelescopeMotor.Set(ControlMode::MotionMagic, potMin + (potMax-potMin)*(percent/100));
 }
 
 void SlideSystem::MotionMagicDistance(double distance)
@@ -117,10 +126,66 @@ void SlideSystem::JoystickControl(double axis)
 
 void SlideSystem::ChangeTarget(double newTarget)
 {
-  target = newTarget * (totalTicks / 16.25) + startingPoint;;
+  target = newTarget * (totalTicks / 16.25) + startingPoint;
+  ;
 }
 
 double SlideSystem::ReturnDistance()
 {
-  return (TelescopeMotor.GetSelectedSensorPosition(0)-startingPoint)/(totalTicks/16.25);
+  return (TelescopeMotor.GetSelectedSensorPosition(0) - startingPoint) / (totalTicks / 16.25);
+}
+
+void SlideSystem::ResetMinMax(float power)
+{
+  TelescopeMotor.ConfigForwardSoftLimitEnable(false);
+  TelescopeMotor.ConfigReverseSoftLimitEnable(false);
+  TelescopeMotor.Set(ControlMode::PercentOutput, power);
+  if (power < 0)
+  {
+    while (fabs(TelescopeMotor.GetOutputCurrent()) < 1.8)
+    {
+      ;
+    }
+    TelescopeMotor.Set(ControlMode::PercentOutput, 0);
+    potMin = TelescopeMotor.GetSelectedSensorPosition();
+  }
+  if (power > 0)
+  {
+    while (fabs(TelescopeMotor.GetOutputCurrent()) < 1.7)
+    {
+      ;
+    }
+    TelescopeMotor.Set(ControlMode::PercentOutput, 0);
+    potMax = TelescopeMotor.GetSelectedSensorPosition();
+  }
+  reset = true;
+}
+
+void SlideSystem::ResetSlideConfig()
+{
+  startingPoint = potMin;
+
+  limitOffSet = (potMax - potMin) * (percent / 200);
+  fwdLimit = potMax - limitOffSet;
+  revLimit = potMin + limitOffSet;
+
+  totalTicks = potMax - potMin;
+
+  TelescopeMotor.ConfigForwardSoftLimitThreshold(fwdLimit);
+  TelescopeMotor.ConfigReverseSoftLimitThreshold(revLimit);
+  TelescopeMotor.ConfigForwardSoftLimitEnable(true);
+  TelescopeMotor.ConfigReverseSoftLimitEnable(true);
+  printf("Slide Max %F \n", potMax);
+  printf("Slide Min %F \n", potMin);
+  reset = true;
+}
+
+void SlideSystem::SetResetFlagFalse()
+{
+  reset = false;
+}
+
+bool SlideSystem::ReturnResetFlag()
+{
+  return reset;
 }

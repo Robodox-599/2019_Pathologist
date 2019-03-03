@@ -5,16 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AllThreeAxisDistance.h"
+#include "commands/AllThreeAxisTrimY.h"
 #include "Robot.h"
 
-AllThreeAxisDistance::AllThreeAxisDistance(double x, double y)
-{
+AllThreeAxisTrimY::AllThreeAxisTrimY(double trim) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&globalRobot.armJointSystem);
   Requires(&globalRobot.slideSystem);
   Requires(&globalRobot.wristSystem);
+  trimVal = trim;
+}
+
+// Called just before this Command runs the first time
+void AllThreeAxisTrimY::Initialize() 
+{
+  initialDelta = globalRobot.slideSystem.ReturnDistance();
+  initialTheta = globalRobot.armJointSystem.ReturnAngle() * 3.14 / 180.0;
+  x = (b + initialDelta) * cos(initialTheta) - d * sin(initialTheta);
+  y = (b + initialDelta) * sin(initialTheta) + d * sin(initialTheta) + a;
+  
 
   phi = atan2((y - a), x);
   r = x / cos(phi);
@@ -22,11 +32,8 @@ AllThreeAxisDistance::AllThreeAxisDistance(double x, double y)
 
   delta = r * cos(alpha) - b;
   theta = (phi - alpha) * (180 / 3.14);
-}
+  printf("new y %F \n", y);
 
-// Called just before this Command runs the first time
-void AllThreeAxisDistance::Initialize()
-{
   if (!globalRobot.wristSystem.GetWristFlag())
   {
     globalRobot.armJointSystem.MotionMagicDegrees(theta);
@@ -39,20 +46,17 @@ void AllThreeAxisDistance::Initialize()
     globalRobot.slideSystem.MotionMagicDistance(delta);
     globalRobot.wristSystem.MotionMagicDegrees(-theta + 105);
   }
-
-  frc::SmartDashboard::PutNumber("Theta", theta);
-  frc::SmartDashboard::PutNumber("Delta", delta);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AllThreeAxisDistance::Execute() {}
+void AllThreeAxisTrimY::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool AllThreeAxisDistance::IsFinished() { return true; }
+bool AllThreeAxisTrimY::IsFinished() { return true; }
 
 // Called once after isFinished returns true
-void AllThreeAxisDistance::End() {}
+void AllThreeAxisTrimY::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AllThreeAxisDistance::Interrupted() {}
+void AllThreeAxisTrimY::Interrupted() {}

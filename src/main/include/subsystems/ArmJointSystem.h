@@ -16,6 +16,9 @@ class ArmJointSystem : public frc::Subsystem {
  TalonSRX ArmJointMotor;
  double target;
  double angle0;
+ float commandLimitOffset;
+	float fwdCommandLimit;
+	float revCommandLimit;
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
 

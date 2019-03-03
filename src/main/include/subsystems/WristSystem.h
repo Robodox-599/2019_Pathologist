@@ -22,16 +22,20 @@ class WristSystem : public frc::Subsystem
 	bool WristFlag;
 
 	double startingPoint;
-	float fwdLimit;
-  float revLimit;
-  float limitOffSet;
-  float potMin;
-  float potMax;
-  float percent;
+	double fwdLimit;
+  double revLimit;
+  double limitOffSet;
+  double potMin;
+  double potMax;
+  double percent;
   bool reset;
+	double commandLimitOffset;
+	double fwdCommandLimit;
+	double revCommandLimit;
+	double degreeToTicks = 204800.0/12240.0; //50.0/34.0 gear ratio   *    4096.0/360.0 ticks per 360
 
   public:
-	WristSystem(float min, float max, float marginPercent);
+	WristSystem(double min, double max, double marginPercent);
 	void InitDefaultCommand() override;
 	void MotionMagicControl(double ticks);
 	void MotionMagicPercent(double percent);

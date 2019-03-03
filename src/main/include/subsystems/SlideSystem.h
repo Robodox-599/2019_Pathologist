@@ -26,6 +26,9 @@ class SlideSystem : public frc::Subsystem {
   float potMax;
   float percent;
   bool reset;
+  float commandLimitOffset;
+	float fwdCommandLimit;
+	float revCommandLimit;
 
  public:
   SlideSystem(float min, float max, float marginPercent);

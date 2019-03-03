@@ -34,11 +34,11 @@ AutoHome::AutoHome() {
   // arm.
   AddSequential(new ArmJointControl(403));
   AddSequential(new WristControl(-2000));
-  AddSequential(new SlideResetMinMax(-0.15));
-  AddSequential(new SlideResetMinMax(0.15));
+  AddSequential(new SlideResetMinMax(-0.20));
+  AddSequential(new SlideResetMinMax(0.20));
   AddSequential(new SlideReconfig());
   AddSequential(new SlidePercent(75));
-  AddSequential(new WristResetMinMax(-0.2));
+  AddSequential(new WristResetMinMax(-0.21));
   AddSequential(new WristResetMinMax(0.3));
   AddSequential(new WristReconfig());
   AddSequential(new WristPercent(50));

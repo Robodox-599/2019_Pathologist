@@ -27,53 +27,59 @@ AllThreeAxisConstant::AllThreeAxisConstant(double xinput, double yinput, double 
 void AllThreeAxisConstant::Initialize()
 {
   initialDelta = globalRobot.slideSystem.ReturnDistance();
-  initialTheta = globalRobot.armJointSystem.ReturnAngle()*3.14/180;
+  initialTheta = globalRobot.armJointSystem.ReturnAngle() * 3.14 / 180.0;
   x = (b + initialDelta) * cos(initialTheta) - d * sin(initialTheta);
   y = (b + initialDelta) * sin(initialTheta) + d * sin(initialTheta) + a;
   printf("x %F \n", x);
   printf("y %F \n", y);
   printf("initial Delta %F \n", initialDelta);
+  printf("initial Theta %F \n", initialTheta);
+  printf("targetx %F \n", targetx);
+  printf("deltax %F \n", deltax);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AllThreeAxisConstant::Execute()
 {
-  if((targetx - x) > deltax)
+  if ((targetx - x) > deltax)
   {
-    x += deltax;
+    x = x + deltax;
   }
-  else if((targetx - x) < -deltax)
+  else if ((targetx - x) < -deltax)
   {
-    x -= deltax;
+    x = x - deltax;
   }
   else
   {
     x = targetx;
   }
 
-  if((targety - y) > deltay)
+  if ((targety - y) > deltay)
   {
-    y += deltay;
+    y = y + deltay;
   }
-  else if((targety - y) < -deltay)
+  else if ((targety - y) < -deltay)
   {
-    y -= deltay;
+    y = y - deltay;
   }
   else
   {
     y = targety;
   }
 
-  phi = atan2((y-a), x);
-  r = x/cos(phi);
-  alpha = asin(d/r);
-  
-  delta = r*cos(alpha)-b;
-  theta = (phi-alpha)*(180/3.14);
+  phi = atan2((y - a), x);
+  r = x / cos(phi);
+  alpha = asin(d / r);
+
+  delta = r * cos(alpha) - b;
+  theta = (phi - alpha) * (180 / 3.14);
 
   // globalRobot.slideSystem.ChangeTarget(delta);
   // globalRobot.armJointSystem.ChangeTarget(theta);
-
+  // // globalRobot.wristSystem.ChangeTarget(-theta);
+  // globalRobot.armJointSystem.MotionMagicDegrees(theta);
+  // globalRobot.slideSystem.MotionMagicDistance(delta);
+  // globalRobot.wristSystem.MotionMagicDegrees(-theta+15);
 
 }
 

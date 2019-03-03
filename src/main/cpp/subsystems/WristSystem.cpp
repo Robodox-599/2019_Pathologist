@@ -11,13 +11,17 @@
 //925, 1003, 964
 //Practice -3607, -290
 //0 degree -2096, 90 degree -688
-WristSystem::WristSystem(float min, float max, float marginPercent) : Subsystem("WristSystem"), wristMotor(9)
+WristSystem::WristSystem(double min, double max, double marginPercent) : Subsystem("WristSystem"), wristMotor(9)
 {
-  startingPoint = min;
-
   limitOffSet = (max - min) * (marginPercent / 200);
   fwdLimit = max - limitOffSet;
   revLimit = min + limitOffSet;
+
+  commandLimitOffset = (max - min) * (marginPercent / 100);
+  fwdCommandLimit = max - commandLimitOffset;
+  revCommandLimit = min + commandLimitOffset;
+
+  startingPoint = min + degreeToTicks*90.0;
 
   percent = marginPercent;
 
@@ -33,11 +37,11 @@ WristSystem::WristSystem(float min, float max, float marginPercent) : Subsystem(
   wristMotor.ConfigForwardSoftLimitEnable(true);
   wristMotor.ConfigReverseSoftLimitEnable(true);
   float kf = 0;
-  float kp = 22.5;
+  float kp = 15;
   float ki = 0;
   float kd = 0;
-  float velocity = 964 / 32;
-  float acceleration = 964 / 32;
+  float velocity = 964 / 8;
+  float acceleration = 964 / 8;
 
   wristMotor.Config_kF(0, kf, 0);
   wristMotor.Config_kP(0, kp, 0);
@@ -69,13 +73,25 @@ void WristSystem::MotionMagicControl(double ticks)
 
 void WristSystem::MotionMagicPercent(double percent)
 {
-  wristMotor.Set(ControlMode::MotionMagic, potMin + (potMax-potMin)*(percent/100));
+  wristMotor.Set(ControlMode::MotionMagic, potMin + (potMax - potMin) * (percent / 100));
 }
 
 void WristSystem::MotionMagicDegrees(double degrees)
 {
-  double ticks = degrees * 15.644 + startingPoint;
-  wristMotor.Set(ControlMode::MotionMagic, ticks);
+  double ticks = degrees * degreeToTicks + startingPoint;
+  if (ticks > fwdCommandLimit)
+  {
+    wristMotor.Set(ControlMode::MotionMagic, fwdCommandLimit);
+  }
+  else if(ticks < revCommandLimit)
+  {
+    wristMotor.Set(ControlMode::MotionMagic, revCommandLimit);
+  }
+  else
+  {
+    wristMotor.Set(ControlMode::MotionMagic, ticks);
+  }
+  
 }
 
 void WristSystem::MotionMagicJoystickControl(double axis)
@@ -151,20 +167,22 @@ void WristSystem::ResetMinMax(float power)
   wristMotor.Set(ControlMode::PercentOutput, power);
   if (power < 0)
   {
-    while (fabs(wristMotor.GetOutputCurrent()) < 1.5)
+    while (fabs(wristMotor.GetOutputCurrent()) < 1.8)
     {
       ;
     }
-    wristMotor.Set(ControlMode::PercentOutput, 0);
     potMin = wristMotor.GetSelectedSensorPosition(0);
+    frc::Wait(1);
+    wristMotor.Set(ControlMode::PercentOutput, 0);
   }
   if (power > 0)
   {
-    while (fabs(wristMotor.GetOutputCurrent()) < 3.3)
+    while (fabs(wristMotor.GetOutputCurrent()) < 2.9)
     {
       ;
     }
     wristMotor.Set(ControlMode::PercentOutput, 0);
+    frc::Wait(1);
     potMax = wristMotor.GetSelectedSensorPosition(0);
   }
   reset = true;
@@ -172,11 +190,15 @@ void WristSystem::ResetMinMax(float power)
 
 void WristSystem::ResetWristConfig()
 {
-  startingPoint = potMin;
+  startingPoint = potMin + degreeToTicks*90;
 
   limitOffSet = (potMax - potMin) * (percent / 200);
   fwdLimit = potMax - limitOffSet;
   revLimit = potMin + limitOffSet;
+
+  commandLimitOffset = (potMax - potMin) * (percent / 100);
+  fwdCommandLimit = potMax - commandLimitOffset;
+  revCommandLimit = potMin + commandLimitOffset;
 
   wristMotor.ConfigForwardSoftLimitThreshold(fwdLimit);
   wristMotor.ConfigReverseSoftLimitThreshold(revLimit);

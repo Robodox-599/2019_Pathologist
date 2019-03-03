@@ -15,9 +15,13 @@ ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subs
 {
   angle0 = 403;
 
-  float limitOffSet = (max-min)*(marginPercent/100);
+  float limitOffSet = (max - min) * (marginPercent / 200);
   float fwdLimit = max - limitOffSet;
   float revLimit = min + limitOffSet;
+
+  commandLimitOffset = (max - min) * (marginPercent / 100);
+  fwdCommandLimit = max - commandLimitOffset;
+  revLimit = min + commandLimitOffset;
 
   ArmJointMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
   ArmJointMotor.SetSensorPhase(true);
@@ -32,8 +36,8 @@ ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subs
   float kp = 15;
   float ki = 0;
   float kd = 0;
-  float velocity = 272/8;
-  float acceleration = 272/12;
+  float velocity = 272 / 8;
+  float acceleration = 272 / 8;
 
   ArmJointMotor.Config_kF(0, kf, 0);
   ArmJointMotor.Config_kP(0, kp, 0);
@@ -46,7 +50,8 @@ ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subs
   target = ArmJointMotor.GetSelectedSensorPosition();
 }
 
-void ArmJointSystem::InitDefaultCommand() {
+void ArmJointSystem::InitDefaultCommand()
+{
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
   //SetDefaultCommand(new ArmJointJoystick());
@@ -63,7 +68,7 @@ void ArmJointSystem::MotionMagicControl(double ticks)
 
 void ArmJointSystem::MotionMagicDegrees(double degrees)
 {
-  double ticks = degrees*3.4889 + angle0;
+  double ticks = degrees * 3.4889 + angle0;
   ArmJointMotor.Set(ControlMode::MotionMagic, ticks);
 }
 
@@ -82,9 +87,15 @@ void ArmJointSystem::MotionMagicJoystickControl(double axis)
     axis = 0;
   }
   // ArmJointMotor.Set(ControlMode::PercentOutput, axis*.3);
-  target += (axis*2.5);
-  if(target > 929){target = 928;}
-  if(target < 473){target = 474;}
+  target += (axis * 2.5);
+  if (target > 929)
+  {
+    target = 928;
+  }
+  if (target < 473)
+  {
+    target = 474;
+  }
   ArmJointMotor.Set(ControlMode::MotionMagic, target);
 }
 
@@ -108,10 +119,10 @@ void ArmJointSystem::JoystickControl(double axis)
 
 void ArmJointSystem::ChangeTarget(double newTarget)
 {
-  target = newTarget*3.4889 + angle0;;
+  target = newTarget * 3.4889 + angle0;
 }
 
 double ArmJointSystem::ReturnAngle()
 {
-  return (ArmJointMotor.GetSelectedSensorPosition(0)-angle0)/3.4889;
+  return ((ArmJointMotor.GetSelectedSensorPosition(0) - angle0) / 3.4889);
 }

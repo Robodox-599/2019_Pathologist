@@ -12,7 +12,7 @@
 
 Robot globalRobot;
 
-Robot::Robot(): armJointSystem(215, 717, 5), slideSystem(354, 661, 5), wristSystem(-3607, -290, 5){}
+Robot::Robot(): armJointSystem(215, 717, 5), slideSystem(264, 575, 5), wristSystem(-3967, -369, 5){}
 
 void Robot::RobotInit() {
   comp599.SetClosedLoopControl(false);
@@ -67,7 +67,7 @@ void Robot::TeleopInit() {
   // this line or comment it out.
 }
 
-void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
+void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run();}
 
 void Robot::TestPeriodic() {}
 

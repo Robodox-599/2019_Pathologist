@@ -22,6 +22,9 @@
 #include "commands/AllThreeAxisDistance.h"
 #include "commands/AllThreeAxisConstant.h"
 #include "commands/AutoHome.h"
+#include "commands/WristFlag.h"
+#include "commands/AllThreeAxisTrimX.h"
+#include "commands/AllThreeAxisTrimY.h"
 
 OI::OI()
 {
@@ -56,21 +59,23 @@ OI::OI()
 
   Buttonx1_A->WhenPressed(new AllThreeAxisDistance(26.97, 19)); //Low Hatch
   Buttonx2_B->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
-  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(36, 75)); //High Hatch
+  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(24, 81)); //High Hatch
+  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(32, 24));
 
   Buttonx5_LB->WhenPressed(new AutoHome());
+  Buttonx6_RB->WhenPressed(new WristFlag());
 
-  Button2->WhenPressed(new AllThreeAxisConstant(25.5, 38.75, .4, .4));
-  Button3->WhenPressed(new AllThreeAxisConstant(25.5, 17.25, .4, .4));
-  Button4->WhenPressed(new AllThreeAxisConstant(25.5, 51.75, .4, .4));
+  Button2->WhenPressed(new AllThreeAxisConstant(32, 27, .5, .5));
+  Button3->WhenPressed(new AllThreeAxisConstant(32, 30, .5, .5));
+  Button4->WhenPressed(new AllThreeAxisConstant(32, 45, .5, .5));
 
   // Buttonx4_Y->WhenPressed(new ArmJointControl(901));
   // Buttonx5_LB->WhenPressed(new ArmJointControl(501));
   //Buttonx6_RB->WhenPressed(new ArmJointControl(160));
   //Buttonx5_LB->WhenPressed(new ClimbPistonsUp());
   // Buttonx6_RB->WhenPressed(new ClimbPistonsDown());
-  Buttonx7_Start->WhenPressed(new ClimbFrontPistonsUp());
-  Buttonx8_Select->WhenPressed(new ClimbRearPistonUp());
+  Buttonx7_Start->WhenPressed(new AllThreeAxisTrimX(-3));
+  Buttonx8_Select->WhenPressed(new AllThreeAxisTrimX(3));
   // Button2->WhenPressed(new SlideControl(500));
   // Button3->WhenPressed(new WristControl(439));
 //422, 433, 472  Low Hatch

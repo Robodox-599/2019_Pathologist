@@ -104,11 +104,11 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
 
   if (x > 0.2)
   {
-    x = (x - 0.2) * 1 / .8 * 1500 /**max velocity/2*/;
+    x = (x - 0.2) * 1 / .8 * 750 /**max velocity/2*/;
   }
   else if (x < -0.2)
   {
-    x = (x + 0.2) * 1 / .8 * 1500 /**max velocity/2*/;
+    x = (x + 0.2) * 1 / .8 * 750 /**max velocity/2*/;
   }
   else
   {

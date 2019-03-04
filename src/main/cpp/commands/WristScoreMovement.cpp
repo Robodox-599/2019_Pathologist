@@ -5,27 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Ball_Stop.h"
+#include "commands/WristScoreMovement.h"
 #include "Robot.h"
 
-Ball_Stop::Ball_Stop() {
+WristScoreMovement::WristScoreMovement() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&globalRobot.intakeSystem);
+  Requires(&globalRobot.wristSystem);
 }
 
 // Called just before this Command runs the first time
-void Ball_Stop::Initialize() {globalRobot.intakeSystem.IntakeRoller(0);}
+void WristScoreMovement::Initialize() 
+{
+  if(globalRobot.intakeSystem.ReturnBallFlag())
+  {
+    globalRobot.wristSystem.MotionMagicDegrees(globalRobot.wristSystem.GetCurrentDegrees()+40);
+  }
+  else
+  {
+    globalRobot.wristSystem.MotionMagicDegrees(globalRobot.wristSystem.GetCurrentDegrees()-20);
+  }
+  
+}
 
 // Called repeatedly when this Command is scheduled to run
-void Ball_Stop::Execute() {}
+void WristScoreMovement::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool Ball_Stop::IsFinished() { return false; }
+bool WristScoreMovement::IsFinished() { return true; }
 
 // Called once after isFinished returns true
-void Ball_Stop::End() {}
+void WristScoreMovement::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Ball_Stop::Interrupted() {}
+void WristScoreMovement::Interrupted() {}

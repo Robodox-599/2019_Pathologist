@@ -11,16 +11,16 @@ Ball_Intake::Ball_Intake(float speed) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(&globalRobot.intakeSystem);
-  intakeSpeed = speed;
+  motorSpeed = speed;
 }
 
 // Called just before this Command runs the first time
-void Ball_Intake::Initialize() {globalRobot.intakeSystem.IntakeRoller(intakeSpeed);}
+void Ball_Intake::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void Ball_Intake::Execute() 
 {
-
+  globalRobot.intakeSystem.IntakeRoller(motorSpeed, 0/*globalRobot.oi.xbox->GetRawAxis(3), globalRobot.oi.xbox->GetRawAxis(2)*/);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -29,7 +29,7 @@ bool Ball_Intake::IsFinished() { return false; }
 // Called once after isFinished returns true
 void Ball_Intake::End() 
 {
-    globalRobot.intakeSystem.IntakeRoller(0);
+    globalRobot.intakeSystem.IntakeRoller(0, 0);
 }
 
 // Called when another command which requires one or more of the same

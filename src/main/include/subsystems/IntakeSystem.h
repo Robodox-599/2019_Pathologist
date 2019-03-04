@@ -13,15 +13,14 @@
 
 class IntakeSystem : public frc::Subsystem {
  private:
- frc::DoubleSolenoid HatchPiston;
  TalonSRX IntakeMotor;
- frc::DigitalInput limit; 
+ bool ballFlag;
 
  public:
   IntakeSystem();
   void InitDefaultCommand() override;
-  void IntakeRoller(float speed);
-  void HatchPistonsForward();
-  void HatchPistonsReverse();
-  bool LimitSwitch();
+  void IntakeRoller(float positiveSpeed, float negativeSpeed);
+  bool ReturnBallFlag();
+  void SetBallFlagTrue();
+  void SetBallFlagFalse();
 };

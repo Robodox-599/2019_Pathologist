@@ -177,7 +177,7 @@ void WristSystem::ResetMinMax(float power)
   }
   if (power > 0)
   {
-    while (fabs(wristMotor.GetOutputCurrent()) < 2.9)
+    while (fabs(wristMotor.GetOutputCurrent()) < 3.7)
     {
       ;
     }
@@ -218,4 +218,9 @@ void WristSystem::SetResetFlagFalse()
 bool WristSystem::ReturnResetFlag()
 {
   return reset;
+}
+
+double WristSystem::GetCurrentDegrees()
+{
+  return (wristMotor.GetSelectedSensorPosition()-startingPoint)/degreeToTicks;
 }

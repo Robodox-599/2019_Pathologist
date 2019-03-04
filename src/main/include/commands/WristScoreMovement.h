@@ -9,29 +9,12 @@
 
 #include <frc/commands/Command.h>
 
-class AllThreeAxisTrimX : public frc::Command
-{
-public:
-  AllThreeAxisTrimX(double trim);
+class WristScoreMovement : public frc::Command {
+ public:
+  WristScoreMovement();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-
-private:
-  double a = 34.5;
-  //double b = 19.5;
-  double b = 19;
-  double d = 4.25;
-  double x;
-  double y;
-  double initialDelta;
-  double initialTheta;
-  double phi;
-  double r;
-  double alpha;
-  double delta;
-  double theta;
-  double trimVal;
 };

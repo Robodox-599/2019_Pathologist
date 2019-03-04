@@ -7,10 +7,6 @@
 
 #include "OI.h"
 #include "commands/Ball_Intake.h"
-#include "commands/Ball_Outtake.h"
-#include "commands/Ball_Stop.h"
-#include "commands/Hatch_Release.h"
-#include "commands/Hatch_Reset.h"
 #include "commands/ClimbPistonsDown.h"
 #include "commands/ClimbFrontPistonsUp.h"
 #include "commands/ClimbRearPistonUp.h"
@@ -23,8 +19,8 @@
 #include "commands/AllThreeAxisConstant.h"
 #include "commands/AutoHome.h"
 #include "commands/WristFlag.h"
-#include "commands/AllThreeAxisTrimX.h"
-#include "commands/AllThreeAxisTrimY.h"
+#include "commands/WristScoreMovement.h"
+#include "commands/IntakeFlag.h"
 
 OI::OI()
 {
@@ -57,12 +53,15 @@ OI::OI()
   //Mid Hatch (24.02, 47)        (28.4, 55.5)
   //Low Hatch (26.97, 19)        (21.02, 27.5)
 
-  Buttonx1_A->WhenPressed(new AllThreeAxisDistance(26.97, 19)); //Low Hatch
-  Buttonx2_B->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
+  // Buttonx1_A->WhenPressed(new AllThreeAxisDistance(26.97, 19)); //Low Hatch
+  Buttonx1_A->WhenPressed(new WristScoreMovement());
+  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
   Buttonx3_X->WhenPressed(new AllThreeAxisDistance(24, 81)); //High Hatch
-  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(32, 24));
+  Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 24));
 
-  Buttonx5_LB->WhenPressed(new AutoHome());
+  //Buttonx5_LB->WhenPressed(new AutoHome());
+  //Buttonx5_LB->WhenPressed(new IntakeFlag());
+  Buttonx5_LB->WhenPressed(new Ball_Intake(0.2));
   Buttonx6_RB->WhenPressed(new WristFlag());
 
   Button2->WhenPressed(new AllThreeAxisConstant(32, 27, .5, .5));
@@ -74,8 +73,8 @@ OI::OI()
   //Buttonx6_RB->WhenPressed(new ArmJointControl(160));
   //Buttonx5_LB->WhenPressed(new ClimbPistonsUp());
   // Buttonx6_RB->WhenPressed(new ClimbPistonsDown());
-  Buttonx7_Start->WhenPressed(new AllThreeAxisTrimX(-3));
-  Buttonx8_Select->WhenPressed(new AllThreeAxisTrimX(3));
+  Buttonx7_Start->WhenPressed(new AllThreeAxisDistance(-3, 0));
+  Buttonx8_Select->WhenPressed(new AllThreeAxisDistance(3, 0));
   // Button2->WhenPressed(new SlideControl(500));
   // Button3->WhenPressed(new WristControl(439));
 //422, 433, 472  Low Hatch

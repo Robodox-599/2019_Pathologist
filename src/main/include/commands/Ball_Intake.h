@@ -20,5 +20,5 @@ public:
   void Interrupted() override;
 
 private:
-  float intakeSpeed;
+  float motorSpeed;
 };

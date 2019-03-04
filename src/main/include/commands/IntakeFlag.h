@@ -9,14 +9,12 @@
 
 #include <frc/commands/Command.h>
 
-class Ball_Outtake : public frc::Command {
+class IntakeFlag : public frc::Command {
  public:
-  Ball_Outtake(float speed);
+  IntakeFlag();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-  private:
-  float outtakeSpeed;
 };

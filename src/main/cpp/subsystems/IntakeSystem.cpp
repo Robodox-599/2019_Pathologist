@@ -6,38 +6,44 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/IntakeSystem.h"
+#include "commands/Ball_Intake.h"
 
-IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem"), IntakeMotor(8), HatchPiston(0,1), limit(1) //dummy values
-{
-  HatchPiston.Set(frc::DoubleSolenoid::kForward);
-}
+IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem"), IntakeMotor(8)
+{}
 
 void IntakeSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
+  //SetDefaultCommand(new Ball_Intake());
 }
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void IntakeSystem::IntakeRoller(float speed)
+void IntakeSystem::IntakeRoller(float positiveSpeed, float negativeSpeed)
 {
-     IntakeMotor.Set(ControlMode::PercentOutput, speed);        
+  if(positiveSpeed > 0.5)
+  {
+    positiveSpeed = 0.5;
+  }
+  if(negativeSpeed > 0.5)
+  {
+    negativeSpeed = 0.5;
+  }
+  IntakeMotor.Set(ControlMode::PercentOutput, positiveSpeed - negativeSpeed);        
 }
 
-void IntakeSystem::HatchPistonsForward()
+bool IntakeSystem::ReturnBallFlag()
 {
-     HatchPiston.Set(frc::DoubleSolenoid::kReverse);
+  return ballFlag;
 }
 
-void IntakeSystem::HatchPistonsReverse()
+void IntakeSystem::SetBallFlagFalse()
 {
-     HatchPiston.Set(frc::DoubleSolenoid::kForward);
+  ballFlag = false;
 }
 
-bool IntakeSystem::LimitSwitch()
+void IntakeSystem::SetBallFlagTrue()
 {
-  return limit.Get();
+  ballFlag = true;
 }
-
-

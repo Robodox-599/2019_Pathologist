@@ -9,11 +9,11 @@
 #include "commands/ArmJointJoystick.h"
 #include "commands/ArmJointControl.h"
 //465, 80, 272
-//Practice 305, 821     215, 717
-//0 angle 403,   90 angle 717
+//Practice 305, 821     190, 686
+//0 angle 371,   90 angle 686
 ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 {
-  angle0 = 403;
+  angle0 = 371;
 
   float limitOffSet = (max - min) * (marginPercent / 200);
   float fwdLimit = max - limitOffSet;

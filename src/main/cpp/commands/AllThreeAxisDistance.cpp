@@ -31,7 +31,7 @@ void AllThreeAxisDistance::Initialize()
   {
     globalRobot.armJointSystem.MotionMagicDegrees(theta);
     globalRobot.slideSystem.MotionMagicDistance(delta);
-    globalRobot.wristSystem.MotionMagicDegrees(-theta+15);
+    globalRobot.wristSystem.MotionMagicDegrees(-theta + 25);
   }
   else
   {

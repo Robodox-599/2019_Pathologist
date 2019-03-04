@@ -51,4 +51,6 @@ class WristSystem : public frc::Subsystem
   void ResetWristConfig();
   void SetResetFlagFalse();
   bool ReturnResetFlag();
+
+	double GetCurrentDegrees();
 };

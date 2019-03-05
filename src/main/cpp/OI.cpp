@@ -21,6 +21,7 @@
 #include "commands/WristFlag.h"
 #include "commands/WristScoreMovement.h"
 #include "commands/IntakeFlag.h"
+#include "commands/DriveScoreFlag.h"
 
 OI::OI()
 {
@@ -36,6 +37,7 @@ OI::OI()
   frc::JoystickButton *Buttonx6_RB = new frc::JoystickButton(xbox, 6);
   frc::JoystickButton *Buttonx7_Start = new frc::JoystickButton(xbox, 7);
   frc::JoystickButton *Buttonx8_Select = new frc::JoystickButton(xbox, 8);
+  frc::JoystickButton *Buttonx9_LeftJoystick = new frc::JoystickButton(xbox, 9);
   frc::JoystickButton *Button4 = new frc::JoystickButton(atk3, 4);
   frc::JoystickButton *Button2 = new frc::JoystickButton(atk3, 2);
   frc::JoystickButton *Button3 = new frc::JoystickButton(atk3, 3);
@@ -55,14 +57,16 @@ OI::OI()
 
   // Buttonx1_A->WhenPressed(new AllThreeAxisDistance(26.97, 19)); //Low Hatch
   Buttonx1_A->WhenPressed(new WristScoreMovement());
-  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
-  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(24, 81)); //High Hatch
   Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 24));
+  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
+  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(20, 81)); //High Hatch
 
   //Buttonx5_LB->WhenPressed(new AutoHome());
-  //Buttonx5_LB->WhenPressed(new IntakeFlag());
-  Buttonx5_LB->WhenPressed(new Ball_Intake(0.2));
+  Buttonx5_LB->WhenPressed(new IntakeFlag());
+  //Buttonx5_LB->WhenPressed(new Ball_Intake(0.2));
   Buttonx6_RB->WhenPressed(new WristFlag());
+
+  Buttonx9_LeftJoystick->WhileHeld(new DriveScoreFlag());
 
   Button2->WhenPressed(new AllThreeAxisConstant(32, 27, .5, .5));
   Button3->WhenPressed(new AllThreeAxisConstant(32, 30, .5, .5));
@@ -73,7 +77,8 @@ OI::OI()
   //Buttonx6_RB->WhenPressed(new ArmJointControl(160));
   //Buttonx5_LB->WhenPressed(new ClimbPistonsUp());
   // Buttonx6_RB->WhenPressed(new ClimbPistonsDown());
-  Buttonx7_Start->WhenPressed(new AllThreeAxisDistance(-3, 0));
+  Buttonx7_Start->WhenPressed(new AutoHome());
+  //Buttonx7_Start->WhenPressed(new AllThreeAxisDistance(-3, 0));
   Buttonx8_Select->WhenPressed(new AllThreeAxisDistance(3, 0));
   // Button2->WhenPressed(new SlideControl(500));
   // Button3->WhenPressed(new WristControl(439));

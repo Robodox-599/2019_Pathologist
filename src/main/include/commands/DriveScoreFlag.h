@@ -9,15 +9,12 @@
 
 #include <frc/commands/Command.h>
 
-class Ball_Intake : public frc::Command
-{
-public:
-  Ball_Intake();
+class DriveScoreFlag : public frc::Command {
+ public:
+  DriveScoreFlag();
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
-
-private:
 };

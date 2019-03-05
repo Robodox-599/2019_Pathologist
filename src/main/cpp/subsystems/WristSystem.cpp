@@ -30,8 +30,6 @@ WristSystem::WristSystem(double min, double max, double marginPercent) : Subsyst
   wristMotor.ConfigSelectedFeedbackSensor(CTRE_MagEncoder_Absolute, 0, 0);
   wristMotor.SetSensorPhase(false);
   wristMotor.SetInverted(true);
-  //  wristMotor.ConfigForwardSoftLimitThreshold(1005);
-  //  wristMotor.ConfigReverseSoftLimitThreshold(931);
   wristMotor.ConfigForwardSoftLimitThreshold(fwdLimit);
   wristMotor.ConfigReverseSoftLimitThreshold(revLimit);
   wristMotor.ConfigForwardSoftLimitEnable(true);
@@ -177,7 +175,7 @@ void WristSystem::ResetMinMax(float power)
   }
   if (power > 0)
   {
-    while (fabs(wristMotor.GetOutputCurrent()) < 3.7)
+    while (fabs(wristMotor.GetOutputCurrent()) < 3.5)
     {
       ;
     }

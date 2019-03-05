@@ -29,6 +29,7 @@ private:
   double gyroTarget;
   double targetHeading;
   double velocity;
+  bool driveFlag;
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
 
@@ -46,4 +47,7 @@ public:
   double ReturnGyroTarget();
   void GetGyroValues();
   void ResetGyro();
+  void SetDriveFlagTrue();
+  void SetDriveFlagFalse();
+  bool ReturnDriveFlag();
 };

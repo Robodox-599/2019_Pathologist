@@ -69,6 +69,8 @@ DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLe
   targetHeading = 0;
 
   velocity = 0;
+
+  driveFlag = false;
 }
 
 void DriveSystem::InitDefaultCommand()
@@ -88,14 +90,24 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
   double leftOutput;
   double rightOutput;
   double increment = 600;
+  double maxVelocity;
+  if(driveFlag == true)
+  {
+    maxVelocity = 1500;
+  }
+  else
+  {
+    maxVelocity = 3000;
+  }
+  
 
   if (y > 0.2)
   {
-    y = (y - 0.2) * (1 / .8) * 3000 /**max velocity*/;
+    y = (y - 0.2) * (1 / .8) * maxVelocity;
   }
   else if (y < -0.2)
   {
-    y = (y + 0.2) * 1 / .8 * 3000 /**max velocity*/;
+    y = (y + 0.2) * 1 / .8 * maxVelocity;
   }
   else
   {
@@ -104,11 +116,11 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
 
   if (x > 0.2)
   {
-    x = (x - 0.2) * 1 / .8 * 750 /**max velocity/2*/;
+    x = (x - 0.2) * 1 / .8 * maxVelocity*0.25;
   }
   else if (x < -0.2)
   {
-    x = (x + 0.2) * 1 / .8 * 750 /**max velocity/2*/;
+    x = (x + 0.2) * 1 / .8 * maxVelocity*0.25;
   }
   else
   {
@@ -239,4 +251,19 @@ void DriveSystem::GetGyroValues()
 void DriveSystem::ResetGyro()
 {
   pGyon.SetYaw(0, 0);
+}
+
+void DriveSystem::SetDriveFlagFalse()
+{
+  driveFlag = false;
+}
+
+void DriveSystem::SetDriveFlagTrue()
+{
+  driveFlag = true;
+}
+
+bool DriveSystem::ReturnDriveFlag()
+{
+  return driveFlag;
 }

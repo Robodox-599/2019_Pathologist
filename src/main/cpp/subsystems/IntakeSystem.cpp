@@ -14,7 +14,7 @@ IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem"), IntakeMotor(8)
 void IntakeSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
-  //SetDefaultCommand(new Ball_Intake());
+  SetDefaultCommand(new Ball_Intake());
 }
 
 // Put methods for controlling this subsystem
@@ -22,14 +22,8 @@ void IntakeSystem::InitDefaultCommand() {
 
 void IntakeSystem::IntakeRoller(float positiveSpeed, float negativeSpeed)
 {
-  if(positiveSpeed > 0.5)
-  {
-    positiveSpeed = 0.5;
-  }
-  if(negativeSpeed > 0.5)
-  {
-    negativeSpeed = 0.5;
-  }
+  positiveSpeed = positiveSpeed * 0.6;
+  negativeSpeed = negativeSpeed * 0.4;
   IntakeMotor.Set(ControlMode::PercentOutput, positiveSpeed - negativeSpeed);        
 }
 

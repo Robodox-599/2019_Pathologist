@@ -5,34 +5,29 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Ball_Intake.h"
+#include "commands/DriveScoreFlag.h"
 #include "Robot.h"
-Ball_Intake::Ball_Intake() {
+
+DriveScoreFlag::DriveScoreFlag() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&globalRobot.intakeSystem);
 }
 
 // Called just before this Command runs the first time
-void Ball_Intake::Initialize() {}
+void DriveScoreFlag::Initialize() 
+{
+  globalRobot.driveSystem.SetDriveFlagTrue();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void Ball_Intake::Execute() 
-{
-  globalRobot.intakeSystem.IntakeRoller(globalRobot.oi.xbox->GetRawAxis(3), globalRobot.oi.xbox->GetRawAxis(2));
-}
+void DriveScoreFlag::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool Ball_Intake::IsFinished() { return false; }
+bool DriveScoreFlag::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void Ball_Intake::End() 
-{
-    globalRobot.intakeSystem.IntakeRoller(0, 0);
-}
+void DriveScoreFlag::End() {globalRobot.driveSystem.SetDriveFlagFalse();}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Ball_Intake::Interrupted() {
-  End();
-}
+void DriveScoreFlag::Interrupted() {}

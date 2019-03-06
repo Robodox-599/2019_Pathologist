@@ -116,11 +116,11 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
 
   if (x > 0.2)
   {
-    x = (x - 0.2) * 1 / .8 * maxVelocity*0.25;
+    x = (x - 0.2) * 1 / .8 * 750;
   }
   else if (x < -0.2)
   {
-    x = (x + 0.2) * 1 / .8 * maxVelocity*0.25;
+    x = (x + 0.2) * 1 / .8 * 750;
   }
   else
   {
@@ -168,7 +168,7 @@ void DriveSystem::ClimbDrive(double axis)
   rearLeftMotor.Set(ControlMode::PercentOutput, 0);
   frontRightMotor.Set(ControlMode::PercentOutput, 0);
   rearRightMotor.Set(ControlMode::PercentOutput, 0);
-  climbMotor.Set(ControlMode::PercentOutput, axis);
+  climbMotor.Set(ControlMode::PercentOutput, -axis);
 }
 
 void DriveSystem::GetYaw()

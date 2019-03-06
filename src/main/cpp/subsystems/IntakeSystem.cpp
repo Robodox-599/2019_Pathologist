@@ -20,11 +20,11 @@ void IntakeSystem::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void IntakeSystem::IntakeRoller(float positiveSpeed, float negativeSpeed)
+void IntakeSystem::IntakeRoller(float negativeSpeed, float positiveSpeed)
 {
   positiveSpeed = positiveSpeed * 0.6;
-  negativeSpeed = negativeSpeed * 0.4;
-  IntakeMotor.Set(ControlMode::PercentOutput, positiveSpeed - negativeSpeed);        
+  negativeSpeed = negativeSpeed * 0.6;
+  IntakeMotor.Set(ControlMode::PercentOutput, negativeSpeed - positiveSpeed);        
 }
 
 bool IntakeSystem::ReturnBallFlag()

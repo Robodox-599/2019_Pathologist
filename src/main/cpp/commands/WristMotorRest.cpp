@@ -5,38 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/DriveDefault.h"
+#include "commands/WristMotorRest.h"
 #include "Robot.h"
 
-DriveDefault::DriveDefault() {
+WristMotorRest::WristMotorRest() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(&globalRobot.driveSystem);
+  Requires(&globalRobot.wristSystem);
 }
 
 // Called just before this Command runs the first time
-void DriveDefault::Initialize() {}
-
-// Called repeatedly when this Command is scheduled to run
-void DriveDefault::Execute() 
+void WristMotorRest::Initialize() 
 {
-  if(globalRobot.climbSystem.GetClimbFlag() == false)
-  {
-    globalRobot.driveSystem.JoystickVelocityDrive(globalRobot.oi.xbox->GetRawAxis(0), globalRobot.oi.xbox->GetRawAxis(1));
-  }
-  else
-  {
-    globalRobot.driveSystem.ClimbDrive(globalRobot.oi.xbox->GetRawAxis(1));
-  }
-  
+  globalRobot.wristSystem.RestWristMotor();
 }
 
+// Called repeatedly when this Command is scheduled to run
+void WristMotorRest::Execute() {}
+
 // Make this return true when this Command no longer needs to run execute()
-bool DriveDefault::IsFinished() { return false; }
+bool WristMotorRest::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void DriveDefault::End() {}
+void WristMotorRest::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void DriveDefault::Interrupted() {}
+void WristMotorRest::Interrupted() {}

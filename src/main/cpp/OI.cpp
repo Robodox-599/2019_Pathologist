@@ -22,6 +22,7 @@
 #include "commands/WristScoreMovement.h"
 #include "commands/IntakeFlag.h"
 #include "commands/DriveScoreFlag.h"
+#include "commands/WristMotorRest.h"
 
 OI::OI()
 {
@@ -38,6 +39,7 @@ OI::OI()
   frc::JoystickButton *Buttonx7_Start = new frc::JoystickButton(xbox, 7);
   frc::JoystickButton *Buttonx8_Select = new frc::JoystickButton(xbox, 8);
   frc::JoystickButton *Buttonx9_LeftJoystick = new frc::JoystickButton(xbox, 9);
+  frc::JoystickButton *Buttonx10_RightJoystick = new frc::JoystickButton(xbox, 10);
   frc::JoystickButton *Button4 = new frc::JoystickButton(atk3, 4);
   frc::JoystickButton *Button2 = new frc::JoystickButton(atk3, 2);
   frc::JoystickButton *Button3 = new frc::JoystickButton(atk3, 3);
@@ -59,18 +61,19 @@ OI::OI()
   Buttonx1_A->WhenPressed(new WristScoreMovement());
   Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 24));
   Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
-  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(20, 81)); //High Hatch
+  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(16, 85)); //High Hatch
 
   //Buttonx5_LB->WhenPressed(new AutoHome());
   Buttonx5_LB->WhenPressed(new IntakeFlag());
   //Buttonx5_LB->WhenPressed(new Ball_Intake(0.2));
   Buttonx6_RB->WhenPressed(new WristFlag());
 
-  Buttonx9_LeftJoystick->WhileHeld(new DriveScoreFlag());
+  Buttonx9_LeftJoystick->WhenPressed(new DriveScoreFlag());
+  Buttonx10_RightJoystick->WhenPressed(new WristMotorRest());
 
-  Button2->WhenPressed(new AllThreeAxisConstant(32, 27, .5, .5));
-  Button3->WhenPressed(new AllThreeAxisConstant(32, 30, .5, .5));
-  Button4->WhenPressed(new AllThreeAxisConstant(32, 45, .5, .5));
+  // Button2->WhenPressed(new AllThreeAxisConstant(32, 27, .5, .5));
+  // Button3->WhenPressed(new AllThreeAxisConstant(32, 30, .5, .5));
+  // Button4->WhenPressed(new AllThreeAxisConstant(32, 45, .5, .5));
 
   // Buttonx4_Y->WhenPressed(new ArmJointControl(901));
   // Buttonx5_LB->WhenPressed(new ArmJointControl(501));

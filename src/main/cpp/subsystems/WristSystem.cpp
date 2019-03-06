@@ -222,3 +222,8 @@ double WristSystem::GetCurrentDegrees()
 {
   return (wristMotor.GetSelectedSensorPosition()-startingPoint)/degreeToTicks;
 }
+
+void WristSystem::RestWristMotor()
+{
+  wristMotor.Set(ControlMode::PercentOutput, 0);
+}

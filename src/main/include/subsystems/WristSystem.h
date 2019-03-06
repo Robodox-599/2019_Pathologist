@@ -53,4 +53,6 @@ class WristSystem : public frc::Subsystem
   bool ReturnResetFlag();
 
 	double GetCurrentDegrees();
+	
+	void RestWristMotor();
 };

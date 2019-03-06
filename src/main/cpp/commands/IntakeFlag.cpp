@@ -16,7 +16,7 @@ IntakeFlag::IntakeFlag() {
 // Called just before this Command runs the first time
 void IntakeFlag::Initialize() 
 {
-  if(globalRobot.intakeSystem.ReturnBallFlag())
+  if(globalRobot.intakeSystem.ReturnBallFlag() == true)
   {
     globalRobot.intakeSystem.SetBallFlagFalse();
   }
@@ -24,14 +24,13 @@ void IntakeFlag::Initialize()
   {
     globalRobot.intakeSystem.SetBallFlagTrue();
   }
-  
 }
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeFlag::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool IntakeFlag::IsFinished() { return false; }
+bool IntakeFlag::IsFinished() { return true; }
 
 // Called once after isFinished returns true
 void IntakeFlag::End() {}

@@ -23,6 +23,7 @@
 #include "commands/IntakeFlag.h"
 #include "commands/DriveScoreFlag.h"
 #include "commands/WristMotorRest.h"
+#include "commands/ManipulatorPlacement.h"
 
 OI::OI()
 {
@@ -58,10 +59,18 @@ OI::OI()
   //Low Hatch (26.97, 19)        (21.02, 27.5)
 
   // Buttonx1_A->WhenPressed(new AllThreeAxisDistance(26.97, 19)); //Low Hatch
-  Buttonx1_A->WhenPressed(new WristScoreMovement());
-  Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 24));
-  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
-  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(16, 85)); //High Hatch
+  // Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 24));
+  // Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
+  // Buttonx3_X->WhenPressed(new AllThreeAxisDistance(16, 85)); //High Hatch
+  // Buttonx1_A->WhenPressed(new WristScoreMovement());
+  // Buttonx2_B->WhenPressed(new ManipulatorPlacement(0));  //0 low, 1 mid, 2 high
+  // Buttonx3_X->WhenPressed(new ManipulatorPlacement(1));
+  // Buttonx4_Y->WhenPressed(new ManipulatorPlacement(2));
+
+  Buttonx1_A->WhenPressed(new ClimbPistonsDown());  
+  Buttonx2_B->WhenPressed(new ClimbFrontPistonsUp());
+  Buttonx3_X->WhenPressed(new ClimbRearPistonUp());
+  Buttonx4_Y->WhenPressed(new ClimbPistonsUp());
 
   //Buttonx5_LB->WhenPressed(new AutoHome());
   Buttonx5_LB->WhenPressed(new IntakeFlag());

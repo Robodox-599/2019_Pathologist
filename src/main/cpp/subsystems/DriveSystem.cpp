@@ -164,10 +164,11 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
 
 void DriveSystem::ClimbDrive(double axis)
 {
-  frontLeftMotor.Set(ControlMode::PercentOutput, 0);
-  rearLeftMotor.Set(ControlMode::PercentOutput, 0);
-  frontRightMotor.Set(ControlMode::PercentOutput, 0);
-  rearRightMotor.Set(ControlMode::PercentOutput, 0);
+  float power = 0.1;
+  frontLeftMotor.Set(ControlMode::PercentOutput, power);
+  rearLeftMotor.Set(ControlMode::PercentOutput, power);
+  frontRightMotor.Set(ControlMode::PercentOutput, power);
+  rearRightMotor.Set(ControlMode::PercentOutput, power);
   climbMotor.Set(ControlMode::PercentOutput, -axis);
 }
 

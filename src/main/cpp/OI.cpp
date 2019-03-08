@@ -23,7 +23,6 @@
 #include "commands/IntakeFlag.h"
 #include "commands/DriveScoreFlag.h"
 #include "commands/WristMotorRest.h"
-#include "commands/ManipulatorPlacement.h"
 
 OI::OI()
 {
@@ -41,9 +40,10 @@ OI::OI()
   frc::JoystickButton *Buttonx8_Select = new frc::JoystickButton(xbox, 8);
   frc::JoystickButton *Buttonx9_LeftJoystick = new frc::JoystickButton(xbox, 9);
   frc::JoystickButton *Buttonx10_RightJoystick = new frc::JoystickButton(xbox, 10);
-  frc::JoystickButton *Button4 = new frc::JoystickButton(atk3, 4);
   frc::JoystickButton *Button2 = new frc::JoystickButton(atk3, 2);
   frc::JoystickButton *Button3 = new frc::JoystickButton(atk3, 3);
+  frc::JoystickButton *Button4 = new frc::JoystickButton(atk3, 4);
+  frc::JoystickButton *Button5 = new frc::JoystickButton(atk3, 5);
   // Buttonx1_A->WhenPressed(new Ball_Intake(.3));
   // Buttonx2_B->WhenPressed(new Ball_Outtake(-.3));
   // Buttonx3_X->WhenPressed(new Ball_Stop());
@@ -59,23 +59,27 @@ OI::OI()
   //Low Hatch (26.97, 19)        (21.02, 27.5)
 
   // Buttonx1_A->WhenPressed(new AllThreeAxisDistance(26.97, 19)); //Low Hatch
-  // Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 24));
-  // Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
-  // Buttonx3_X->WhenPressed(new AllThreeAxisDistance(16, 85)); //High Hatch
-  // Buttonx1_A->WhenPressed(new WristScoreMovement());
-  // Buttonx2_B->WhenPressed(new ManipulatorPlacement(0));  //0 low, 1 mid, 2 high
-  // Buttonx3_X->WhenPressed(new ManipulatorPlacement(1));
-  // Buttonx4_Y->WhenPressed(new ManipulatorPlacement(2));
 
-  Buttonx1_A->WhenPressed(new ClimbPistonsDown());  
-  Buttonx2_B->WhenPressed(new ClimbFrontPistonsUp());
-  Buttonx3_X->WhenPressed(new ClimbRearPistonUp());
-  Buttonx4_Y->WhenPressed(new ClimbPistonsUp());
+  Buttonx1_A->WhenPressed(new WristScoreMovement());
+  Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 24));
+  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
+  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(16, 85)); //High Hatch
+
+  Button2->WhenPressed(new ClimbPistonsDown());  
+  Button3->WhenPressed(new ClimbPistonsUp());
+  Button4->WhenPressed(new ClimbRearPistonUp());
+  Button5->WhenPressed(new ClimbFrontPistonsUp());
+
+  // Buttonx1_A->WhenPressed(new ButtonACommand());
 
   //Buttonx5_LB->WhenPressed(new AutoHome());
   Buttonx5_LB->WhenPressed(new IntakeFlag());
   //Buttonx5_LB->WhenPressed(new Ball_Intake(0.2));
   Buttonx6_RB->WhenPressed(new WristFlag());
+
+  Buttonx7_Start->WhenPressed(new AutoHome());
+
+  Buttonx8_Select->WhenPressed(new AllThreeAxisDistance(32, 21));
 
   Buttonx9_LeftJoystick->WhenPressed(new DriveScoreFlag());
   Buttonx10_RightJoystick->WhenPressed(new WristMotorRest());
@@ -89,9 +93,7 @@ OI::OI()
   //Buttonx6_RB->WhenPressed(new ArmJointControl(160));
   //Buttonx5_LB->WhenPressed(new ClimbPistonsUp());
   // Buttonx6_RB->WhenPressed(new ClimbPistonsDown());
-  Buttonx7_Start->WhenPressed(new AutoHome());
   //Buttonx7_Start->WhenPressed(new AllThreeAxisDistance(-3, 0));
-  Buttonx8_Select->WhenPressed(new AllThreeAxisDistance(3, 0));
   // Button2->WhenPressed(new SlideControl(500));
   // Button3->WhenPressed(new WristControl(439));
 //422, 433, 472  Low Hatch

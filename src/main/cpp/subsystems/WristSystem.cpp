@@ -17,7 +17,7 @@ WristSystem::WristSystem(double min, double max, double marginPercent) : Subsyst
   fwdLimit = max - limitOffSet;
   revLimit = min + limitOffSet;
 
-  commandLimitOffset = (max - min) * (marginPercent / 100);
+  commandLimitOffset = (max - min) * (marginPercent / 50);
   fwdCommandLimit = max - commandLimitOffset;
   revCommandLimit = min + commandLimitOffset;
 
@@ -194,7 +194,7 @@ void WristSystem::ResetWristConfig()
   fwdLimit = potMax - limitOffSet;
   revLimit = potMin + limitOffSet;
 
-  commandLimitOffset = (potMax - potMin) * (percent / 100);
+  commandLimitOffset = (potMax - potMin) * (percent / 50);
   fwdCommandLimit = potMax - commandLimitOffset;
   revCommandLimit = potMin + commandLimitOffset;
 

@@ -15,26 +15,35 @@ AllThreeAxisDistance::AllThreeAxisDistance(double x, double y)
   Requires(&globalRobot.armJointSystem);
   Requires(&globalRobot.slideSystem);
   Requires(&globalRobot.wristSystem);
-
-  phi = atan2((y - a), x);
-  r = x / cos(phi);
-  alpha = asin(d / r);
-
-  delta = r * cos(alpha) - b;
-  theta = (phi - alpha) * (180 / 3.14);
+  targetx = x;
+  targety = y;
 }
 
 // Called just before this Command runs the first time
 void AllThreeAxisDistance::Initialize()
 {
-  if (!globalRobot.wristSystem.GetWristFlag())
+  if(!globalRobot.wristSystem.GetWristFlag())
   {
+    phi = atan2((targety - a), targetx);
+    r = targetx / cos(phi);
+    alpha = asin(d / r);
+
+    delta = r * cos(alpha) - b;
+    theta = (phi - alpha) * (180 / 3.14);
+
     globalRobot.armJointSystem.MotionMagicDegrees(theta);
     globalRobot.slideSystem.MotionMagicDistance(delta);
     globalRobot.wristSystem.MotionMagicDegrees(-theta + 15);
   }
   else
   {
+    phi = atan2(((targety-13) - a), targetx);
+    r = targetx / cos(phi);
+    alpha = asin(d / r);
+
+    delta = r * cos(alpha) - b;
+    theta = (phi - alpha) * (180 / 3.14);
+
     globalRobot.armJointSystem.MotionMagicDegrees(theta);
     globalRobot.slideSystem.MotionMagicDistance(delta);
     globalRobot.wristSystem.MotionMagicDegrees(-theta + 105);

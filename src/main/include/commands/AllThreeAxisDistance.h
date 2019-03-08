@@ -29,4 +29,6 @@ private:
   double alpha;
   double delta;
   double theta;
+  double targetx;
+  double targety;
 };

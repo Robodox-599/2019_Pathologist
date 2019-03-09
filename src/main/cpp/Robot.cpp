@@ -9,6 +9,7 @@
 
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <cameraserver/CameraServer.h>
 
 Robot globalRobot;
 
@@ -16,6 +17,8 @@ Robot::Robot(): armJointSystem(190, 686, 5), slideSystem(247, 554, 5), wristSyst
 
 void Robot::RobotInit() {
   comp599.SetClosedLoopControl(false);
+  frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
+  frc::CameraServer::GetInstance()->StartAutomaticCapture(1);
 }
 
 /**

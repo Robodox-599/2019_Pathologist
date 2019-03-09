@@ -22,8 +22,8 @@ void IntakeSystem::InitDefaultCommand() {
 
 void IntakeSystem::IntakeRoller(float negativeSpeed, float positiveSpeed)
 {
-  positiveSpeed = positiveSpeed * 0.6;
-  negativeSpeed = negativeSpeed * 0.6;
+  positiveSpeed = positiveSpeed;
+  negativeSpeed = negativeSpeed;
   IntakeMotor.Set(ControlMode::PercentOutput, negativeSpeed - positiveSpeed);        
 }
 

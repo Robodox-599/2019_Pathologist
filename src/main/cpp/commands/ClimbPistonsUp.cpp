@@ -20,6 +20,7 @@ void ClimbPistonsUp::Initialize()
   globalRobot.climbSystem.RearPistonRetract();
   globalRobot.climbSystem.LeftPistonRetract();
   globalRobot.climbSystem.RightPistonRetract();
+  globalRobot.climbSystem.SetClimbFlagFalse();
 }
 
 // Called repeatedly when this Command is scheduled to run

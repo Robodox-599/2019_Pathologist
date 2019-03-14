@@ -165,23 +165,23 @@ void WristSystem::ResetMinMax(float power)
   wristMotor.Set(ControlMode::PercentOutput, power);
   if (power < 0)
   {
-    while (fabs(wristMotor.GetOutputCurrent()) < 1.8)
+    while (fabs(wristMotor.GetOutputCurrent()) < 2)
     {
       ;
     }
+    frc::Wait(0.5);
     potMin = wristMotor.GetSelectedSensorPosition(0);
-    frc::Wait(1);
     wristMotor.Set(ControlMode::PercentOutput, 0);
   }
   if (power > 0)
   {
-    while (fabs(wristMotor.GetOutputCurrent()) < 3.5)
+    while (fabs(wristMotor.GetOutputCurrent()) < 4.3)
     {
       ;
     }
-    wristMotor.Set(ControlMode::PercentOutput, 0);
-    frc::Wait(1);
+    frc::Wait(0.5);
     potMax = wristMotor.GetSelectedSensorPosition(0);
+    wristMotor.Set(ControlMode::PercentOutput, 0);
   }
   reset = true;
 }

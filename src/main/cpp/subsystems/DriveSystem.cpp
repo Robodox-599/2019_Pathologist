@@ -38,29 +38,30 @@ DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLe
   frontLeftMotor.ConfigClosedloopRamp(seconds, 0);
   frontRightMotor.ConfigClosedloopRamp(seconds, 0);
 
-  float kf = 0.25;
-  float kp = 0.5;
+  float kf = 0.17;
+  float kp = 0.1;
   float ki = 0;
+  float kd = 0;
 
   rearLeftMotor.Config_kF(0, kf, 0);
   rearLeftMotor.Config_kP(0, kp, 0);
   rearLeftMotor.Config_kI(0, ki, 0);
-  rearLeftMotor.Config_kD(0, 0, 0);
+  rearLeftMotor.Config_kD(0, kd, 0);
 
   rearRightMotor.Config_kF(0, kf, 0);
   rearRightMotor.Config_kP(0, kp, 0);
   rearRightMotor.Config_kI(0, ki, 0);
-  rearRightMotor.Config_kD(0, 0, 0);
+  rearRightMotor.Config_kD(0, kd, 0);
 
   frontLeftMotor.Config_kF(0, kf, 0);
   frontLeftMotor.Config_kP(0, kp, 0);
   frontLeftMotor.Config_kI(0, ki, 0);
-  frontLeftMotor.Config_kD(0, 0, 0);
+  frontLeftMotor.Config_kD(0, kd, 0);
 
   frontRightMotor.Config_kF(0, kf, 0);
   frontRightMotor.Config_kP(0, kp, 0);
   frontRightMotor.Config_kI(0, ki, 0);
-  frontRightMotor.Config_kD(0, 0, 0);
+  frontRightMotor.Config_kD(0, kd, 0);
 
   pGyon.SetYaw(0, 0);
   currentHeading = 0;
@@ -89,15 +90,15 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
   double r;
   double leftOutput;
   double rightOutput;
-  double increment = 600;
+  double increment = 2600;
   double maxVelocity;
   if(driveFlag == true)
   {
-    maxVelocity = 1500;
+    maxVelocity = 3500/2;
   }
   else
   {
-    maxVelocity = 3000;
+    maxVelocity = 3500;  //6900
   }
   
 
@@ -116,11 +117,11 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
 
   if (x > 0.2)
   {
-    x = (x - 0.2) * 1 / .8 * 750;
+    x = (x - 0.2) * 1 / .8 * 1800;
   }
   else if (x < -0.2)
   {
-    x = (x + 0.2) * 1 / .8 * 750;
+    x = (x + 0.2) * 1 / .8 * 1800;
   }
   else
   {
@@ -164,7 +165,20 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
 
 void DriveSystem::ClimbDrive(double axis)
 {
-  float power = 0.1;
+  float power;
+  if(axis > 0)
+  {
+    power = -0.1;
+  }
+  else if(axis < 0)
+  {
+    power = 0.1;
+  }
+  else
+  {
+    power = 0;
+  }
+  
   frontLeftMotor.Set(ControlMode::PercentOutput, power);
   rearLeftMotor.Set(ControlMode::PercentOutput, power);
   frontRightMotor.Set(ControlMode::PercentOutput, power);
@@ -267,4 +281,43 @@ void DriveSystem::SetDriveFlagTrue()
 bool DriveSystem::ReturnDriveFlag()
 {
   return driveFlag;
+}
+
+void DriveSystem::JoystickPercentDrive(double x, double y)
+{
+  double l;
+  double r;
+  if (y > 0.2)
+  {
+    y = (y - 0.2) * 1 / .8;
+  }
+  else if (y < -0.2)
+  {
+    y = (y + 0.2) * 1 / .8;
+  }
+  else
+  {
+    y = 0;
+  }
+
+  if (x > 0.2)
+  {
+    x = (x - 0.2) * 1 / .8;
+  }
+  else if (x < -0.2)
+  {
+    x = (x + 0.2) * 1 / .8;
+  }
+  else
+  {
+    x = 0;
+  }
+
+  l = -y + x;
+  r = -y - x;
+
+  frontLeftMotor.Set(ControlMode::PercentOutput, l);
+  rearLeftMotor.Set(ControlMode::PercentOutput, l);
+  frontRightMotor.Set(ControlMode::PercentOutput, r);
+  rearRightMotor.Set(ControlMode::PercentOutput, r);
 }

@@ -50,4 +50,6 @@ public:
   void SetDriveFlagTrue();
   void SetDriveFlagFalse();
   bool ReturnDriveFlag();
+
+  void JoystickPercentDrive(double x, double y);
 };

@@ -13,10 +13,10 @@
 
 Robot globalRobot;
 
-Robot::Robot(): armJointSystem(190, 686, 5), slideSystem(247, 554, 5), wristSystem(-3790, -261, 5){}
+Robot::Robot(): armJointSystem(253, 764, 5), slideSystem(345, 654, 5), wristSystem(-3815, -195, 5){}
 
 void Robot::RobotInit() {
-  comp599.SetClosedLoopControl(false);
+  comp599.SetClosedLoopControl(true);
   frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
   frc::CameraServer::GetInstance()->StartAutomaticCapture(1);
 }

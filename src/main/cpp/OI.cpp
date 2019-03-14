@@ -79,7 +79,7 @@ OI::OI()
 
   Buttonx7_Start->WhenPressed(new AutoHome());
 
-  Buttonx8_Select->WhenPressed(new AllThreeAxisDistance(32, 14));
+  Buttonx8_Select->WhenPressed(new AllThreeAxisDistance(30, 13.5));
 
   Buttonx9_LeftJoystick->WhenPressed(new DriveScoreFlag());
   Buttonx10_RightJoystick->WhenPressed(new WristMotorRest());

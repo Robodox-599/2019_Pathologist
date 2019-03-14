@@ -32,14 +32,14 @@ AutoHome::AutoHome() {
   // e.g. if Command1 requires chassis, and Command2 requires arm,
   // a CommandGroup containing them would require both the chassis and the
   // arm.
-  AddSequential(new ArmJointControl(371));
+  AddSequential(new ArmJointControl(438));
   AddSequential(new WristControl(-2000));
   AddSequential(new SlideResetMinMax(-0.20));
   AddSequential(new SlideResetMinMax(0.20));
   AddSequential(new SlideReconfig());
   AddSequential(new SlidePercent(75));
-  AddSequential(new WristResetMinMax(-0.21));
-  AddSequential(new WristResetMinMax(0.3));
+  AddSequential(new WristResetMinMax(-0.23));
+  AddSequential(new WristResetMinMax(0.35));
   AddSequential(new WristReconfig());
   AddSequential(new WristPercent(50));
 }

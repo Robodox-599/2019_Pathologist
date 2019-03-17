@@ -8,8 +8,11 @@
 #include "subsystems/IntakeSystem.h"
 #include "commands/Ball_Intake.h"
 
-IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem"), IntakeMotor(8)
-{}
+IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem"), IntakeMotor(8), hatchHook(0, 1)
+{
+  hatchHook.Set(frc::DoubleSolenoid::kReverse);
+  hatch = false;
+}
 
 void IntakeSystem::InitDefaultCommand() {
   // Set the default command for a subsystem here.
@@ -40,4 +43,21 @@ void IntakeSystem::SetBallFlagFalse()
 void IntakeSystem::SetBallFlagTrue()
 {
   ballFlag = true;
+}
+
+void IntakeSystem::HatchHookIn()
+{
+  hatchHook.Set(frc::DoubleSolenoid::kReverse);
+  hatch = false;
+}
+
+void IntakeSystem::HatchHookOut()
+{
+  hatchHook.Set(frc::DoubleSolenoid::kForward);
+  hatch = true;
+}
+
+bool IntakeSystem::ReturnHatchFlag()
+{
+  return hatch;
 }

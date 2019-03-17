@@ -5,37 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/IntakeFlag.h"
+#include "commands/HatchHook.h"
 #include "Robot.h"
 
-IntakeFlag::IntakeFlag() {
+HatchHook::HatchHook() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  Requires(&globalRobot.intakeSystem);
 }
 
 // Called just before this Command runs the first time
-void IntakeFlag::Initialize() 
+void HatchHook::Initialize() 
 {
-  if(globalRobot.intakeSystem.ReturnBallFlag() == true)
+  if(globalRobot.intakeSystem.ReturnHatchFlag() == true)
   {
-    globalRobot.intakeSystem.SetBallFlagFalse();
+    globalRobot.intakeSystem.HatchHookIn();
   }
   else
   {
-    globalRobot.intakeSystem.SetBallFlagTrue(); 
+    globalRobot.intakeSystem.HatchHookOut();
   }
-  frc::SmartDashboard::PutBoolean("Green is up, red is down", globalRobot.intakeSystem.ReturnBallFlag());
+  
 }
 
 // Called repeatedly when this Command is scheduled to run
-void IntakeFlag::Execute() {}
+void HatchHook::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool IntakeFlag::IsFinished() { return true; }
+bool HatchHook::IsFinished() { return true; }
 
 // Called once after isFinished returns true
-void IntakeFlag::End() {}
+void HatchHook::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void IntakeFlag::Interrupted() {}
+void HatchHook::Interrupted() {}

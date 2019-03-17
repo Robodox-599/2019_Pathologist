@@ -23,6 +23,7 @@
 #include "commands/IntakeFlag.h"
 #include "commands/DriveScoreFlag.h"
 #include "commands/WristMotorRest.h"
+#include "commands/HatchHook.h"
 
 OI::OI()
 {
@@ -63,7 +64,7 @@ OI::OI()
   Buttonx1_A->WhenPressed(new WristScoreMovement());
   Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 24));
   Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
-  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(16, 80)); //High Hatch
+  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(16, 73)); //High Hatch
 
   Button2->WhenPressed(new ClimbPistonsDown());  
   Button3->WhenPressed(new ClimbPistonsUp());
@@ -81,7 +82,7 @@ OI::OI()
 
   Buttonx8_Select->WhenPressed(new AllThreeAxisDistance(30, 13.5));
 
-  Buttonx9_LeftJoystick->WhenPressed(new DriveScoreFlag());
+  Buttonx9_LeftJoystick->WhenPressed(new HatchHook());
   Buttonx10_RightJoystick->WhenPressed(new WristMotorRest());
 
   // Button2->WhenPressed(new AllThreeAxisConstant(32, 27, .5, .5));

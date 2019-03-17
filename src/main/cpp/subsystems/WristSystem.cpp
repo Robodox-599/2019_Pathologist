@@ -165,7 +165,7 @@ void WristSystem::ResetMinMax(float power)
   wristMotor.Set(ControlMode::PercentOutput, power);
   if (power < 0)
   {
-    while (fabs(wristMotor.GetOutputCurrent()) < 2)
+    while (fabs(wristMotor.GetOutputCurrent()) < 2.3)
     {
       ;
     }

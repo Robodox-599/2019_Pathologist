@@ -8,18 +8,18 @@
 #include "subsystems/ArmJointSystem.h"
 #include "commands/ArmJointJoystick.h"
 #include "commands/ArmJointControl.h"
-//465, 80, 272
+//465, 80, 272        156 637
 //Practice 305, 821     190, 686
 //0 angle 371,   90 angle 686
 ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 {
-  angle0 = 438;
+  angle0 = 324;
 
   float limitOffSet = (max - min) * (marginPercent / 200);
   float fwdLimit = max - limitOffSet;
   float revLimit = min + limitOffSet;
 
-  commandLimitOffset = (max - min) * (marginPercent / 100);
+  commandLimitOffset = (max - min) * (marginPercent / 50);
   fwdCommandLimit = max - commandLimitOffset;
   revLimit = min + commandLimitOffset;
 

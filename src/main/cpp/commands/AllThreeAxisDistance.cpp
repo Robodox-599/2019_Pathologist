@@ -33,7 +33,7 @@ void AllThreeAxisDistance::Initialize()
 
     globalRobot.armJointSystem.MotionMagicDegrees(theta);
     globalRobot.slideSystem.MotionMagicDistance(delta);
-    globalRobot.wristSystem.MotionMagicDegrees(-theta + 15);
+    globalRobot.wristSystem.MotionMagicDegrees(-theta + 19);
   }
   else
   {
@@ -48,9 +48,6 @@ void AllThreeAxisDistance::Initialize()
     globalRobot.slideSystem.MotionMagicDistance(delta);
     globalRobot.wristSystem.MotionMagicDegrees(-theta + 105);
   }
-
-  frc::SmartDashboard::PutNumber("Theta", theta);
-  frc::SmartDashboard::PutNumber("Delta", delta);
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -13,7 +13,7 @@
 
 Robot globalRobot;
 
-Robot::Robot(): armJointSystem(253, 764, 5), slideSystem(345, 654, 5), wristSystem(-3815, -195, 5){}
+Robot::Robot(): armJointSystem(150, 636, 5), slideSystem(580, 895, 5), wristSystem(-3871, -181, 5){}
 
 void Robot::RobotInit() {
   comp599.SetClosedLoopControl(true);
@@ -52,6 +52,7 @@ void Robot::DisabledPeriodic() { frc::Scheduler::GetInstance()->Run(); }
  * the if-else structure below with additional strings & commands.
  */
 void Robot::AutonomousInit() {
+  // comp599.SetClosedLoopControl(false);
   // std::string autoSelected = frc::SmartDashboard::GetString(
   //     "Auto Selector", "Default");
   // if (autoSelected == "My Auto") {
@@ -64,6 +65,7 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic() { frc::Scheduler::GetInstance()->Run(); }
 
 void Robot::TeleopInit() {
+  // comp599.SetClosedLoopControl(true);
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove

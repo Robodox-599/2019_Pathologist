@@ -18,6 +18,7 @@ void ClimbRearPistonUp::Initialize()
 {
   globalRobot.climbSystem.RearPistonRetract();
   globalRobot.climbSystem.SetClimbFlagFalse();
+  globalRobot.driveSystem.SetDriveFlagTrue();
 }
 
 // Called repeatedly when this Command is scheduled to run

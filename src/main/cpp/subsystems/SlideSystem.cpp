@@ -20,7 +20,7 @@ SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem(
 
   totalTicks = max - min;
 
-  commandLimitOffset = (max - min) * (marginPercent / 150);
+  commandLimitOffset = (max - min) * (marginPercent / 100);
   fwdCommandLimit = max - commandLimitOffset;
   revLimit = min + commandLimitOffset;
 
@@ -29,8 +29,8 @@ SlideSystem::SlideSystem(float min, float max, float marginPercent) : Subsystem(
   reset = false;
 
   TelescopeMotor.ConfigSelectedFeedbackSensor(Analog, 0, 0);
-  TelescopeMotor.SetSensorPhase(false);
-  TelescopeMotor.SetInverted(false);
+  TelescopeMotor.SetSensorPhase(true);
+  TelescopeMotor.SetInverted(true);
   // TelescopeMotor.ConfigForwardSoftLimitThreshold(480);
   // TelescopeMotor.ConfigReverseSoftLimitThreshold(212);
   TelescopeMotor.ConfigForwardSoftLimitThreshold(fwdLimit);

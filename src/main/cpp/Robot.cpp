@@ -12,8 +12,8 @@
 #include <cameraserver/CameraServer.h>
 
 Robot globalRobot;
-
-Robot::Robot(): armJointSystem(150, 636, 5), slideSystem(580, 895, 5), wristSystem(-3871, -181, 5){}
+//150, 636     554, 865     -3895, -165
+Robot::Robot(): armJointSystem(221, 722, 5), slideSystem(347, 656, 1), wristSystem(-3788, -116, 5){}
 
 void Robot::RobotInit() {
   comp599.SetClosedLoopControl(true);

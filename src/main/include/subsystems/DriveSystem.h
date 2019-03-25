@@ -19,6 +19,7 @@ private:
   TalonSRX frontRightMotor;
   TalonSRX rearRightMotor;
   TalonSRX climbMotor;
+  frc::DoubleSolenoid shifter;
 
   PigeonIMU pGyon;
 
@@ -52,4 +53,7 @@ public:
   bool ReturnDriveFlag();
 
   void JoystickPercentDrive(double x, double y);
+
+  void ShifterOn();
+  void ShifterOff();
 };

@@ -9,7 +9,7 @@
 #include "commands/DriveVelocity.h"
 #include "commands/DriveDefault.h"
 
-DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLeftMotor(5), frontRightMotor(2), rearRightMotor(1), pGyon(2), climbMotor(4)
+DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLeftMotor(5), frontRightMotor(2), rearRightMotor(1), pGyon(2), climbMotor(4), shifter(0, 1)
 {
   frontLeftMotor.SetInverted(true);
   rearLeftMotor.SetInverted(true);
@@ -72,6 +72,8 @@ DriveSystem::DriveSystem() : Subsystem("DriveSystem"), frontLeftMotor(6), rearLe
   velocity = 0;
 
   driveFlag = false;
+
+  shifter.Set(frc::DoubleSolenoid::kForward);
 }
 
 void DriveSystem::InitDefaultCommand()
@@ -94,7 +96,7 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
   double maxVelocity;
   if(driveFlag == true)
   {
-    maxVelocity = 3500/2;
+    maxVelocity = 5000;
   }
   else
   {
@@ -117,11 +119,11 @@ void DriveSystem::JoystickVelocityDrive(double x, double y)
 
   if (x > 0.2)
   {
-    x = (x - 0.2) * 1 / .8 * 1800;
+    x = (x - 0.2) * 1 / .8 * maxVelocity/2;
   }
   else if (x < -0.2)
   {
-    x = (x + 0.2) * 1 / .8 * 1800;
+    x = (x + 0.2) * 1 / .8 * maxVelocity/2;
   }
   else
   {
@@ -320,4 +322,16 @@ void DriveSystem::JoystickPercentDrive(double x, double y)
   rearLeftMotor.Set(ControlMode::PercentOutput, l);
   frontRightMotor.Set(ControlMode::PercentOutput, r);
   rearRightMotor.Set(ControlMode::PercentOutput, r);
+}
+
+void DriveSystem::ShifterOff()
+{
+  shifter.Set(frc::DoubleSolenoid::kForward);
+  driveFlag = false;
+}
+
+void DriveSystem::ShifterOn()
+{
+  shifter.Set(frc::DoubleSolenoid::kReverse);
+  driveFlag = true;
 }

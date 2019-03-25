@@ -48,6 +48,7 @@ void AllThreeAxisDistance::Initialize()
     globalRobot.slideSystem.MotionMagicDistance(delta);
     globalRobot.wristSystem.MotionMagicDegrees(-theta + 105);
   }
+  printf("arm angle", globalRobot.armJointSystem.ReturnAngle());
 }
 
 // Called repeatedly when this Command is scheduled to run

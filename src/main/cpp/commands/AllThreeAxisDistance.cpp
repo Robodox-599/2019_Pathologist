@@ -33,11 +33,11 @@ void AllThreeAxisDistance::Initialize()
 
     globalRobot.armJointSystem.MotionMagicDegrees(theta);
     globalRobot.slideSystem.MotionMagicDistance(delta);
-    globalRobot.wristSystem.MotionMagicDegrees(-theta + 19);
+    globalRobot.wristSystem.MotionMagicDegrees(-theta + 23);
   }
   else
   {
-    phi = atan2(((targety-13) - a), targetx);
+    phi = atan2(((targety+15) - a), targetx);
     r = targetx / cos(phi);
     alpha = asin(d / r);
 
@@ -46,9 +46,9 @@ void AllThreeAxisDistance::Initialize()
 
     globalRobot.armJointSystem.MotionMagicDegrees(theta);
     globalRobot.slideSystem.MotionMagicDistance(delta);
-    globalRobot.wristSystem.MotionMagicDegrees(-theta + 105);
+    globalRobot.wristSystem.MotionMagicDegrees(-theta + 23);
   }
-  printf("arm angle", globalRobot.armJointSystem.ReturnAngle());
+  // printf("arm angle", globalRobot.armJointSystem.ReturnAngle());
 }
 
 // Called repeatedly when this Command is scheduled to run

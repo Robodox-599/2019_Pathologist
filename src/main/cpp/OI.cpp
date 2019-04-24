@@ -25,6 +25,8 @@
 #include "commands/WristMotorRest.h"
 #include "commands/HatchHook.h"
 #include "commands/DriveShift.h"
+#include "commands/WristKill.h"
+#include "commands/BallPickUp.h"
 
 OI::OI()
 {
@@ -46,6 +48,7 @@ OI::OI()
   frc::JoystickButton *Button3 = new frc::JoystickButton(atk3, 3);
   frc::JoystickButton *Button4 = new frc::JoystickButton(atk3, 4);
   frc::JoystickButton *Button5 = new frc::JoystickButton(atk3, 5);
+  frc::JoystickButton *Button8 = new frc::JoystickButton(atk3, 8);
   // Buttonx1_A->WhenPressed(new Ball_Intake(.3));
   // Buttonx2_B->WhenPressed(new Ball_Outtake(-.3));
   // Buttonx3_X->WhenPressed(new Ball_Stop());
@@ -63,25 +66,26 @@ OI::OI()
   // Buttonx1_A->WhenPressed(new AllThreeAxisDistance(26.97, 19)); //Low Hatch
 
   Buttonx1_A->WhenPressed(new WristScoreMovement());
-  Buttonx2_B->WhenPressed(new AllThreeAxisDistance(32, 22.5));
-  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(24.02, 47)); //Mid Hatch
-  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(10, 75)); //High Hatch
+  Buttonx2_B->WhenPressed(new AllThreeAxisDistance(22, 20.5));
+  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(20, 48)); //Mid Hatch  24.02
+  Buttonx3_X->WhenPressed(new AllThreeAxisDistance(13, 76)); //High Hatch
 
   Button2->WhenPressed(new ClimbPistonsDown());  
   Button3->WhenPressed(new ClimbPistonsUp());
   Button4->WhenPressed(new ClimbRearPistonUp());
   Button5->WhenPressed(new ClimbFrontPistonsUp());
+  Button8->WhenPressed(new AutoHome());
 
   // Buttonx1_A->WhenPressed(new ButtonACommand());
 
   //Buttonx5_LB->WhenPressed(new AutoHome());
-  Buttonx5_LB->WhenPressed(new IntakeFlag());
+  Buttonx5_LB->WhenPressed(new HatchHook());
   //Buttonx5_LB->WhenPressed(new Ball_Intake(0.2));
   Buttonx6_RB->WhenPressed(new WristFlag());
 
-  Buttonx7_Start->WhenPressed(new AutoHome());
+  Buttonx7_Start->WhenPressed(new AllThreeAxisDistance(25, 21));
 
-  Buttonx8_Select->WhenPressed(new AllThreeAxisDistance(30, 13.5));
+  Buttonx8_Select->WhenPressed(new WristKill());
 
   Buttonx9_LeftJoystick->WhenPressed(new DriveShift());
   Buttonx10_RightJoystick->WhenPressed(new WristMotorRest());

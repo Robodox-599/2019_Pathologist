@@ -24,6 +24,7 @@ void DriveDefault::Execute()
   {
     globalRobot.driveSystem.JoystickVelocityDrive(globalRobot.oi.xbox->GetRawAxis(4), globalRobot.oi.xbox->GetRawAxis(1));
     // globalRobot.driveSystem.JoystickPercentDrive(globalRobot.oi.xbox->GetRawAxis(0), globalRobot.oi.xbox->GetRawAxis(1));
+    // globalRobot.driveSystem.ClimbDrive(0);
   }
   else
   {

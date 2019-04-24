@@ -5,37 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/HatchHook.h"
+#include "commands/WristAdjustment.h"
 #include "Robot.h"
 
-HatchHook::HatchHook() {
+WristAdjustment::WristAdjustment(double degrees) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  Requires(&globalRobot.wristSystem);
+
+  adjustment = degrees;
 }
 
 // Called just before this Command runs the first time
-void HatchHook::Initialize() 
+void WristAdjustment::Initialize() 
 {
-  if(globalRobot.intakeSystem.ReturnHatchFlag() == true)
-  {
-    globalRobot.intakeSystem.HatchHookIn();
-  }
-  else
-  {
-    globalRobot.intakeSystem.HatchHookOut();
-  }
-  
+  globalRobot.wristSystem.MotionMagicDegrees(globalRobot.wristSystem.GetCurrentDegrees()+adjustment);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void HatchHook::Execute() {}
+void WristAdjustment::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool HatchHook::IsFinished() { return true; }
+bool WristAdjustment::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void HatchHook::End() {}
+void WristAdjustment::End() {}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void HatchHook::Interrupted() {}
+void WristAdjustment::Interrupted() {}

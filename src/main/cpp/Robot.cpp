@@ -13,7 +13,7 @@
 
 Robot globalRobot;
 //150, 636     554, 865     -3895, -165
-Robot::Robot(): armJointSystem(221, 722, 5), slideSystem(347, 656, 1), wristSystem(-3788, -116, 5){}
+Robot::Robot(): armJointSystem(193, 704, 1), slideSystem(565, 877, 1), wristSystem(-3806, -63, 5){}
 
 void Robot::RobotInit() {
   comp599.SetClosedLoopControl(true);

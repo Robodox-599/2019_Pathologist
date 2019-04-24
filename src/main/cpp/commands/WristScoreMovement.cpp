@@ -23,7 +23,7 @@ void WristScoreMovement::Initialize()
   }
   else
   {
-    globalRobot.wristSystem.MotionMagicDegrees(globalRobot.wristSystem.GetCurrentDegrees()-20);
+    globalRobot.wristSystem.MotionMagicDegrees(globalRobot.wristSystem.GetCurrentDegrees()+50);
   }
   
 }

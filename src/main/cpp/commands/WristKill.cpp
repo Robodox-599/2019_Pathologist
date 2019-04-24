@@ -5,17 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoHome.h"
-#include "commands/SlideReconfig.h"
-#include "commands/SlideResetMinMax.h"
-#include "commands/WristReconfig.h"
-#include "commands/WristResetMinMax.h"
-#include "commands/WristControl.h"
-#include "commands/ArmJointControl.h"
-#include "commands/SlidePercent.h"
-#include "commands/WristPercent.h"
+#include "commands/WristKill.h"
+#include "commands/AllThreeAxisDistance.h"
+#include "commands/WristMotorRest.h"
 
-AutoHome::AutoHome() {
+WristKill::WristKill() {
   // Add Commands here:
   // e.g. AddSequential(new Command1());
   //      AddSequential(new Command2());
@@ -32,14 +26,6 @@ AutoHome::AutoHome() {
   // e.g. if Command1 requires chassis, and Command2 requires arm,
   // a CommandGroup containing them would require both the chassis and the
   // arm.
-  AddSequential(new ArmJointControl(422));
-  AddSequential(new WristControl(-2000));
-  AddSequential(new SlideResetMinMax(-0.20));
-  AddSequential(new SlideResetMinMax(0.20));
-  AddSequential(new SlideReconfig());
-  AddSequential(new SlidePercent(75));
-  AddSequential(new WristResetMinMax(-0.25));
-  AddSequential(new WristResetMinMax(0.35));
-  AddSequential(new WristReconfig());
-  AddSequential(new WristPercent(50));
+  AddSequential(new AllThreeAxisDistance(26, 19.5));
+  AddSequential(new WristMotorRest());
 }

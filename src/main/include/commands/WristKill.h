@@ -7,25 +7,9 @@
 
 #pragma once
 
-#include <frc/commands/Subsystem.h>
-#include <frc/WPILib.h>
-#include <ctre/Phoenix.h>
+#include <frc/commands/CommandGroup.h>
 
-class IntakeSystem : public frc::Subsystem {
- private:
- TalonSRX IntakeMotor;
- bool ballFlag;
- frc::DoubleSolenoid hatchHook;
- bool hatchFlag;
-
+class WristKill : public frc::CommandGroup {
  public:
-  IntakeSystem();
-  void InitDefaultCommand() override;
-  void IntakeRoller(float positiveSpeed, float negativeSpeed);
-  bool ReturnBallFlag();
-  void SetBallFlagTrue();
-  void SetBallFlagFalse();
-  void HatchHookIn();
-  void HatchHookOut();
-  bool ReturnHatchFlag();
+  WristKill();
 };

@@ -27,7 +27,7 @@ void ClimbPistonsUp::Initialize()
 void ClimbPistonsUp::Execute() {}
 
 // Make this return true when this Command no longer needs to run execute()
-bool ClimbPistonsUp::IsFinished() { return false; }
+bool ClimbPistonsUp::IsFinished() { return true; }
 
 // Called once after isFinished returns true
 void ClimbPistonsUp::End() {}

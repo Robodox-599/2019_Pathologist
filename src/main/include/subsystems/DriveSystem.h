@@ -19,7 +19,7 @@ private:
   TalonSRX frontRightMotor;
   TalonSRX rearRightMotor;
   TalonSRX climbMotor;
-  frc::DoubleSolenoid shifter;
+  // frc::DoubleSolenoid shifter;
 
   PigeonIMU pGyon;
 

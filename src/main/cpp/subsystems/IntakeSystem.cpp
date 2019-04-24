@@ -10,8 +10,8 @@
 
 IntakeSystem::IntakeSystem() : Subsystem("IntakeSystem"), IntakeMotor(8), hatchHook(0, 1)
 {
-  hatchHook.Set(frc::DoubleSolenoid::kReverse);
-  hatch = false;
+  hatchHook.Set(frc::DoubleSolenoid::kForward);
+  hatchFlag = false;
 }
 
 void IntakeSystem::InitDefaultCommand() {
@@ -47,17 +47,17 @@ void IntakeSystem::SetBallFlagTrue()
 
 void IntakeSystem::HatchHookIn()
 {
-  hatchHook.Set(frc::DoubleSolenoid::kReverse);
-  hatch = false;
+  hatchHook.Set(frc::DoubleSolenoid::kForward);
+  hatchFlag = false;
 }
 
 void IntakeSystem::HatchHookOut()
 {
-  hatchHook.Set(frc::DoubleSolenoid::kForward);
-  hatch = true;
+  hatchHook.Set(frc::DoubleSolenoid::kReverse);
+  hatchFlag = true;
 }
 
 bool IntakeSystem::ReturnHatchFlag()
 {
-  return hatch;
+  return hatchFlag;
 }

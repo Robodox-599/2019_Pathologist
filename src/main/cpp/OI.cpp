@@ -32,6 +32,7 @@ OI::OI()
 {
   xbox = new frc::Joystick(0);
   atk3 = new frc::Joystick(1);
+  board = new frc::Joystick(2);
 // Process operator interface input here.
 #if 1
   frc::JoystickButton *Buttonx1_A = new frc::JoystickButton(xbox, 1);
@@ -49,6 +50,35 @@ OI::OI()
   frc::JoystickButton *Button4 = new frc::JoystickButton(atk3, 4);
   frc::JoystickButton *Button5 = new frc::JoystickButton(atk3, 5);
   frc::JoystickButton *Button8 = new frc::JoystickButton(atk3, 8);
+
+  frc::JoystickButton *Button1_Board = new frc::JoystickButton(board, 1);
+  frc::JoystickButton *Button4_Board = new frc::JoystickButton(board, 4);
+  frc::JoystickButton *Button8_Board = new frc::JoystickButton(board, 8);
+  frc::JoystickButton *Button12_Board = new frc::JoystickButton(board, 12);
+  frc::JoystickButton *Button2_Board = new frc::JoystickButton(board, 2);
+  frc::JoystickButton *Button7_Board = new frc::JoystickButton(board, 7);
+  frc::JoystickButton *Button11_Board = new frc::JoystickButton(board, 11);
+  frc::JoystickButton *Button3_Board = new frc::JoystickButton(board, 3);
+  frc::JoystickButton *Button6_Board = new frc::JoystickButton(board, 6);
+  frc::JoystickButton *Button10_Board = new frc::JoystickButton(board, 10);
+  frc::JoystickButton *Button9_Board = new frc::JoystickButton(board, 9);
+
+
+
+  Button1_Board->WhenPressed(new AllThreeAxisDistance(13,76));
+  Button4_Board->WhenPressed(new AutoHome());
+  Button8_Board->WhenPressed(new AllThreeAxisDistance(20, 45));
+  Button12_Board->WhenPressed(new AllThreeAxisDistance(22,20.5));
+  Button2_Board->WhenPressed(new AllThreeAxisDistance(13, 91));
+  Button7_Board->WhenPressed(new AllThreeAxisDistance(20, 59));
+  Button11_Board->WhenPressed(new AllThreeAxisDistance(22, 32.5));
+  Button3_Board->WhenPressed(new ClimbPistonsUp());
+  Button6_Board->WhenPressed(new ClimbPistonsDown());
+  Button10_Board->WhenPressed(new ClimbRearPistonUp());
+  Button9_Board->WhenPressed(new ClimbFrontPistonsUp());
+
+
+
   // Buttonx1_A->WhenPressed(new Ball_Intake(.3));
   // Buttonx2_B->WhenPressed(new Ball_Outtake(-.3));
   // Buttonx3_X->WhenPressed(new Ball_Stop());
@@ -89,6 +119,8 @@ OI::OI()
 
   Buttonx9_LeftJoystick->WhenPressed(new DriveShift());
   Buttonx10_RightJoystick->WhenPressed(new WristMotorRest());
+
+
 
   // Button2->WhenPressed(new AllThreeAxisConstant(32, 27, .5, .5));
   // Button3->WhenPressed(new AllThreeAxisConstant(32, 30, .5, .5));

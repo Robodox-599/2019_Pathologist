@@ -13,4 +13,5 @@ class OI {
   OI();
   frc::Joystick* xbox;
   frc::Joystick* atk3;
+  frc::Joystick* board;
 };

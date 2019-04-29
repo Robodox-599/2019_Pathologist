@@ -13,7 +13,7 @@
 //0 angle 371,   90 angle 686
 ArmJointSystem::ArmJointSystem(float min, float max, float marginPercent) : Subsystem("ArmJointSystem"), ArmJointMotor(7)
 {
-  angle0 = 399; //324
+  angle0 = 384; //324
 
   float limitOffSet = (max - min) * (marginPercent / 200);
   float fwdLimit = max - limitOffSet;

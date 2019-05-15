@@ -37,7 +37,7 @@ void AllThreeAxisDistance::Initialize()
   }
   else
   {
-    phi = atan2(((targety+15) - a), targetx);
+    phi = atan2(((targety+10) - a), targetx);
     r = targetx / cos(phi);
     alpha = asin(d / r);
 

@@ -67,7 +67,7 @@ OI::OI()
 
   Buttonx1_A->WhenPressed(new WristScoreMovement());
   Buttonx2_B->WhenPressed(new AllThreeAxisDistance(22, 20.5));
-  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(20, 48)); //Mid Hatch  24.02
+  Buttonx4_Y->WhenPressed(new AllThreeAxisDistance(20, 46)); //Mid Hatch  24.02
   Buttonx3_X->WhenPressed(new AllThreeAxisDistance(13, 76)); //High Hatch
 
   Button2->WhenPressed(new ClimbPistonsDown());  
